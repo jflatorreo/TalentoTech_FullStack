@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Herencia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .vehiculo-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ejemplo de Herencia</h1>
+
+    <div class="vehiculo-container" id="coche-container">
+        <h2>Coche:</h2>
+        <p id="coche-info"></p>
+    </div>
+
+    <div class="vehiculo-container" id="moto-container">
+        <h2>Moto:</h2>
+        <p id="moto-info"></p>
+    </div>
+</div>
+
+<script>
+    // Clase base Vehiculo
+    class Vehiculo {
+        constructor(marca, modelo) {
+            this.marca = marca;
+            this.modelo = modelo;
+        }
+
+        obtenerInformacion() {
+            return `Marca: ${this.marca}, Modelo: ${this.modelo}`;
+        }
+    }
+
+    // Clase derivada Coche
+    class Coche extends Vehiculo {
+        constructor(marca, modelo, puertas) {
+            super(marca, modelo);
+            this.puertas = puertas;
+        }
+
+        obtenerInformacion() {
+            return `${super.obtenerInformacion()}, Puertas: ${this.puertas}`;
+        }
+    }
+
+    // Clase derivada Moto
+    class Moto extends Vehiculo {
+        constructor(marca, modelo, cilindrada) {
+            super(marca, modelo);
+            this.cilindrada = cilindrada;
+        }
+
+        obtenerInformacion() {
+            return `${super.obtenerInformacion()}, Cilindrada: ${this.cilindrada}`;
+        }
+    }
+
+    // Crear instancias y mostrar información
+    const coche = new Coche('Toyota', 'Corolla', 4);
+    document.getElementById('coche-info').textContent = coche.obtenerInformacion();
+
+    const moto = new Moto('Honda', 'CBR600RR', '600cc');
+    document.getElementById('moto-info').textContent = moto.obtenerInformacion();
+</script>
+</body>
+</html>

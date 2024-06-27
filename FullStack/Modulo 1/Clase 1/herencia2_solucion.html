@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo de Herencia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .vehiculo-container {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Ejemplo de Herencia</h1>
+
+  <div class="vehiculo-container" id="coche-container">
+    <h2>Coche:</h2>
+    <p id="coche-info"></p>
+  </div>
+
+  <div class="vehiculo-container" id="moto-container">
+    <h2>Moto:</h2>
+    <p id="moto-info"></p>
+  </div>
+</div>
+
+<script>
+  // Solución a la vulnerabilidad: Mantener el encapsulamiento
+  class Vehiculo {
+    #marca;
+    #modelo;
+    constructor(marca, modelo) {
+      this.#marca = marca;
+      this.#modelo = modelo;
+    }
+
+    obtenerInformacion() {
+      return `Marca: ${this.#marca}, Modelo: ${this.#modelo}`;
+    }
+
+    // Utilizando métodos para acceder a propiedades privadas
+    obtenerMarca() {
+      return this.#marca;
+    }
+
+    obtenerModelo() {
+      return this.#modelo;
+    }
+  }
+
+  // Clase derivada Coche
+  class Coche extends Vehiculo {
+    constructor(marca, modelo, puertas) {
+      super(marca, modelo);
+      this.puertas = puertas;
+    }
+
+    obtenerInformacion() {
+      return `${super.obtenerInformacion()}, Puertas: ${this.puertas}`;
+    }
+  }
+
+  // Clase derivada Moto
+  class Moto extends Vehiculo {
+    constructor(marca, modelo, cilindrada) {
+      super(marca, modelo);
+      this.cilindrada = cilindrada;
+    }
+
+    obtenerInformacion() {
+      return `${super.obtenerInformacion()}, Cilindrada: ${this.cilindrada}`;
+    }
+  }
+
+  // Ejemplo de uso seguro: Accediendo a través de métodos públicos
+  const cocheSeguro = new Coche('Toyota', 'Corolla', 4);
+  console.log('Acceso seguro a las propiedades:', { marca: cocheSeguro.obtenerMarca(), modelo: cocheSeguro.obtenerModelo() }); // Acceso seguro
+
+  // Intento de acceso directo (fallido):
+  // console.log('Intento de acceso directo a las propiedades:', { marca: cocheSeguro.#marca, modelo: cocheSeguro.#modelo }); // Esto daría un error
+</script>
+</body>
+</html>

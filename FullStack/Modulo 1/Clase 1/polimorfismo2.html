@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Polimorfismo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .animal-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ejemplo de Polimorfismo</h1>
+
+    <div class="animal-container" id="animal-container">
+        <h2>Animal:</h2>
+        <p id="animal-sound"></p>
+    </div>
+
+    <div class="animal-container" id="perro-container">
+        <h2>Perro:</h2>
+        <p id="perro-sound"></p>
+    </div>
+
+    <div class="animal-container" id="gato-container">
+        <h2>Gato:</h2>
+        <p id="gato-sound"></p>
+    </div>
+
+
+</div>
+
+<script>
+    // Clase base Animal con un método atacar()
+    class Animal {
+        atacar() {
+            throw new Error('Método atacar no implementado');
+        }
+    }
+
+    // Clase derivada Perro
+    class Perro extends Animal {
+        hacerSonido() {
+            return 'Guau! Guau!';
+        }
+
+    }
+
+    // Clase derivada Gato
+    class Gato extends Animal {
+        hacerSonido() {
+            return 'Miau! Miau!';
+        }
+    }
+
+    // Función para atacar a un animal
+    function atacarAnimal(animal) {
+        animal.atacar(); // Llama a atacar() en el animal
+    }
+
+    // Intento de atacar un Perro
+    const perro = new Perro();
+    atacarAnimal(perro); // Error: Perro no tiene método atacar()
+</script>
+</body>
+</html>

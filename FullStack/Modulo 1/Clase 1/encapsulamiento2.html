@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Encapsulamiento en POO con JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+        }
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Cuenta Bancaria en POO</h1>
+    <form id="cuentaForm">
+        <div>
+            <label for="titular">Titular:</label>
+            <input type="text" id="titular" required>
+        </div>
+        <div>
+            <label for="balance">Balance Inicial:</label>
+            <input type="number" id="balance" required>
+        </div>
+        <button type="submit">Crear Cuenta</button>
+    </form>
+    <div id="acciones" style="display:none;">
+        <button id="depositar">Depositar</button>
+        <button id="retirar">Retirar</button>
+        <button id="obtenerBalance">Obtener Balance</button>
+        <div>
+            <label for="monto">Monto:</label>
+            <input type="number" id="monto">
+        </div>
+    </div>
+    <p id="resultado"></p>
+</div>
+
+<script>
+    class CuentaBancaria {
+        #titular;
+        #balance;
+
+        constructor(titular, balance) {
+            this.#titular = titular;
+            this.#balance = balance;
+        }
+
+        depositar(monto) {
+            this.#balance += monto;
+            return this.#balance;
+        }
+
+        retirar(monto) {
+            if (monto <= this.#balance) {
+                this.#balance -= monto;
+                return this.#balance;
+            } else {
+                return 'Fondos insuficientes';
+            }
+        }
+
+        obtenerBalance() {
+            return this.#balance;
+        }
+    }
+
+    let cuenta;
+
+    document.getElementById('cuentaForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const titular = document.getElementById('titular').value;
+        const balance = parseFloat(document.getElementById('balance').value);
+        cuenta = new CuentaBancaria(titular, balance);
+        document.getElementById('acciones').style.display = 'block';
+        document.getElementById('resultado').textContent = `Cuenta creada para ${titular} con balance inicial de $${balance}`;
+        this.reset();
+    });
+
+    document.getElementById('depositar').addEventListener('click', function() {
+        const monto = parseFloat(document.getElementById('monto').value);
+        const nuevoBalance = cuenta.depositar(monto);
+        document.getElementById('resultado').textContent = `Depósito realizado. Nuevo balance: $${nuevoBalance}`;
+    });
+
+    document.getElementById('retirar').addEventListener('click', function() {
+        const monto = parseFloat(document.getElementById('monto').value);
+        const resultado = cuenta.retirar(monto);
+        document.getElementById('resultado').textContent =
+            (typeof resultado === 'string') ? resultado : `Retiro realizado. Nuevo balance: $${resultado}`;
+    });
+
+    document.getElementById('obtenerBalance').addEventListener('click', function() {
+        const balance = cuenta.obtenerBalance();
+        document.getElementById('resultado').textContent = `Balance actual: $${balance}`;
+    });
+</script>
+</body>
+</html>

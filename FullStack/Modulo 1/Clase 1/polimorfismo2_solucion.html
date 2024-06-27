@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Polimorfismo Mejorado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .animal-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ejemplo de Polimorfismo Mejorado</h1>
+
+    <div class="animal-container" id="animal-container">
+        <h2>Animal Generico:</h2>
+        <p id="animal-sound">Haz clic en "Hacer Sonido" para escuchar al Animal Generico.</p>
+        <button onclick="hacerSonido('animal')">Hacer Sonido</button>
+        <p id="animal-ataque"></p>
+        <button onclick="atacar('animal')">Atacar</button>
+    </div>
+
+    <div class="animal-container" id="perro-container">
+        <h2>Perro:</h2>
+        <p id="perro-sound">Haz clic en "Hacer Sonido" para escuchar al perro.</p>
+        <button onclick="hacerSonido('perro')">Hacer Sonido</button>
+        <p id="perro-ataque"></p>
+        <button onclick="atacar('perro')">Atacar</button>
+    </div>
+
+    <div class="animal-container" id="gato-container">
+        <h2>Gato:</h2>
+        <p id="gato-sound">Haz clic en "Hacer Sonido" para escuchar al gato.</p>
+        <button onclick="hacerSonido('gato')">Hacer Sonido</button>
+        <p id="gato-ataque"></p>
+        <button onclick="atacar('gato')">Atacar</button>
+    </div>
+</div>
+
+<script>
+    // Clase base Animal con un método hacerSonido() y atacar()
+    class Animal {
+        hacerSonido() {
+            return 'Haciendo sonido genérico...';
+        }
+
+        atacar() {
+            throw new Error('Método atacar no implementado');
+        }
+    }
+
+    // Clase derivada Perro
+    class Perro extends Animal {
+        hacerSonido() {
+            return 'Guau! Guau!';
+        }
+
+        atacar() {
+            return '¡Perro atacando!';
+        }
+    }
+
+    // Clase derivada Gato
+    class Gato extends Animal {
+        hacerSonido() {
+            return 'Miau! Miau!';
+        }
+
+        atacar() {
+            return '¡Gato atacando!';
+        }
+    }
+
+    // Función para hacer sonido de un animal
+    function hacerSonido(animalType) {
+        const container = document.getElementById(`${animalType}-container`);
+        let animal;
+        if (animalType === 'perro') {
+            animal = new Perro();
+        } else if (animalType === 'gato') {
+            animal = new Gato();
+        } else{
+            animal = new Animal();
+        }
+        const soundElement = container.querySelector(`#${animalType}-sound`);
+        soundElement.textContent = animal.hacerSonido();
+    }
+
+    // Función para atacar a un animal
+    function atacar(animalType) {
+        const container = document.getElementById(`${animalType}-container`);
+        let animal;
+        if (animalType === 'perro') {
+            animal = new Perro();
+        } else if (animalType === 'gato') {
+            animal = new Gato();
+        } else {
+            animal = new Animal();
+        }
+        const ataqueElement = container.querySelector(`#${animalType}-ataque`);
+        try {
+            ataqueElement.textContent = animal.atacar();
+        } catch (error) {
+            ataqueElement.textContent = error.message;
+        }
+    }
+</script>
+</body>
+</html>

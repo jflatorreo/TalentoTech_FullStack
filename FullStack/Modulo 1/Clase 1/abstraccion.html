@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Abstracción</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .cuenta-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ejemplo de Abstracción</h1>
+
+    <div class="cuenta-container" id="cuenta-container">
+        <h2>Cuenta Bancaria:</h2>
+        <p id="saldo-info">Saldo disponible: --</p>
+        <button onclick="realizarDeposito()">Depositar $100</button>
+        <button onclick="realizarRetiro()">Retirar $50</button>
+        <button onclick="consultarSaldo()">Consultar Saldo</button>
+    </div>
+</div>
+
+<script>
+    // Clase CuentaBancaria que representa una cuenta abstracta
+    class CuentaBancaria {
+        constructor(saldoInicial = 0) {
+            this.saldo = saldoInicial;
+        }
+
+        depositar(cantidad) {
+            this.saldo += cantidad;
+        }
+
+        retirar(cantidad) {
+            if (cantidad <= this.saldo) {
+                this.saldo -= cantidad;
+            } else {
+                console.log('Saldo insuficiente.');
+            }
+        }
+
+        consultarSaldo() {
+            return this.saldo;
+        }
+    }
+
+    // Funciones para interactuar con la cuenta desde HTML
+    const cuenta = new CuentaBancaria();
+
+    function realizarDeposito() {
+        cuenta.depositar(100);
+        actualizarSaldo();
+    }
+
+    function realizarRetiro() {
+        cuenta.retirar(50);
+        actualizarSaldo();
+    }
+
+    function consultarSaldo() {
+        const saldoActual = cuenta.consultarSaldo();
+        alert(`Saldo disponible: $${saldoActual}`);
+    }
+
+    function actualizarSaldo() {
+        const saldoElement = document.getElementById('saldo-info');
+        saldoElement.textContent = `Saldo disponible: $${cuenta.consultarSaldo()}`;
+    }
+</script>
+</body>
+</html>

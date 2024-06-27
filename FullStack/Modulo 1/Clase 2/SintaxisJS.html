@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de JavaScript - Curso Talento Tech Full Satck</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        textarea {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width:99%;
+            height: 200px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        .output {
+            background-color: #e4e4e4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Ejemplos de JavaScript</h1>
+
+<div class="section">
+    <h2>Variables (let, const, var)</h2>
+
+    <h3>let</h3>
+    <div class="code" id="code-let">
+<pre><textarea>
+if (true) {
+    let x = 5;
+    document.getElementById('output-let').textContent = x; // 5
+}
+document.getElementById('output-let').textContent = x; // Error: x is not defined
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-let', 'output-let')">Ejecutar Código</button>
+    <div class="output" id="output-let"></div>
+
+    <h3>const</h3>
+    <div class="code" id="code-const">
+<pre><textarea>
+const PI = 3.14159;
+PI = 3.14; // Error: Assignment to constant variable
+document.getElementById('output-const').textContent = PI;
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-const', 'output-const')">Ejecutar Código</button>
+    <div class="output" id="output-const"></div>
+
+    <h3>var</h3>
+    <div class="code" id="code-var">
+<pre><textarea>
+function example() {
+    var x = 5;
+    if (true) {
+        var y = 10;
+    }
+    document.getElementById('output-var').textContent = x + ', ' + y; // 5, 10
+}
+example();
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-var', 'output-var')">Ejecutar Código</button>
+    <div class="output" id="output-var"></div>
+</div>
+
+<div class="section">
+    <h2>Tipos de Datos</h2>
+
+    <h3>Números</h3>
+    <div class="code" id="code-numbers">
+<pre><textarea>
+let edad = 25;
+let precio = 19.99;
+document.getElementById('output-numbers').textContent = edad + ', ' + precio;
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-numbers', 'output-numbers')">Ejecutar Código</button>
+    <div class="output" id="output-numbers"></div>
+
+    <h3>Cadenas (Strings)</h3>
+    <div class="code" id="code-strings">
+<pre><textarea>
+let nombre = 'Juan';
+let mensaje = "Hola, ¿cómo estás?";
+document.getElementById('output-strings').textContent = nombre + ', ' + mensaje;
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-strings', 'output-strings')">Ejecutar Código</button>
+    <div class="output" id="output-strings"></div>
+
+    <h3>Booleanos</h3>
+    <div class="code" id="code-booleans">
+<pre><textarea>
+let activo = true;
+let esMayor = 10 > 5; // true
+document.getElementById('output-booleans').textContent = activo + ', ' + esMayor;
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-booleans', 'output-booleans')">Ejecutar Código</button>
+    <div class="output" id="output-booleans"></div>
+
+    <h3>Objetos</h3>
+    <div class="code" id="code-objects">
+<pre><textarea>
+let persona = {
+    nombre: 'Ana',
+    edad: 30,
+    ciudad: 'Madrid'
+};
+document.getElementById('output-objects').textContent = JSON.stringify(persona);
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-objects', 'output-objects')">Ejecutar Código</button>
+    <div class="output" id="output-objects"></div>
+</div>
+
+<div class="section">
+    <h2>Funciones y Métodos en JavaScript</h2>
+
+    <h3>Funciones</h3>
+    <div class="code" id="code-functions">
+<pre><textarea>
+function saludar(nombre) {
+    document.getElementById('output-functions').textContent = `Hola, ${nombre}!`;
+}
+saludar('Carlos'); // Imprime: Hola, Carlos!
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-functions', 'output-functions')">Ejecutar Código</button>
+    <div class="output" id="output-functions"></div>
+
+    <h3>Métodos</h3>
+    <div class="code" id="code-methods">
+<pre><textarea>
+let persona = {
+    nombre: 'María',
+    edad: 28,
+    saludar: function() {
+        document.getElementById('output-methods').textContent = `Hola, soy ${this.nombre}.`;
+    }
+};
+persona.saludar(); // Imprime: Hola, soy María.
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-methods', 'output-methods')">Ejecutar Código</button>
+    <div class="output" id="output-methods"></div>
+</div>
+
+<div class="section">
+    <h2>El operador flecha (=>)</h2>
+    <div class="code" id="code-arrow-functions">
+<pre><textarea>
+// Función tradicional
+let suma = function(a, b) {
+    return a + b;
+};
+document.getElementById('output-arrow-functions').textContent = suma(2, 3);
+
+// Función flecha equivalente
+let sumaFlecha = (a, b) => a + b;
+document.getElementById('output-arrow-functions').textContent += ', ' + sumaFlecha(2, 3);
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-arrow-functions', 'output-arrow-functions')">Ejecutar Código</button>
+    <div class="output" id="output-arrow-functions"></div>
+</div>
+
+<div class="section">
+    <h2>Objetos y Propiedades</h2>
+
+    <h3>Objetos</h3>
+    <div class="code" id="code-objects-properties">
+<pre><textarea>
+let libro = {
+    titulo: '1984',
+    autor: 'George Orwell',
+    leer: function() {
+        document.getElementById('output-objects-properties').textContent = `Leyendo ${this.titulo} por ${this.autor}`;
+    }
+};
+libro.leer();
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-objects-properties', 'output-objects-properties')">Ejecutar Código</button>
+    <div class="output" id="output-objects-properties"></div>
+
+    <h3>Propiedades</h3>
+    <div class="code" id="code-properties">
+<pre><textarea>
+let animal = {
+    tipo: 'Perro',
+    nombre: 'Max'
+};
+document.getElementById('output-properties').textContent = animal.nombre; // Max
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-properties', 'output-properties')">Ejecutar Código</button>
+    <div class="output" id="output-properties"></div>
+</div>
+
+<div class="section">
+    <h2>Estructuras de Control (Condicionales y Bucles)</h2>
+
+    <h3>Condicionales (if, else, else if)</h3>
+    <div class="code" id="code-conditionals">
+<pre><textarea>
+let edad = 18;
+if (edad >= 18) {
+    document.getElementById('output-conditionals').textContent = 'Eres mayor de edad.';
+} else {
+    document.getElementById('output-conditionals').textContent = 'Eres menor de edad.';
+}
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-conditionals', 'output-conditionals')">Ejecutar Código</button>
+    <div class="output" id="output-conditionals"></div>
+
+    <h3>Bucles (for, while, do while)</h3>
+    <div class="code" id="code-loops">
+<pre><textarea>
+// Bucle for
+let resultado = '';
+for (let i = 0; i < 5; i++) {
+    resultado += i + ' ';
+}
+document.getElementById('output-loops').textContent = resultado; // 0 1 2 3 4
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-loops', 'output-loops')">Ejecutar Código</button>
+    <div class="output" id="output-loops"></div>
+</div>
+
+
+<div class="section">
+    <h2>Arrays</h2>
+
+    <h3>Declaración y Acceso a Elementos</h3>
+    <div class="code" id="code-arrays">
+<pre><textarea>
+let frutas = ['Manzana', 'Banana', 'Naranja'];
+document.getElementById('output-arrays').textContent = frutas[0]; // Acceder al primer elemento del array
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-arrays', 'output-arrays')">Ejecutar Código</button>
+    <div class="output" id="output-arrays"></div>
+
+    <h3>Iteración</h3>
+    <div class="code" id="code-iteration">
+<pre><textarea>
+let numeros = [1, 2, 3, 4, 5];
+let cuadrados = numeros.map(numero => numero * numero);
+document.getElementById('output-iteration').textContent = cuadrados.join(', '); // [1, 4, 9, 16, 25]
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-iteration', 'output-iteration')">Ejecutar Código</button>
+    <div class="output" id="output-iteration"></div>
+</div>
+
+<div class="section">
+    <h2>Gestión de Errores (try-catch)</h2>
+    <div class="code" id="code-errors">
+<pre><textarea>
+try {
+    let x = 10;
+    let y = 0;
+    let resultado = x / y;
+    document.getElementById('output-errors').textContent = resultado;
+} catch (error) {
+    document.getElementById('output-errors').textContent = 'Hubo un error: ' + error.message;
+}
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-errors', 'output-errors')">Ejecutar Código</button>
+    <div class="output" id="output-errors"></div>
+</div>
+
+<div class="section">
+    <h2>Funcionamiento de this</h2>
+    <div class="code" id="code-this">
+<pre><textarea>
+let personaThis = {
+    nombre: 'Juan',
+    saludar: function() {
+        document.getElementById('output-this').textContent = `Hola, soy ${this.nombre}`;
+    }
+};
+personaThis.saludar(); // Imprime: Hola, soy Juan
+</textarea></pre>
+    </div>
+    <button onclick="executeCode('code-this', 'output-this')">Ejecutar Código</button>
+    <div class="output" id="output-this"></div>
+</div>
+
+<script>
+    function executeCode(codeId, outputId) {
+        const codeElement = document.getElementById(codeId);
+        const outputElement = document.getElementById(outputId);
+        const code = codeElement.getElementsByTagName("textarea")[0].value;
+        try {
+            eval(code);
+        } catch (error) {
+            outputElement.textContent = 'Error: ' + error.message;
+        }
+    }
+</script>
+</body>
+</html>

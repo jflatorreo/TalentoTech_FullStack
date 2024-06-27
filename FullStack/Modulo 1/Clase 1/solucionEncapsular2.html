@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo con Encapsulamiento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ejemplo con Encapsulamiento</h1>
+    <form id="cuentaForm">
+        <div>
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" required>
+        </div>
+        <div>
+            <label for="saldo">Saldo:</label>
+            <input type="number" id="saldo" required>
+        </div>
+        <button type="submit">Crear Cuenta</button>
+        <a href="#" id="actualizarTabla">Actualizar Tabla</a>
+
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Saldo</th>
+        </tr>
+        </thead>
+        <tbody id="cuentasTabla">
+        </tbody>
+    </table>
+    <p id="resultado"></p>
+</div>
+
+<script>
+    // Clase con encapsulamiento
+    class Cuenta {
+        #usuario;
+        #saldo;
+
+        constructor(usuario, saldo) {
+            this.#usuario = usuario;
+            this.#saldo = saldo;
+        }
+
+        obtenerUsuario() {
+            return this.#usuario;
+        }
+
+        obtenerSaldo() {
+            return this.#saldo;
+        }
+
+        modificarSaldo(nuevoSaldo) {
+            if (nuevoSaldo >= 0) {
+                this.#saldo = nuevoSaldo;
+            } else {
+                console.error('El saldo no puede ser negativo');
+            }
+        }
+    }
+
+    const cuentas = [];
+    const cuentaForm = document.getElementById('cuentaForm');
+    const cuentasTabla = document.getElementById('cuentasTabla');
+    const resultadoP = document.getElementById('resultado');
+
+    actualizarTabla.addEventListener('click', function() {
+        cuentasTabla.innerHTML = '';
+        cuentas.forEach(cuenta => agregarCuentaATabla(cuenta));
+
+    });
+
+    cuentaForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const usuario = document.getElementById('usuario').value;
+        const saldo = parseFloat(document.getElementById('saldo').value);
+        const nuevaCuenta = new Cuenta(usuario, saldo);
+        cuentas.push(nuevaCuenta);
+        agregarCuentaATabla(nuevaCuenta);
+        cuentaForm.reset();
+
+        // Intento de vulnerabilidad fallida
+        // Un atacante ya no puede acceder directamente a las propiedades privadas
+        if (cuentas.length > 0) {
+            const cuentaProtegida = cuentas[0];
+            // Esto no tiene efecto porque las propiedades son privadas
+            // cuentaProtegida.#saldo = 0; // Descomentar esto dará un error
+            console.log('Intento de modificación del saldo fallido: ', { usuario: cuentaProtegida.obtenerUsuario(), saldo: cuentaProtegida.obtenerSaldo() });
+        }
+    });
+
+    function agregarCuentaATabla(cuenta) {
+        const fila = document.createElement('tr');
+        const celdaUsuario = document.createElement('td');
+        const celdaSaldo = document.createElement('td');
+        celdaUsuario.textContent = cuenta.obtenerUsuario();
+        celdaSaldo.textContent = cuenta.obtenerSaldo();
+        fila.appendChild(celdaUsuario);
+        fila.appendChild(celdaSaldo);
+        cuentasTabla.appendChild(fila);
+    }
+</script>
+</body>
+</html>

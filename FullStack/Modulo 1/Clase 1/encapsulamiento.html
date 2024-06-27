@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Encapsulamiento en POO con JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        tr.selected {
+            background-color: #d3d3d3;
+        }
+        button {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Encapsulamiento en POO</h1>
+    <form id="productoForm">
+        <div>
+            <label for="nombre">Nombre del Producto:</label>
+            <input type="text" id="nombre" required>
+        </div>
+        <div>
+            <label for="precio">Precio del Producto:</label>
+            <input type="number" id="precio" required>
+        </div>
+        <button type="submit">Crear Producto</button>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+        </tr>
+        </thead>
+        <tbody id="productosTabla">
+        </tbody>
+    </table>
+    <button id="aplicarDescuento">Aplicar Descuento del 10% a Productos Seleccionados</button>
+    <p id="resultado"></p>
+</div>
+
+<script>
+    class Producto {
+        #nombre;
+        #precio;
+
+        constructor(nombre, precio) {
+            this.#nombre = nombre;
+            this.#precio = precio;
+        }
+
+        obtenerNombre() {
+            return this.#nombre;
+        }
+
+        obtenerPrecio() {
+            return this.#precio;
+        }
+
+        aplicarDescuento(porcentaje) {
+            this.#precio -= this.#precio * (porcentaje / 100);
+        }
+    }
+
+    const productos = [];
+    const productosTabla = document.getElementById('productosTabla');
+    const productoForm = document.getElementById('productoForm');
+    const aplicarDescuentoBtn = document.getElementById('aplicarDescuento');
+    const resultadoP = document.getElementById('resultado');
+    let productosSeleccionados = [];
+
+    productoForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nombre = document.getElementById('nombre').value;
+        const precio = parseFloat(document.getElementById('precio').value);
+        const nuevoProducto = new Producto(nombre, precio);
+        productos.push(nuevoProducto);
+        agregarProductoATabla(nuevoProducto);
+        productoForm.reset();
+    });
+
+    productosTabla.addEventListener('click', (e) => {
+        if (e.target && e.target.nodeName === 'TD') {
+            const fila = e.target.parentNode;
+            const indice = Array.from(fila.parentNode.children).indexOf(fila);
+
+            if (fila.classList.contains('selected')) {
+                fila.classList.remove('selected');
+                productosSeleccionados = productosSeleccionados.filter((_, i) => i !== indice);
+            } else {
+                fila.classList.add('selected');
+                productosSeleccionados.push(indice);
+            }
+        }
+    });
+
+    aplicarDescuentoBtn.addEventListener('click', () => {
+        if (productosSeleccionados.length > 0) {
+            productosSeleccionados.forEach(indice => {
+                productos[indice].aplicarDescuento(10);
+            });
+            actualizarTabla();
+            resultadoP.textContent = 'Descuento aplicado a los productos seleccionados.';
+        } else {
+            resultadoP.textContent = 'Por favor, seleccione al menos un producto para aplicar el descuento.';
+        }
+    });
+
+    function agregarProductoATabla(producto) {
+        const fila = document.createElement('tr');
+        const celdaNombre = document.createElement('td');
+        const celdaPrecio = document.createElement('td');
+        celdaNombre.textContent = producto.obtenerNombre();
+        celdaPrecio.textContent = producto.obtenerPrecio();
+        fila.appendChild(celdaNombre);
+        fila.appendChild(celdaPrecio);
+        productosTabla.appendChild(fila);
+    }
+
+    function actualizarTabla() {
+        productosTabla.innerHTML = '';
+        productos.forEach(producto => agregarProductoATabla(producto));
+        productosSeleccionados = [];
+    }
+</script>
+</body>
+</html>

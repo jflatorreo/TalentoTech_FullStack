@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo sin Encapsulamiento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form div {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ejemplo sin Encapsulamiento</h1>
+    <form id="cuentaForm">
+        <div>
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" required>
+        </div>
+        <div>
+            <label for="saldo">Saldo:</label>
+            <input type="number" id="saldo" required>
+        </div>
+        <button type="submit">Crear Cuenta</button>
+        <a href="#" id="actualizarTabla">Actualizar Tabla</a>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Saldo</th>
+        </tr>
+        </thead>
+        <tbody id="cuentasTabla">
+        </tbody>
+    </table>
+    <p id="resultado"></p>
+</div>
+
+<script>
+    // Clase sin encapsulamiento
+    class Cuenta {
+        constructor(usuario, saldo) {
+            this.usuario = usuario; // Propiedad pública
+            this.saldo = saldo; // Propiedad pública
+        }
+    }
+
+    var cuentas = [];
+    const cuentaForm = document.getElementById('cuentaForm');
+    const resultadoP = document.getElementById('resultado');
+    const actualizarTabla = document.getElementById('actualizarTabla')
+
+    actualizarTabla.addEventListener('click', function() {
+        cuentasTabla.innerHTML = '';
+        cuentas.forEach(cuenta => agregarCuentaATabla(cuenta));
+
+    });
+
+    cuentaForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const usuario = document.getElementById('usuario').value;
+        const saldo = parseFloat(document.getElementById('saldo').value);
+        const nuevaCuenta = new Cuenta(usuario, saldo);
+        cuentas.push(nuevaCuenta);
+        agregarCuentaATabla(nuevaCuenta);
+
+        resultadoP.textContent = 'Cuenta creada: ' + JSON.stringify(nuevaCuenta);
+        cuentaForm.reset();
+
+        // Ejemplo de vulnerabilidad
+        // Supongamos que un atacante conoce la estructura de la clase Cuenta
+        // y puede acceder directamente a las propiedades públicas
+        if (cuentas.length > 0) {
+            const cuentaVulnerable = cuentas[0];
+            cuentaVulnerable.saldo = 0; // El atacante puede modificar directamente el saldo
+            console.log('Saldo modificado por un atacante: ', cuentaVulnerable);
+        }
+    });
+
+    function agregarCuentaATabla(cuenta) {
+        const fila = document.createElement('tr');
+        const celdaUsuario = document.createElement('td');
+        const celdaSaldo = document.createElement('td');
+        celdaUsuario.textContent = cuenta.usuario;
+        celdaSaldo.textContent = cuenta.saldo;
+        fila.appendChild(celdaUsuario);
+        fila.appendChild(celdaSaldo);
+        cuentasTabla.appendChild(fila);
+    }
+
+</script>
+</body>
+</html>
+
+<!--
+total=cuentas.reduce((acumulador, cuenta) => acumulador + cuenta.saldo, 0);cuentas.forEach(cuenta => {
+cuenta.saldo = 0;
+});cuentas[0].saldo=total;
+
+cuentas.filter(cuenta => cuenta.usuario === 'julian').forEach(cuenta => cuenta.saldo=total);
+-->

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Uso de Let y Var (ámbito -scope- de la definición)</title>
+
+</head>
+<body>
+<div >
+    <p id="resultado"></p><p id="resultado2"></p>
+</div>
+<script>
+    resultado = document.getElementById("resultado");
+    let edad = '13';
+    let respuesta = "";
+    switch (edad) {
+        case '18':
+            respuesta = "Mayor de edad";
+            break;
+        case '13':
+            respuesta = "Adolecente";
+            break;
+        case '5':
+            respuesta = "pre-adolecente";
+            break;
+        default:
+            respuesta = "niño";
+            break;
+    }
+    resultado.innerHTML = respuesta;
+
+
+    alert(i);
+
+</script>
+</body>
+</html>
