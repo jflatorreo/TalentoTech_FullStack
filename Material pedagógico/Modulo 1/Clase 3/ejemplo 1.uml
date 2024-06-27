@@ -1,0 +1,39 @@
+@startuml
+
+class Empleado {
+    - id: int
+    - nombre: string
+    - departamento: Departamento
+    + solicitarVacaciones(fechaInicio: Date, fechaFin: Date): SolicitudVacaciones
+}
+
+class Departamento {
+    - id: int
+    - nombre: string
+    + empleados: List<Empleado>
+}
+
+class Vacaciones {
+    - id: int
+    - empleado: Empleado
+    - fechaInicio: Date
+    - fechaFin: Date
+}
+
+class SolicitudVacaciones {
+    - id: int
+    - empleado: Empleado
+    - fechaSolicitud: Date
+    - estado: string
+    + aprobar(): void
+    + rechazar(): void
+}
+
+Empleado "1" *-- "1" Departamento
+Empleado "1" *-- "0..*" Vacaciones
+Empleado "1" *-- "0..*" SolicitudVacaciones
+Departamento "1" *-- "0..*" Empleado
+Vacaciones "0..*" -- "1" Empleado
+SolicitudVacaciones "0..*" -- "1" Empleado
+
+@enduml

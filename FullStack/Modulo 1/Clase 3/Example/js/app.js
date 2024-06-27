@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const producto1 = new Producto(1, "Laptop", 1500);
-    const producto2 = new Producto(2, "Ratón", 50);
+    const producto1 = new Producto(1, "Laptop", 1500000);
+    const producto2 = new Producto(2, "Ratón", 25000);
 
     const item1 = new OrdenItem(producto1, 1);
     const item2 = new OrdenItem(producto2, 2);

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplo de map() en JavaScript</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  .output {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+  }
+</style>
+</head>
+<body>
+
+<h1>Ejemplo de map() en JavaScript</h1>
+
+<p>El siguiente código muestra cómo la función <code>map()</code> transforma un array de nombres en un array de cadenas concatenadas con "baby".</p>
+
+<div class="output">
+<pre><code>
+const names = ["dog", "cat", "hen"];
+
+  // Usando map() para agregar "baby" antes de cada nombre
+  const babies = names.map((name) => `baby ${name}`);
+</code></pre>
+  <h2>Resultado:</h2>
+  <ul id="babiesList"></ul>
+</div>
+
+<script>
+  // Array original de nombres
+  const names = ["dog", "cat", "hen"];
+
+  // Usando map() para agregar "baby" antes de cada nombre
+  const babies = ["dog", "cat", "hen"].map((a) => `baby ${a}`);
+
+  // Mostrar el resultado en el HTML
+  const babiesList = document.getElementById("babiesList");
+  babies.forEach((baby) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = baby;
+    babiesList.appendChild(listItem);
+  });
+</script>
+
+</body>
+</html>

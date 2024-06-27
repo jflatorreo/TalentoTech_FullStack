@@ -1,0 +1,45 @@
+@startuml
+
+class Producto {
+    - id: number
+    - nombre: string
+    - precio: number
+    + Producto(id: number, nombre: string, precio: number)
+}
+
+class OrdenItem {
+    - producto: Producto
+    - cantidad: number
+    + OrdenItem(producto: Producto, cantidad: number)
+    + obtenerCosto(): number
+}
+
+class Orden {
+    - id: number
+    - items: Array<OrdenItem>
+    + Orden(id: number, items: Array<OrdenItem>)
+    + calcularTotal(): number
+}
+
+interface IRepositorio {
+    + guardar(datos)
+    + obtener(id)
+}
+
+class RepositorioSQL {
+    + guardar(datos)
+    + obtener(id)
+}
+
+class ServicioOrden {
+    - repositorio: IRepositorio
+    + ServicioOrden(repositorio: IRepositorio)
+    + procesarOrden(orden: Orden): number
+}
+
+Producto --> OrdenItem
+OrdenItem "1..*" --> "1" Orden
+IRepositorio <|.. RepositorioSQL
+ServicioOrden --> IRepositorio
+
+@enduml
