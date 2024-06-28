@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #output {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Builder</h1>
+
+<div id="output">
+    <!-- Aquí se mostrará la salida del patrón Builder -->
+</div>
+
+<script>
+    // Product: Representa el objeto complejo que se construirá
+    class Product {
+        constructor() {
+            this.parts = [];
+        }
+
+        addPart(part) {
+            this.parts.push(part);
+        }
+
+        listParts() {
+            return `Partes del producto: ${this.parts.join(', ')}`;
+        }
+    }
+
+    // Builder: Interfaz abstracta para crear partes del producto
+    class Builder {
+        constructor() {
+            this.product = new Product();
+        }
+
+        buildPart1() {}
+        buildPart2() {}
+        buildPart3() {}
+
+        getProduct() {
+            return this.product;
+        }
+    }
+
+    // ConcreteBuilder A: Implementa el Builder para construir un tipo específico de producto
+    class ConcreteBuilderA extends Builder {
+        buildPart1() {
+            this.product.addPart('Parte A1');
+        }
+
+        buildPart2() {
+            this.product.addPart('Parte A2');
+        }
+    }
+
+    // ConcreteBuilder B: Implementa el Builder para construir otro tipo específico de producto
+    class ConcreteBuilderB extends Builder {
+        buildPart1() {
+            this.product.addPart('Parte B1');
+        }
+
+        buildPart3() {
+            this.product.addPart('Parte B3');
+        }
+    }
+
+    // Director: Construye el producto utilizando un builder concreto
+    class Director {
+        construct(builder) {
+            builder.buildPart1();
+            builder.buildPart2();
+            builder.buildPart3();
+        }
+    }
+
+    // Uso del patrón Builder
+    function usarBuilder() {
+        const director = new Director();
+        const builderA = new ConcreteBuilderA();
+        const builderB = new ConcreteBuilderB();
+
+        director.construct(builderA);
+        mostrarResultado(`Producto construido por Builder A: ${builderA.getProduct().listParts()}`);
+
+        director.construct(builderB);
+        mostrarResultado(`Producto construido por Builder B: ${builderB.getProduct().listParts()}`);
+    }
+
+    // Función para mostrar resultados en el div de salida
+    function mostrarResultado(resultado) {
+        let outputDiv = document.getElementById('output');
+        outputDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+
+    // Ejecutar el uso del Builder
+    usarBuilder();
+</script>
+</body>
+</html>

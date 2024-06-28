@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Factory Method</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #output {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Factory Method</h1>
+
+<div id="output">
+    <!-- Aquí se mostrará la salida de las operaciones -->
+</div>
+
+<script>
+    // Product: Interfaz para los productos a ser creados
+    class Product {
+        constructor(name) {
+            this.name = name;
+        }
+
+        getName() {
+            return this.name;
+        }
+    }
+
+    // ConcreteProduct A: Implementación específica de Product
+    class ConcreteProductA extends Product {
+        constructor() {
+            super("Producto A");
+        }
+    }
+
+    // ConcreteProduct B: Implementación específica de Product
+    class ConcreteProductB extends Product {
+        constructor() {
+            super("Producto B");
+        }
+    }
+
+    // Creator: Clase base que declara el factory method
+    class Creator {
+        factoryMethod() {
+            throw new Error("El factory method debe ser implementado por las subclases");
+        }
+
+        // Operación común que usa el factory method
+        operation() {
+            const product = this.factoryMethod();
+            return `Creado ${product.getName()}`;
+        }
+    }
+
+    // ConcreteCreator A: Implementa el factory method para crear ConcreteProduct A
+    class ConcreteCreatorA extends Creator {
+        factoryMethod() {
+            return new ConcreteProductA();
+        }
+    }
+
+    // ConcreteCreator B: Implementa el factory method para crear ConcreteProduct B
+    class ConcreteCreatorB extends Creator {
+        factoryMethod() {
+            return new ConcreteProductB();
+        }
+    }
+
+    // Función para utilizar el Factory Method
+    function usarFactoryMethod() {
+        const creatorA = new ConcreteCreatorA();
+        const creatorB = new ConcreteCreatorB();
+
+        mostrarResultado(creatorA.operation());
+        mostrarResultado(creatorB.operation());
+    }
+
+    // Función para mostrar resultados en el div de salida
+    function mostrarResultado(resultado) {
+        let outputDiv = document.getElementById('output');
+        outputDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+
+    // Ejecutar el uso del Factory Method
+    usarFactoryMethod();
+</script>
+</body>
+</html>

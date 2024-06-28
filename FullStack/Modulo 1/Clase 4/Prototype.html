@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patron Prototype</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patron Prototype</h1>
+<div>
+    <button onclick="crearClones()">Crear Clones</button>
+</div>
+<div id="resultados"></div>
+
+<script>
+    // Clase Prototipo
+    class Prototype {
+        constructor(name, value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        clone() {
+            return new Prototype(this.name, this.value);
+        }
+
+        display() {
+            return `Nombre: ${this.name}, Valor: ${this.value}`;
+        }
+    }
+
+    // Uso del patrón Prototype
+    function crearClones() {
+        const original = new Prototype('Original', 42);
+
+        const clone1 = original.clone();
+        clone1.name = 'Clone 1';
+        clone1.value = 43;
+
+        const clone2 = original.clone();
+        clone2.name = 'Clone 2';
+        clone2.value = 44;
+
+        mostrarResultados(original, clone1, clone2);
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultados(original, clone1, clone2) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = `
+                <p>${original.display()}</p>
+                <p>${clone1.display()}</p>
+                <p>${clone2.display()}</p>
+            `;
+    }
+</script>
+</body>
+</html>

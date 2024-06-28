@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Memento</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Memento</h1>
+<button onclick="realizarOperacion()">Realizar Operación</button>
+<button onclick="deshacer()">Deshacer</button>
+<div id="resultados"></div>
+
+<script>
+    // Memento: Almacena el estado interno de un objeto
+    class Memento {
+        constructor(state) {
+            this.state = state;
+        }
+
+        getState() {
+            return this.state;
+        }
+    }
+
+    // Originator: Crea un Memento que captura su estado actual y puede usar un Memento para restaurar su estado anterior
+    class Originator {
+        constructor() {
+            this.state = '';
+        }
+
+        setState(state) {
+            this.state = state;
+        }
+
+        saveToMemento() {
+            return new Memento(this.state);
+        }
+
+        restoreFromMemento(memento) {
+            this.state = memento.getState();
+        }
+    }
+
+    // Caretaker: Almacena y gestiona Mementos
+    class Caretaker {
+        constructor() {
+            this.mementos = [];
+        }
+
+        addMemento(memento) {
+            this.mementos.push(memento);
+        }
+
+        getMemento(index) {
+            return this.mementos[index];
+        }
+    }
+
+    const originator = new Originator();
+    const caretaker = new Caretaker();
+
+    // Cliente: Realiza operaciones y gestiona Mementos
+    function realizarOperacion() {
+        const randomState = Math.random().toString(36).substring(7);
+        originator.setState(randomState);
+        caretaker.addMemento(originator.saveToMemento());
+        mostrarResultado(`Estado actual: ${originator.state}`);
+    }
+
+    // Función para deshacer la última operación
+    function deshacer() {
+        if (caretaker.mementos.length > 0) {
+            const lastMemento = caretaker.getMemento(caretaker.mementos.length - 1);
+            originator.restoreFromMemento(lastMemento);
+            caretaker.mementos.pop();
+            mostrarResultado(`Estado después de deshacer: ${originator.state}`);
+        } else {
+            mostrarResultado(`Ninguna operación para deshacer`);
+        }
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = `<p>${resultado}</p>`;
+    }
+</script>
+</body>
+</html>

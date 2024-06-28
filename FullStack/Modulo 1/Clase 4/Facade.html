@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Facade</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Facade</h1>
+<div>
+    <button onclick="usarFacade()">Usar Facade</button>
+</div>
+<div id="resultados"></div>
+
+<script>
+    // Subsistema 1
+    class Subsystem1 {
+        operation1() {
+            return 'Operación del Subsistema 1';
+        }
+    }
+
+    // Subsistema 2
+    class Subsystem2 {
+        operation2() {
+            return 'Operación del Subsistema 2';
+        }
+    }
+
+    // Facade
+    class Facade {
+        constructor() {
+            this.subsystem1 = new Subsystem1();
+            this.subsystem2 = new Subsystem2();
+        }
+
+        operation() {
+            let result = 'Facade opera:\n';
+            result += this.subsystem1.operation1() + '\n';
+            result += this.subsystem2.operation2();
+            return result;
+        }
+    }
+
+    // Uso del patrón Facade
+    function usarFacade() {
+        const facade = new Facade();
+        mostrarResultado(facade.operation());
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = `<pre>${resultado}</pre>`;
+    }
+</script>
+</body>
+</html>

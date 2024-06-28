@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patron Adapter</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patron Adapter</h1>
+<div>
+    <button onclick="usarAdaptador()">Usar Adaptador</button>
+</div>
+<div id="resultados"></div>
+
+<script>
+    // Clase Adaptada (la que queremos adaptar)
+    class OldSystem {
+        specificRequest() {
+            return 'Respuesta del sistema antiguo';
+        }
+    }
+
+    // Interfaz que espera el cliente
+    class Target {
+        request() {
+            throw new Error('El método request() debe ser implementado');
+        }
+    }
+
+    // Adaptador que convierte la interfaz del OldSystem a la interfaz Target
+    class Adapter extends Target {
+        constructor(oldSystem) {
+            super();
+            this.oldSystem = oldSystem;
+        }
+
+        request() {
+            return this.oldSystem.specificRequest();
+        }
+    }
+
+    // Uso del patrón Adapter
+    function usarAdaptador() {
+        const oldSystem = new OldSystem();
+        const adapter = new Adapter(oldSystem);
+
+        mostrarResultado(adapter.request());
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = `<p>${resultado}</p>`;
+    }
+</script>
+</body>
+</html>

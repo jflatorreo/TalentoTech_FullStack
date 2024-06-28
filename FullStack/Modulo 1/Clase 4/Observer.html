@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Observer</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Observer</h1>
+<button onclick="cambiarEstado()">Cambiar Estado</button>
+<div id="resultados"></div>
+
+<script>
+    // Sujeto (Subject) u Observable
+    class Sujeto {
+        constructor() {
+            this.estado = '';
+            this.observadores = [];
+        }
+
+        agregarObservador(observador) {
+            this.observadores.push(observador);
+        }
+
+        eliminarObservador(observador) {
+            this.observadores = this.observadores.filter(obs => obs !== observador);
+        }
+
+        notificarObservadores() {
+            this.observadores.forEach(observador => {
+                observador.actualizar(this.estado);
+            });
+        }
+
+        cambiarEstado(nuevoEstado) {
+            this.estado = nuevoEstado;
+            this.notificarObservadores();
+        }
+    }
+
+    // Observador (Observer)
+    class Observador {
+        constructor(nombre) {
+            this.nombre = nombre;
+        }
+
+        actualizar(nuevoEstado) {
+            mostrarResultado(`${this.nombre} ha sido notificado. Nuevo estado: ${nuevoEstado}`);
+        }
+    }
+
+    const sujeto = new Sujeto();
+
+    // Creación de observadores
+    const observador1 = new Observador('Observador 1');
+    const observador2 = new Observador('Observador 2');
+
+    // Suscripción de observadores al sujeto
+    sujeto.agregarObservador(observador1);
+    sujeto.agregarObservador(observador2);
+
+    // Cliente: Cambia el estado del sujeto y notifica a los observadores
+    function cambiarEstado() {
+        const nuevoEstado = Math.random().toString(36).substring(7);
+        sujeto.cambiarEstado(nuevoEstado);
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+</script>
+</body>
+</html>

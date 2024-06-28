@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Chain of Responsibility</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Chain of Responsibility</h1>
+<div>
+    <button onclick="usarChainOfResponsibility()">Usar Chain of Responsibility</button>
+</div>
+<div id="resultados"></div>
+
+<script>
+    // Handler: Define la interfaz para manejar solicitudes
+    class Handler {
+        constructor() {
+            this.nextHandler = null;
+        }
+
+        setNext(handler) {
+            this.nextHandler = handler;
+        }
+
+        handleRequest(request) {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // ConcreteHandler1: Implementa la interfaz Handler y maneja algunas solicitudes
+    class ConcreteHandler1 extends Handler {
+        handleRequest(request) {
+            if (request === 'Type1') {
+                return `ConcreteHandler1 maneja la solicitud: ${request}`;
+            } else if (this.nextHandler) {
+                return this.nextHandler.handleRequest(request);
+            } else {
+                return `Ningún handler puede manejar la solicitud: ${request}`;
+            }
+        }
+    }
+
+    // ConcreteHandler2: Implementa la interfaz Handler y maneja algunas solicitudes
+    class ConcreteHandler2 extends Handler {
+        handleRequest(request) {
+            if (request === 'Type2') {
+                return `ConcreteHandler2 maneja la solicitud: ${request}`;
+            } else if (this.nextHandler) {
+                return this.nextHandler.handleRequest(request);
+            } else {
+                return `Ningún handler puede manejar la solicitud: ${request}`;
+            }
+        }
+    }
+
+    // Uso del patrón Chain of Responsibility
+    function usarChainOfResponsibility() {
+        const handler1 = new ConcreteHandler1();
+        const handler2 = new ConcreteHandler2();
+
+        handler1.setNext(handler2);
+
+        const requests = ['Type1', 'Type2', 'Type3'];
+        let results = '';
+
+        requests.forEach(request => {
+            results += handler1.handleRequest(request) + '<br>';
+        });
+
+        mostrarResultado(results);
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = resultado;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Flyweight</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Flyweight</h1>
+<div>
+    <button onclick="usarFlyweight()">Usar Flyweight</button>
+</div>
+<div id="resultados"></div>
+
+<script>
+    // Flyweight: Interfaz para los objetos Flyweight
+    class Flyweight {
+        constructor(intrinsicState) {
+            this.intrinsicState = intrinsicState;
+        }
+
+        operation(extrinsicState) {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // ConcreteFlyweight: Implementa el objeto Flyweight y almacena el estado intrínseco compartido
+    class ConcreteFlyweight extends Flyweight {
+        operation(extrinsicState) {
+            return `Operación con estado extrínseco: ${extrinsicState} y estado intrínseco: ${this.intrinsicState}`;
+        }
+    }
+
+    // FlyweightFactory: Crea y gestiona los objetos Flyweight
+    class FlyweightFactory {
+        constructor() {
+            this.flyweights = {};
+        }
+
+        getFlyweight(key) {
+            if (!this.flyweights[key]) {
+                this.flyweights[key] = new ConcreteFlyweight(key);
+            }
+            return this.flyweights[key];
+        }
+
+        getFlyweightsCount() {
+            return Object.keys(this.flyweights).length;
+        }
+    }
+
+    // Uso del patrón Flyweight
+    function usarFlyweight() {
+        const factory = new FlyweightFactory();
+
+        const flyweight1 = factory.getFlyweight('shared');
+        const flyweight2 = factory.getFlyweight('shared');
+        const flyweight3 = factory.getFlyweight('different');
+
+        mostrarResultado(flyweight1.operation('A'));
+        mostrarResultado(flyweight2.operation('B'));
+        mostrarResultado(flyweight3.operation('C'));
+
+        mostrarResultado(`Número total de flyweights creados: ${factory.getFlyweightsCount()}`);
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+</script>
+</body>
+</html>

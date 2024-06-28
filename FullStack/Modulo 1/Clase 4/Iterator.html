@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Iterator</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Iterator</h1>
+<button onclick="usarIterator()">Usar Iterator</button>
+<div id="resultados"></div>
+
+<script>
+    // Iterator: Define la interfaz para acceder y recorrer los elementos
+    class Iterator {
+        constructor(collection) {
+            this.collection = collection;
+            this.index = 0;
+        }
+
+        hasNext() {
+            return this.index < this.collection.length;
+        }
+
+        next() {
+            return this.collection[this.index++];
+        }
+    }
+
+    // Aggregate: Define una interfaz para crear un iterador
+    class Aggregate {
+        createIterator() {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // ConcreteAggregate: Implementa la interfaz Aggregate y devuelve una instancia de ConcreteIterator
+    class ConcreteAggregate extends Aggregate {
+        constructor() {
+            super();
+            this.data = [];
+        }
+
+        add(item) {
+            this.data.push(item);
+        }
+
+        createIterator() {
+            return new Iterator(this.data);
+        }
+    }
+
+    // Cliente: Usa el patrón Iterator para recorrer los elementos de ConcreteAggregate
+    function usarIterator() {
+        const aggregate = new ConcreteAggregate();
+        aggregate.add('Elemento 1');
+        aggregate.add('Elemento 2');
+        aggregate.add('Elemento 3');
+
+        const iterator = aggregate.createIterator();
+        let resultados = '';
+
+        while (iterator.hasNext()) {
+            resultados += iterator.next() + '<br>';
+        }
+
+        mostrarResultado(resultados);
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = resultado;
+    }
+</script>
+</body>
+</html>

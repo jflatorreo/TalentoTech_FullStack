@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Mediator</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Mediator</h1>
+<button onclick="iniciarChat()">Iniciar Chat</button>
+<div id="resultados"></div>
+
+<script>
+    // Mediator: Define la interfaz para comunicación entre objetos
+    class Mediator {
+        sendMessage(message, colleague) {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // ConcreteMediator: Implementa la interfaz Mediator y coordina las interacciones entre objetos Colleague
+    class ConcreteMediator extends Mediator {
+        constructor() {
+            super();
+            this.usuario1 = new Concreteusuario1(this);
+            this.usuario2 = new Concreteusuario2(this);
+        }
+
+        sendMessage(message, colleague) {
+            if (colleague === this.usuario1) {
+                this.usuario2.receiveMessage(message);
+            } else if (colleague === this.usuario2) {
+                this.usuario1.receiveMessage(message);
+            }
+        }
+    }
+
+    // Colleague: Define la interfaz para comunicarse con otros objetos a través del Mediator
+    class Colleague {
+        constructor(mediator) {
+            this.mediator = mediator;
+        }
+
+        send(message) {
+            this.mediator.sendMessage(message, this);
+        }
+
+        receiveMessage(message) {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // Concreteusuario1: Implementa la interfaz Colleague y se comunica con otros Colleagues a través del Mediator
+    class Concreteusuario1 extends Colleague {
+        receiveMessage(message) {
+            mostrarResultado(`Usuario 1 recibe mensaje: ${message}`);
+        }
+    }
+
+    // Concreteusuario2: Implementa la interfaz Colleague y se comunica con otros Colleagues a través del Mediator
+    class Concreteusuario2 extends Colleague {
+        receiveMessage(message) {
+            mostrarResultado(`Usuario 2 recibe mensaje: ${message}`);
+        }
+    }
+
+    // Cliente: Inicia el chat entre los ConcreteColleagues
+    function iniciarChat() {
+        const mediator = new ConcreteMediator();
+        mediator.usuario1.send('Hola desde Usuario 1');
+        mediator.usuario2.send('Hola desde Usuario 2');
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+</script>
+</body>
+</html>

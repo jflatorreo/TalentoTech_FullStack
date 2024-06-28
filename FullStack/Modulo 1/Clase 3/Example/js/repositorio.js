@@ -55,8 +55,5 @@ class RepositorioMongo extends IRepositorio {
     }
 }
 
-// Ejemplo de uso
-//const repositorio = new RepositorioMongo('mongodb://localhost:27017', 'mi_base_de_datos');
-//repositorio.guardar({ ejemplo: "datos de ejemplo" });
-//repositorio.obtener(1);
+
 

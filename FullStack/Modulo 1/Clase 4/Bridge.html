@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Bridge</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Bridge</h1>
+<div>
+    <button onclick="usarBridge()">Usar Bridge</button>
+</div>
+<div id="resultados"></div>
+
+<script>
+    // Implementación: Plataforma específica (Implementación)
+    class Platform {
+        operate() {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // Implementación Concreta 1: Windows
+    class WindowsPlatform extends Platform {
+        operate() {
+            return 'Ejecutando en Windows';
+        }
+    }
+
+    // Implementación Concreta 2: Linux
+    class LinuxPlatform extends Platform {
+        operate() {
+            return 'Ejecutando en Linux';
+        }
+    }
+
+    // Abstracción: Aplicación (Abstracción)
+    class Application {
+        constructor(platform) {
+            this.platform = platform;
+        }
+
+        run() {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // Abstracción Refinada 1: VideoPlayer
+    class VideoPlayer extends Application {
+        run() {
+            return `Reproduciendo video. ${this.platform.operate()}`;
+        }
+    }
+
+    // Abstracción Refinada 2: MusicPlayer
+    class MusicPlayer extends Application {
+        run() {
+            return `Reproduciendo música. ${this.platform.operate()}`;
+        }
+    }
+
+    // Uso del patrón Bridge
+    function usarBridge() {
+        const windowsPlatform = new WindowsPlatform();
+        const linuxPlatform = new LinuxPlatform();
+
+        const videoPlayerWindows = new VideoPlayer(windowsPlatform);
+        const musicPlayerLinux = new MusicPlayer(linuxPlatform);
+
+        mostrarResultado(videoPlayerWindows.run());
+        mostrarResultado(musicPlayerLinux.run());
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+</script>
+</body>
+</html>

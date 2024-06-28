@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrón Decorator</title>
+    <style>
+        #resultados {
+            border: 1px solid #000;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Decorator</h1>
+<div>
+    <button onclick="usarDecorator()">Usar Decorator</button>
+</div>
+<div id="resultados"></div>
+
+<script>
+    // Componente: Interfaz común para los objetos que pueden ser decorados
+    class Component {
+        operation() {
+            throw new Error('Este método debe ser implementado por una subclase');
+        }
+    }
+
+    // Componente Concreto: Implementa la interfaz del componente
+    class ConcreteComponent extends Component {
+        operation() {
+            return 'Operación básica';
+        }
+    }
+
+    // Decorador: Mantiene una referencia al objeto del tipo Componente y define una interfaz que sigue la interfaz del componente
+    class Decorator extends Component {
+        constructor(component) {
+            super();
+            this.component = component;
+        }
+
+        operation() {
+            return this.component.operation();
+        }
+    }
+
+    // Decorador Concreto 1: Extiende la funcionalidad del componente agregando nuevas funcionalidades
+    class ConcreteDecoratorA extends Decorator {
+        operation() {
+            return `Decorator A (${this.component.operation()})`;
+        }
+    }
+
+    // Decorador Concreto 2: Extiende la funcionalidad del componente agregando nuevas funcionalidades
+    class ConcreteDecoratorB extends Decorator {
+        operation() {
+            return `Decorator B (${this.component.operation()})`;
+        }
+    }
+
+    // Uso del patrón Decorator
+    function usarDecorator() {
+        const component = new ConcreteComponent();
+        const decoratedComponentA = new ConcreteDecoratorA(component);
+        const decoratedComponentB = new ConcreteDecoratorB(decoratedComponentA);
+
+        mostrarResultado(component.operation());
+        mostrarResultado(decoratedComponentA.operation());
+        mostrarResultado(decoratedComponentB.operation());
+    }
+
+    // Función para mostrar los resultados en el div
+    function mostrarResultado(resultado) {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+</script>
+</body>
+</html>

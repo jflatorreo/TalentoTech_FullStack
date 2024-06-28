@@ -7,6 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const orden = new Orden(1, [item1, item2]);
 
+    // Ejemplo de uso
+    //const repositorio = new RepositorioMongo('mongodb://localhost:27017', 'mi_base_de_datos');
+    //repositorio.guardar({ ejemplo: "datos de ejemplo" });
+    //repositorio.obtener(1);
+
     const repositorioSQL = new RepositorioSQL();
     const servicioOrden = new ServicioOrden(repositorioSQL);
 

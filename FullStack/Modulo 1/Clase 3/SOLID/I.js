@@ -16,7 +16,7 @@ class Empleado extends ITrabajador {
     }
 }
 
-class EmpleadoComedor extends ITrabajador {
+class EmpleadoComedor extends ITrabajador, IComedor {
     trabajar() {
         // Implementación de trabajar
     }

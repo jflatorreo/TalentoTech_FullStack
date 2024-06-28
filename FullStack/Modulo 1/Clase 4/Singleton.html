@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singleton</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #output {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrón Singleton</h1>
+
+<div id="output">
+    <!-- Aquí se mostrará la salida del Singleton -->
+</div>
+
+<script>
+    let Singleton = (function() {
+        let instance; // Instancia única del Singleton
+
+        function crearInstancia() {
+            // Lógica para crear el objeto Singleton
+            let objetoSingleton = new Object("Este es un Singleton");
+            return objetoSingleton;
+        }
+
+        return {
+            getInstance: function() {
+                if (!instance) {
+                    instance = crearInstancia();
+                }
+                return instance;
+            }
+        };
+    })();
+
+    // Función para utilizar el Singleton
+    function usarSingleton() {
+        let instancia1 = Singleton.getInstance();
+        let instancia2 = Singleton.getInstance();
+
+        mostrarResultado(`Instancia 1: ${instancia1}`);
+        mostrarResultado(`Instancia 2: ${instancia2}`);
+        mostrarResultado(`¿Son las instancias iguales? ${instancia1 === instancia2}`);
+    }
+
+    // Función para mostrar resultados en el div de salida
+    function mostrarResultado(resultado) {
+        let outputDiv = document.getElementById('output');
+        outputDiv.innerHTML += `<p>${resultado}</p>`;
+    }
+
+    // Ejecutar la función usarSingleton al cargar la página
+    usarSingleton();
+</script>
+</body>
+</html>
