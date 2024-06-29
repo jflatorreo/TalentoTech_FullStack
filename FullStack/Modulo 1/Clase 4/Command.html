@@ -23,6 +23,7 @@
 <script>
     // Command: Define la interfaz para ejecutar una acción
     class Command {
+        previousState
         execute() {
             throw new Error('Este método debe ser implementado por una subclase');
         }
@@ -34,6 +35,7 @@
 
     // ConcreteCommand: Implementa la interfaz Command y almacena la información necesaria para ejecutar la acción en un Receiver
     class ConcreteCommand extends Command {
+         previousState;
         constructor(receiver) {
             super();
             this.receiver = receiver;

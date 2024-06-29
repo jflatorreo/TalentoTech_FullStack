@@ -22,7 +22,7 @@
 <script>
     // Clase Adaptada (la que queremos adaptar)
     class OldSystem {
-        specificRequest() {
+        specificRequest(a) {
             return 'Respuesta del sistema antiguo';
         }
     }
@@ -41,8 +41,9 @@
             this.oldSystem = oldSystem;
         }
 
-        request() {
-            return this.oldSystem.specificRequest();
+        request(a=0) {
+
+            return this.oldSystem.specificRequest(a);
         }
     }
 
