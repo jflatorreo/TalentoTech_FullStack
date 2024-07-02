@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Pila con Arrays</title>
+    <style>
+        .section {
+            margin-bottom: 20px;
+        }
+        .output {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Ejemplo de Pila con Arrays</h2>
+    <button onclick="pushElement()">Push (Apilar)</button>
+    <button onclick="popElement()">Pop (Desapilar)</button>
+    <button onclick="peekElement()">Peek (Observar el tope)</button>
+    <button onclick="checkEmpty()">isEmpty (Verificar si está vacía)</button>
+    <div class="output" id="stackOutput"></div>
+</div>
+
+<script>
+    let stack = [];
+
+    function pushElement() {
+        let value = prompt("Ingrese el valor a apilar:");
+        stack.push(value);
+        updateOutput();
+    }
+
+    function popElement() {
+        if (stack.length === 0) {
+            alert("La pila está vacía");
+            return;
+        }
+        let popped = stack.pop();
+        updateOutput();
+        alert(`Elemento desapilado: ${popped}`);
+    }
+
+    function peekElement() {
+        if (stack.length === 0) {
+            alert("La pila está vacía");
+            return;
+        }
+        let topElement = stack[stack.length - 1];
+        alert(`Elemento en el tope de la pila: ${topElement}`);
+    }
+
+    function checkEmpty() {
+        let isEmpty = stack.length === 0;
+        alert(`La pila está vacía: ${isEmpty}`);
+    }
+
+    function updateOutput() {
+        document.getElementById('stackOutput').innerHTML = `Pila actual: [${stack.join(', ')}]`;
+    }
+</script>
+
+</body>
+</html>

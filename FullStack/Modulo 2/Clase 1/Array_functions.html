@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones de Arrays</title>
+    <style>
+        .section {
+            margin-bottom: 20px;
+        }
+        .output {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Función map</h2>
+    <input type="text" id="mapInput" placeholder="Ingresa números separados por comas">
+    <button onclick="applyMap()">Aplicar map</button>
+    <div class="output" id="mapOutput"></div>
+</div>
+
+<div class="section">
+    <h2>Función filter</h2>
+    <input type="text" id="filterInput" placeholder="Ingresa números separados por comas">
+    <button onclick="applyFilter()">Aplicar filter</button>
+    <div class="output" id="filterOutput"></div>
+</div>
+
+<div class="section">
+    <h2>Función find</h2>
+    <input type="text" id="findInput" placeholder="Ingresa números separados por comas">
+    <button onclick="applyFind()">Aplicar find</button>
+    <div class="output" id="findOutput"></div>
+</div>
+
+<div class="section">
+    <h2>Función findIndex</h2>
+    <input type="text" id="findIndexInput" placeholder="Ingresa números separados por comas">
+    <button onclick="applyFindIndex()">Aplicar findIndex</button>
+    <div class="output" id="findIndexOutput"></div>
+</div>
+<div class="section">
+    <h2>Función fill</h2>
+    <input type="text" id="fillInput" placeholder="Ingresa números separados por comas">
+    <input type="number" id="fillValue" placeholder="Valor a llenar">
+    <button onclick="applyFill()">Aplicar fill</button>
+    <div class="output" id="fillOutput"></div>
+</div>
+<div class="section">
+    <h2>Función some</h2>
+    <input type="text" id="someInput" placeholder="Ingresa números separados por comas">
+    <button onclick="applySome()">Aplicar some</button>
+    <div class="output" id="someOutput"></div>
+</div>
+
+<script>
+    function applySome() {
+        let input = document.getElementById('someInput').value;
+        let array = input.split(',').map(Number);
+        let result = array.some(x => x > 10);
+        document.getElementById('someOutput').textContent = `Resultado: ${result}`;
+    }
+</script>
+<div class="section">
+    <h2>Función every</h2>
+    <input type="text" id="everyInput" placeholder="Ingresa números separados por comas">
+    <button onclick="applyEvery()">Aplicar every</button>
+    <div class="output" id="everyOutput"></div>
+</div>
+
+<script>
+    function applyEvery() {
+        let input = document.getElementById('everyInput').value;
+        let array = input.split(',').map(Number);
+        let result = array.every(x => x > 10);
+        document.getElementById('everyOutput').textContent = `Resultado: ${result}`;
+    }
+</script>
+</body>
+</html>
+
+<script>
+    function applyFill() {
+        let input = document.getElementById('fillInput').value;
+        let array = input.split(',').map(Number);
+        let value = parseInt(document.getElementById('fillValue').value);
+        let result = array.fill(value, 1, 3); // Cambia desde el índice 1 hasta el 3 (no inclusive)
+        document.getElementById('fillOutput').textContent = `Resultado: [${result.join(', ')}]`;
+    }
+</script>
+
+<script>
+    function applyFindIndex() {
+        let input = document.getElementById('findIndexInput').value;
+        let array = input.split(',').map(Number);
+        let result = array.findIndex(x => x > 10);
+        document.getElementById('findIndexOutput').textContent = `Resultado: ${result}`;
+    }
+</script>
+
+
+<script>
+    function applyFind() {
+        let input = document.getElementById('findInput').value;
+        let array = input.split(',').map(Number);
+        let result = array.find(x => x > 10);
+        document.getElementById('findOutput').textContent = `Resultado: ${result}`;
+    }
+
+    function applyFilter() {
+        let input = document.getElementById('filterInput').value;
+        let array = input.split(',').map(Number);
+        let result = array.filter(x => x > 10);
+        document.getElementById('filterOutput').textContent = `Resultado: [${result.join(', ')}]`;
+    }
+
+    function applyMap() {
+        let input = document.getElementById('mapInput').value;
+        let array = input.split(',').map(Number);
+        let result = array.map(x => x * x);
+        document.getElementById('mapOutput').textContent = `Resultado: [${result.join(', ')}]`;
+    }
+</script>
+</body>
+</html>

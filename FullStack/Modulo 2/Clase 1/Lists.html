@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Lista Enlazada en JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .code {
+            margin-bottom: 10px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            overflow-x: auto;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        // Definición de un nodo
+        class Node {
+            constructor(data) {
+                this.data = data;
+                this.next = null;
+            }
+        }
+
+        // Definición de la lista enlazada
+        class LinkedList {
+            constructor() {
+                this.head = null;
+            }
+
+            // Método para insertar un nuevo nodo al final de la lista
+            insertLast(data) {
+                let newNode = new Node(data);
+                if (!this.head) {
+                    this.head = newNode;
+                    return;
+                }
+                let current = this.head;
+                while (current.next !== null) {
+                    current = current.next;
+                }
+                current.next = newNode;
+            }
+
+            // Método para imprimir los elementos de la lista enlazada
+            refreshList(item=null) {
+                if (item){
+                    ll.insertLast(item);
+                }
+                let current = this.head;
+                let output = '';
+                while (current !== null) {
+                    output += `${current.data} -> `;
+                    current = current.next;
+                }
+                output += 'null';
+                document.getElementById('output-linkedlist').textContent = output;
+            }
+        }
+
+        // Ejemplo de uso de la lista enlazada
+        let ll = new LinkedList();
+        ll.insertLast(10);
+        ll.insertLast(20);
+        ll.insertLast(30);
+
+
+    </script>
+</head>
+<body>
+
+<div class="section">
+    <h2>Ejemplo de Lista Enlazada</h2>
+    <div class="code" id="code-linkedlist">
+        <label>Nuevo item
+            <input id="newItem">
+        </label>
+        <button onclick="ll.refreshList(document.getElementById('newItem').value)">Actualizar Lista</button>
+    <div class="output" id="output-linkedlist"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Pila con Listas Enlazadas</title>
+    <style>
+        .section {
+            margin-bottom: 20px;
+        }
+        .output {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Ejemplo de Pila con Listas Enlazadas</h2>
+    <button onclick="pushElement()">Push (Apilar)</button>
+    <button onclick="popElement()">Pop (Desapilar)</button>
+    <button onclick="peekElement()">Peek (Observar el tope)</button>
+    <button onclick="checkEmpty()">isEmpty (Verificar si está vacía)</button>
+    <div class="output" id="stackOutput"></div>
+</div>
+
+<script>
+    class Node {
+        constructor(data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    class StackLinkedList {
+        constructor() {
+            this.top = null;
+        }
+
+        push(element) {
+            let newNode = new Node(element);
+            newNode.next = this.top;
+            this.top = newNode;
+            this.updateOutput();
+        }
+
+        pop() {
+            if (!this.top) {
+                alert("La pila está vacía");
+                return null;
+            }
+            let popped = this.top.data;
+            this.top = this.top.next;
+            this.updateOutput();
+            alert(`Elemento desapilado: ${popped}`);
+            return popped;
+        }
+
+        peek() {
+            if (!this.top) {
+                alert("La pila está vacía");
+                return null;
+            }
+            alert(`Elemento en el tope de la pila: ${this.top.data}`);
+            return this.top.data;
+        }
+
+        isEmpty() {
+            return !this.top;
+        }
+
+        updateOutput() {
+            let current = this.top;
+            let stackArray = [];
+            while (current) {
+                stackArray.push(current.data);
+                current = current.next;
+            }
+            document.getElementById('stackOutput').innerHTML = `Pila actual: [${stackArray.join(', ')}]`;
+        }
+    }
+
+    let stack = new StackLinkedList();
+
+    function pushElement() {
+        let value = prompt("Ingrese el valor a apilar:");
+        stack.push(value);
+    }
+
+    function popElement() {
+        stack.pop();
+    }
+
+    function peekElement() {
+        stack.peek();
+    }
+
+    function checkEmpty() {
+        let isEmpty = stack.isEmpty();
+        alert(`La pila está vacía: ${isEmpty}`);
+    }
+</script>
+
+</body>
+</html>

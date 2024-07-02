@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de Gestión de Pedidos de Helados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .queue {
+            min-width: 200px;
+            padding: 10px;
+            border: 1px solid #999;
+            background-color: #f0f0f0;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .queue .person {
+            background-color: #ddd;
+            padding: 5px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .queue .person:hover {
+            transform: scale(1.05);
+        }
+        .flavors {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .stack {
+            min-width: 100px;
+            padding: 10px;
+            border: 1px solid #999;
+            background-color: #f0f0f0;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stack .flavor {
+            background-color: #ddd;
+            padding: 5px;
+            margin-bottom: 5px;
+            width: 80px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .stack .flavor:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Simulación de Gestión de Pedidos de Helados</h2>
+
+    <!-- Cola de clientes -->
+    <div class="queue" id="queueOutput">
+        <h3>Cola de Clientes</h3>
+    </div>
+
+    <!-- Pilas de sabores -->
+    <div class="flavors">
+        <div class="stack" id="stackFresa">
+            <h3>Fresa</h3>
+        </div>
+        <div class="stack" id="stackChocolate">
+            <h3>Chocolate</h3>
+        </div>
+        <div class="stack" id="stackMora">
+            <h3>Mora</h3>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Estructuras de datos
+    class Queue {
+        constructor() {
+            this.items = [];
+        }
+
+        enqueue(item) {
+            this.items.push(item);
+            this.displayQueue();
+        }
+
+        dequeue() {
+            return this.items.shift();
+        }
+
+        isEmpty() {
+            return this.items.length === 0;
+        }
+
+        displayQueue() {
+            let queueOutput = document.getElementById('queueOutput');
+            queueOutput.innerHTML = "";
+            this.items.forEach((item, index) => {
+                let person = document.createElement('div');
+                person.classList.add('person');
+                person.textContent = `Cliente ${index + 1}: ${item}`;
+                person.addEventListener('click', () => this.onClickPerson(index));
+                queueOutput.appendChild(person);
+            });
+        }
+
+        onClickPerson(index) {
+            if (index < this.items.length - 1) {
+                // Swap positions with the person behind
+                let temp = this.items[index];
+                this.items[index] = this.items[index + 1];
+                this.items[index + 1] = temp;
+                this.displayQueue();
+            }
+        }
+    }
+
+    class Stack {
+        constructor() {
+            this.items = [];
+        }
+
+        push(item) {
+            this.items.push(item);
+            this.displayStack();
+        }
+
+        pop() {
+            return this.items.pop();
+        }
+
+        isEmpty() {
+            return this.items.length === 0;
+        }
+
+        displayStack() {
+            let stackId = this.stackId;
+            let stackOutput = document.getElementById(stackId);
+            stackOutput.innerHTML = "";
+            this.items.forEach((item, index) => {
+                let flavor = document.createElement('div');
+                flavor.classList.add('flavor');
+                flavor.textContent = item;
+                flavor.addEventListener('click', () => this.onClickFlavor(item));
+                stackOutput.appendChild(flavor);
+            });
+        }
+
+        onClickFlavor(flavor) {
+            if (confirm(`¿Recargar sabor ${flavor}?`)) {
+                this.push(flavor);
+            }
+        }
+    }
+
+    // Instancias de estructuras de datos
+    let queue = new Queue();
+    let stackFresa = new Stack();
+    let stackChocolate = new Stack();
+    let stackMora = new Stack();
+
+    // Función para simular llegada de clientes y pedidos
+    function simulateArrival() {
+        let flavors = ['Fresa', 'Chocolate', 'Mora'];
+        let randomFlavor = flavors[Math.floor(Math.random() * flavors.length)];
+        queue.enqueue(randomFlavor);
+    }
+
+    // Función para servir pedido y desapilar sabor correspondiente
+    function serveOrder() {
+        if (!queue.isEmpty()) {
+            let order = queue.dequeue();
+            switch (order) {
+                case 'Fresa':
+                    stackFresa.pop();
+                    break;
+                case 'Chocolate':
+                    stackChocolate.pop();
+                    break;
+                case 'Mora':
+                    stackMora.pop();
+                    break;
+                default:
+                    break;
+            }
+            stackFresa.displayStack();
+            stackChocolate.displayStack();
+            stackMora.displayStack();
+            alert(`Pedido servido: ${order}`);
+        } else {
+            alert('No hay pedidos en espera.');
+        }
+    }
+
+    // Inicialización
+    setInterval(simulateArrival, 3000); // Simular llegada cada 3 segundos
+</script>
+
+</body>
+</html>

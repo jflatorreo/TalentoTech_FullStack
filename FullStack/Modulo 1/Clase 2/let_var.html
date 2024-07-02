@@ -8,14 +8,16 @@
 <body>
 <div >
     <p id="resultado"></p><p id="resultado2"></p>
+
 </div>
 <script>
 
-    if(true){
-        var  x= 10;
-    }
-    //....
-    console.log(x);
+    document.getElementById('resultado2').innerHTML="Este es el mensaje"+" esto ya 'no' hace parte del mensaje";
+    document.getElementById('resultado').innerHTML="<p style='color:red'>Hola</p>"
+    let nombre="'Julian'"
+    document.getElementById('resultado').innerHTML=`<p style='color:red'>Hola ${nombre}</p>`
+
+
 
 </script>
 </body>

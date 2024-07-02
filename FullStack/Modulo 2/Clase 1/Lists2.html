@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos Interactivos de Listas Enlazadas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .list {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .node {
+            display: inline-block;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            position: relative;
+        }
+        .arrow {
+            display: inline-block;
+            width: 30px;
+            height: 2px;
+            background-color: #000;
+            position: relative;
+            top: -10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="section">
+    <h2>Ejemplo Interactivo de Listas Enlazadas</h2>
+
+    <div class="section">
+        <h3>Listas Simplemente Enlazadas: Recorrer y Buscar</h3>
+        <div class="list" id="singlyList">
+            Lista Simplemente Enlazada:
+        </div>
+        <input type="number" id="singlyValue" placeholder="Nuevo Valor">
+        <button onclick="insertSingly()">Insertar</button>
+        <input type="number" id="singlySearchValue" placeholder="Buscar Valor">
+        <button onclick="searchSingly()">Buscar</button>
+        <div id="singlySearchOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+        <h3>Listas Doblemente Enlazadas: Navegación Bidireccional</h3>
+        <div class="list" id="doublyList">
+            Lista Doblemente Enlazada:
+        </div>
+        <input type="number" id="doublyValue" placeholder="Nuevo Valor">
+        <button onclick="insertDoubly()">Insertar</button>
+        <button onclick="navigateDoubly('prev')">←</button>
+        <button onclick="navigateDoubly('next')">→</button>
+        <div id="doublyNavigationOutput" class="output"></div>
+    </div>
+
+    <div class="section">
+        <h3>Listas Circularmente Enlazadas: Ciclo Continuo</h3>
+        <div class="list" id="circularList">
+            Lista Circularmente Enlazada:
+        </div>
+        <input type="number" id="circularValue" placeholder="Nuevo Valor">
+        <button onclick="insertCircular()">Insertar</button>
+        <button onclick="cycleCircular()">Recorrer Ciclo</button>
+        <div id="circularCycleOutput" class="output"></div>
+    </div>
+
+</div>
+
+<script>
+    // Definición de un nodo para lista simplemente enlazada
+    class Node {
+        constructor(data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Definición de lista simplemente enlazada
+    class SinglyLinkedList {
+        constructor() {
+            this.head = null;
+        }
+
+        // Método para insertar un nuevo nodo al final de la lista
+        insertLast(data) {
+            let newNode = new Node(data);
+            if (!this.head) {
+                this.head = newNode;
+            } else {
+                let current = this.head;
+                while (current.next !== null) {
+                    current = current.next;
+                }
+                current.next = newNode;
+            }
+            this.display();
+        }
+
+        // Método para buscar un nodo por su valor
+        search(data) {
+            let current = this.head;
+            while (current !== null) {
+                if (current.data === data) {
+                    return true;
+                }
+                current = current.next;
+            }
+            return false;
+        }
+
+        // Método para mostrar la lista en el DOM
+        display() {
+            let current = this.head;
+            let listContainer = document.getElementById('singlyList');
+            listContainer.innerHTML = 'Lista Simplemente Enlazada: ';
+            while (current !== null) {
+                listContainer.innerHTML += `<span class="node">${current.data}</span>`;
+                if (current.next !== null) {
+                    listContainer.innerHTML += '<span class="arrow"></span>';
+                }
+                current = current.next;
+            }
+        }
+    }
+
+    // Definición de un nodo para lista doblemente enlazada
+    class DoublyNode {
+        constructor(data) {
+            this.data = data;
+            this.next = null;
+            this.prev = null;
+        }
+    }
+
+    // Definición de lista doblemente enlazada
+    class DoublyLinkedList {
+        constructor() {
+            this.head = null;
+            this.tail = null;
+            this.current = null;
+        }
+
+        // Método para insertar un nuevo nodo al final de la lista
+        insertLast(data) {
+            let newNode = new DoublyNode(data);
+            if (!this.head) {
+                this.head = newNode;
+                this.tail = newNode;
+                this.current = newNode;
+            } else {
+                newNode.prev = this.tail;
+                this.tail.next = newNode;
+                this.tail = newNode;
+            }
+            this.display();
+        }
+
+        // Método para navegar en la lista
+        navigate(direction) {
+            if (direction === 'next' && this.current && this.current.next) {
+                this.current = this.current.next;
+            } else if (direction === 'prev' && this.current && this.current.prev) {
+                this.current = this.current.prev;
+            }
+            this.displayCurrent();
+        }
+
+        // Método para mostrar la lista en el DOM
+        display() {
+            let current = this.head;
+            let listContainer = document.getElementById('doublyList');
+            listContainer.innerHTML = 'Lista Doblemente Enlazada: ';
+            while (current !== null) {
+                listContainer.innerHTML += `<span class="node">${current.data}</span>`;
+                if (current.next !== null) {
+                    listContainer.innerHTML += '<span class="arrow"></span>';
+                }
+                current = current.next;
+            }
+        }
+
+        // Método para mostrar el nodo actual en el DOM
+        displayCurrent() {
+            let navigationOutput = document.getElementById('doublyNavigationOutput');
+            if (this.current) {
+                navigationOutput.innerHTML = `Nodo Actual: ${this.current.data}`;
+            } else {
+                navigationOutput.innerHTML = 'Nodo Actual: Ninguno';
+            }
+        }
+    }
+
+    // Definición de un nodo para lista circularmente enlazada
+    class CircularNode {
+        constructor(data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Definición de lista circularmente enlazada
+    class CircularLinkedList {
+        constructor() {
+            this.head = null;
+            this.current = null;
+        }
+
+        // Método para insertar un nuevo nodo al final de la lista
+        insertLast(data) {
+            let newNode = new CircularNode(data);
+            if (!this.head) {
+                this.head = newNode;
+                newNode.next = this.head;
+                this.current = newNode;
+            } else {
+                let current = this.head;
+                while (current.next !== this.head) {
+                    current = current.next;
+                }
+                current.next = newNode;
+                newNode.next = this.head;
+            }
+            this.display();
+        }
+
+        // Método para recorrer el ciclo
+        cycle() {
+            if (this.current && this.current.next) {
+                this.current = this.current.next;
+            }
+            this.displayCurrent();
+        }
+
+        // Método para mostrar la lista en el DOM
+        display() {
+            let current = this.head;
+            let listContainer = document.getElementById('circularList');
+            listContainer.innerHTML = 'Lista Circularmente Enlazada: ';
+            if (!current) {
+                return;
+            }
+            do {
+                listContainer.innerHTML += `<span class="node">${current.data}</span>`;
+                if (current.next !== this.head) {
+                    listContainer.innerHTML += '<span class="arrow"></span>';
+                }
+                current = current.next;
+            } while (current !== this.head);
+            listContainer.innerHTML += '<span class="arrow"></span>(head)';
+        }
+
+        // Método para mostrar el nodo actual en el DOM
+        displayCurrent() {
+            let cycleOutput = document.getElementById('circularCycleOutput');
+            if (this.current) {
+                cycleOutput.innerHTML = `Nodo Actual: ${this.current.data}`;
+            } else {
+                cycleOutput.innerHTML = 'Nodo Actual: Ninguno';
+            }
+        }
+    }
+
+    // Crear instancias de cada tipo de lista
+    let singlyList = new SinglyLinkedList();
+    let doublyList = new DoublyLinkedList();
+    let circularList = new CircularLinkedList();
+
+    // Funciones para interactuar con lista simplemente enlazada
+    function insertSingly() {
+        let value = parseInt(document.getElementById('singlyValue').value);
+        if (!isNaN(value)) {
+            singlyList.insertLast(value);
+        }
+    }
+
+    function searchSingly() {
+        let value = parseInt(document.getElementById('singlySearchValue').value);
+        if (!isNaN(value)) {
+            let found = singlyList.search(value);
+            document.getElementById('singlySearchOutput').innerHTML = `Valor ${value} ${found ? 'encontrado' : 'no encontrado'} en la lista simplemente enlazada.`;
+        }
+    }
+
+    // Funciones para interactuar con lista doblemente enlazada
+    function insertDoubly() {
+        let value = parseInt(document.getElementById('doublyValue').value);
+        if (!isNaN(value)) {
+            doublyList.insertLast(value);
+        }
+    }
+
+    function navigateDoubly(direction) {
+        doublyList.navigate(direction);
+    }
+
+    // Funciones para interactuar con lista circularmente enlazada
+    function insertCircular() {
+        let value = parseInt(document.getElementById('circularValue').value);
+        if (!isNaN(value)) {
+            circularList.insertLast(value);
+        }
+    }
+
+    function cycleCircular() {
+        circularList.cycle();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Expresiones Infijo usando Pilas</title>
+    <style>
+        .section {
+            margin-bottom: 20px;
+        }
+        .output {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Evaluación de Expresiones Infijo usando Pilas</h2>
+    <input type="text" id="expressionInput" placeholder="Ingrese la expresión infix">
+    <button onclick="evaluateExpression()">Evaluar Expresión</button>
+    <div class="output" id="expressionOutput"></div>
+</div>
+
+<script>
+    function evaluateExpression() {
+        let expression = document.getElementById('expressionInput').value;
+        let result = evaluate(expression);
+        document.getElementById('expressionOutput').innerHTML = `Resultado: ${result}`;
+    }
+
+    function evaluate(expression) {
+        let stack = [];
+        let operators = {
+            '+': (a, b) => a + b,
+            '-': (a, b) => a - b,
+            '*': (a, b) => a * b,
+            '/': (a, b) => a / b
+        };
+
+        let precedence = {
+            '+': 1,
+            '-': 1,
+            '*': 2,
+            '/': 2
+        };
+
+        let outputQueue = [];
+        let operatorsStack = [];
+
+        let tokens = expression.split(/([\+\-\*\/\(\)])/).map(token => token.trim()).filter(token => token.length > 0);
+
+        tokens.forEach(token => {
+            if (!isNaN(parseFloat(token))) {
+                outputQueue.push(parseFloat(token));
+            } else if (token in operators) {
+                while (operatorsStack.length > 0 && precedence[operatorsStack[operatorsStack.length - 1]] >= precedence[token]) {
+                    outputQueue.push(operatorsStack.pop());
+                }
+                operatorsStack.push(token);
+            } else if (token === '(') {
+                operatorsStack.push(token);
+            } else if (token === ')') {
+                while (operatorsStack[operatorsStack.length - 1] !== '(') {
+                    outputQueue.push(operatorsStack.pop());
+                }
+                operatorsStack.pop();
+            }
+        });
+
+        while (operatorsStack.length > 0) {
+            outputQueue.push(operatorsStack.pop());
+        }
+
+        outputQueue.forEach(token => {
+            if (!isNaN(token)) {
+                stack.push(token);
+            } else {
+                let operand2 = stack.pop();
+                let operand1 = stack.pop();
+                let result = operators[token](operand1, operand2);
+                stack.push(result);
+            }
+        });
+
+        return stack.pop();
+    }
+</script>
+
+</body>
+</html>

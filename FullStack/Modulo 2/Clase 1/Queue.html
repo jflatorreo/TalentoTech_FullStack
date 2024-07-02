@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Cola en JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .output {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Ejemplo de Cola en JavaScript</h2>
+    <button onclick="enqueueTask()">Encolar Tarea</button>
+    <button onclick="dequeueTask()">Desencolar Tarea</button>
+    <button onclick="peekTask()">Ver Tarea al Frente</button>
+    <button onclick="checkEmpty()">Verificar si está Vacía</button>
+    <div class="output" id="queueOutput"></div>
+</div>
+
+<script>
+    class Queue {
+        constructor() {
+            this.items = [];
+        }
+
+        enqueue(element) {
+            this.items.push(element);
+            this.displayQueue();
+        }
+
+        dequeue() {
+            if (this.isEmpty()) {
+                return "La cola está vacía.";
+            }
+            return this.items.shift();
+        }
+
+        peek() {
+            if (this.isEmpty()) {
+                return "La cola está vacía.";
+            }
+            return this.items[0];
+        }
+
+        isEmpty() {
+            return this.items.length === 0;
+        }
+
+        displayQueue() {
+            let queueContent = "Cola Actual: ";
+            if (this.isEmpty()) {
+                queueContent += "Vacía";
+            } else {
+                queueContent += this.items.join(" | ");
+            }
+            document.getElementById('queueOutput').innerHTML = queueContent;
+        }
+    }
+
+    let queue = new Queue();
+
+    function enqueueTask() {
+        let task = prompt("Ingrese una tarea:");
+        if (task) {
+            queue.enqueue(task);
+        }
+    }
+
+    function dequeueTask() {
+        let dequeuedTask = queue.dequeue();
+        alert(dequeuedTask);
+        queue.displayQueue();
+    }
+
+    function peekTask() {
+        let frontTask = queue.peek();
+        alert(frontTask);
+        queue.displayQueue();
+    }
+
+    function checkEmpty() {
+        let isEmpty = queue.isEmpty();
+        alert(`La cola está vacía: ${isEmpty}`);
+    }
+</script>
+
+</body>
+</html>

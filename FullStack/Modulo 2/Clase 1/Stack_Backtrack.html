@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Backtracking usando Pilas</title>
+    <style>
+        .section {
+            margin-bottom: 20px;
+        }
+        .output {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="section">
+    <h2>Algoritmo de Backtracking usando Pilas</h2>
+    <button onclick="runBacktracking()">Ejecutar Backtracking</button>
+    <div class="output" id="backtrackingOutput"></div>
+</div>
+
+<script>
+    let solutionFound = false;
+    let stack = [];
+
+    function runBacktracking() {
+        stack = [];
+        solutionFound = false;
+        backtrack("");
+    }
+
+    function backtrack(candidate) {
+        if (isSolution(candidate)) {
+            solutionFound = true;
+            document.getElementById('backtrackingOutput').innerHTML += `<p>Solución encontrada: ${candidate}</p>`;
+            return;
+        }
+
+        let nextCandidates = generateCandidates(candidate);
+        nextCandidates.forEach(next => {
+            stack.push(next);
+            backtrack(next);
+            if (solutionFound) {
+                return;
+            }
+            stack.pop();
+        });
+    }
+
+    function isSolution(candidate) {
+        return candidate.length === 3; // Ejemplo simple: solución si la longitud es 3
+    }
+
+    function generateCandidates(candidate) {
+        let candidates = [];
+        for (let i = 1; i <= 3; i++) {
+            candidates.push(candidate + i);
+        }
+        return candidates;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de Arrays en JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .code {
+            margin-bottom: 10px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            overflow-x: auto;
+            width: 99%;
+        }
+        textarea {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width:99%;
+            height: 200px;
+        }
+        .output {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script>
+        function executeExample(exampleId, outputId) {
+            let codeElement = document.getElementById(exampleId).querySelector('textarea');
+            let outputElement = document.getElementById(outputId);
+            outputElement.innerHTML = ''; // Limpiar el contenido anterior
+
+            try {
+                // Evaluar el código JavaScript
+                eval(codeElement.value);
+            } catch (error) {
+                // Capturar errores y mostrarlos en la salida
+                outputElement.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</head>
+<body>
+
+
+<div class="section">
+    <h2>Ejemplo 0: Declaración e inicialización</h2>
+    <div class="code" id="code-declare">
+    <pre><textarea>
+// Declaración de un array vacío
+let array1 = [];
+
+// Declaración e inicialización de un array con valores
+let array2 = [1, 2, 3, 4, 5];
+
+// Declaración de un array utilizando el constructor Array
+let array3 = new Array(10); // Array con 10 elementos vacíos
+let array4 = new Array(1, 2, 3, 4, 5); // Array con valores específicos
+
+// Ejemplo de array heterogéneo en JavaScript
+let array5 = [1, "hello", true, {name: "John"}, [2, 3, 4]];
+
+document.getElementById('output-declare').innerHTML = `Array 1: ${array1.join(', ')}`;
+document.getElementById('output-declare').innerHTML += `<br>Array 2: ${array2.join(', ')}`;
+document.getElementById('output-declare').innerHTML += `<br>Array 3: ${array3.join(', ')}`;
+document.getElementById('output-declare').innerHTML += `<br>Array 4: ${array4.join(', ')}`;
+document.getElementById('output-declare').innerHTML += `<br>Array 5: ${array5.join(', ')}`;
+
+            </textarea></pre>
+    </div>
+    <button onclick="executeExample('code-declare', 'output-declare')">Ejecutar Código</button>
+    <div class="output" id="output-declare"></div>
+</div>
+
+</textarea></pre>
+    </div>
+    <button onclick="executeExample('code-access', 'output-access')">Ejecutar Código</button>
+    <div class="output" id="output-access"></div>
+</div>
+
+<div class="section">
+    <h2>Ejemplo 2: Inserción de Elementos</h2>
+    <div class="code" id="code-insertion">
+    <pre><textarea>
+let array = [10, 20, 30, 40, 50];
+
+// Insertar al final del array
+array.push(60); // [10, 20, 30, 40, 50, 60]
+document.getElementById('output-insertion').innerHTML += `Array después de insertar(push): ${array.join(', ')}`;
+
+// Insertar al principio del array
+array.unshift(0); // [0, 10, 20, 30, 40, 50, 60]
+document.getElementById('output-insertion').innerHTML += `<br><br>Array después de insertar(unshift): ${array.join(', ')}`;
+
+// Insertar en una posición específica
+array.splice(3, 0, 25); // [0, 10, 20, 25, 30, 40, 50, 60]
+
+document.getElementById('output-insertion').innerHTML += `<br><br>Array después de insertar(splice): ${array.join(', ')}`;
+    </textarea></pre>
+    </div>
+    <button onclick="executeExample('code-insertion', 'output-insertion')">Ejecutar Código</button>
+    <div class="output" id="output-insertion"></div>
+</div>
+
+<div class="section">
+    <h2>Ejemplo 3: Eliminación de Elementos</h2>
+    <div class="code" id="code-deletion">
+    <pre><textarea>
+let array = [10, 20, 30, 40, 50];
+
+// Eliminar el último elemento
+array.pop(); // [10, 20, 30, 40]
+document.getElementById('output-deletion').innerHTML = `Array después de eliminar el último elemento: ${array.join(', ')}`;
+
+// Eliminar el primer elemento
+array.shift(); // [20, 30, 40, 50]
+document.getElementById('output-deletion').innerHTML += `<br><br>Array después de eliminar el primer elemento: ${array.join(', ')}`;
+
+// Eliminar un elemento en una posición específica
+array.splice(1, 1); // [20, 40, 50] (elimina el elemento en el índice 1)
+
+//document.getElementById('output-deletion').innerHTML += `<br><br>Array después de eliminar un elemento especifico: ${array.join(', ')}`;
+    </textarea></pre>
+    </div>
+    <button onclick="executeExample('code-deletion', 'output-deletion')">Ejecutar Código</button>
+    <div class="output" id="output-deletion"></div>
+</div>
+
+<div class="section">
+    <h2>Ejemplo 4: Actualización de Elementos</h2>
+    <div class="code" id="code-update">
+    <pre><textarea>
+let array = [10, 20, 30, 40, 50];
+array[2] = 35;
+document.getElementById('output-update').innerHTML = `<br><br>Array después de actualizar el elemento en posición 2: ${array.join(', ')}`;
+
+    </textarea></pre>
+    </div>
+    <button onclick="executeExample('code-update', 'output-update')">Ejecutar Código</button>
+    <div class="output" id="output-update"></div>
+</div>
+
+<div class="section">
+    <h2>Ejemplo 5: Arrays Multidimensionales</h2>
+    <div class="code" id="code-multidimensional">
+    <pre><textarea>
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+];
+let element = matrix[1][2];
+document.getElementById('output-multidimensional').textContent = `Elemento en la posición [1][2]: ${element}`;
+    </textarea></pre>
+    </div>
+    <button onclick="executeExample('code-multidimensional', 'output-multidimensional')">Ejecutar Código</button>
+    <div class="output" id="output-multidimensional"></div>
+</div>
+<div class="section">
+    <h2>Ejemplo 6: Búsqueda de Elementos</h2>
+    <div class="code" id="code-search">
+    <pre><textarea>
+    let array = [10, 20, 30, 40, 50];
+
+    // Encontrar el índice de un elemento
+    let index = array.indexOf(30); // Devuelve 2
+        document.getElementById('output-search').innerHTML = `array.indexOf(30): ${index}`;
+
+
+    // Comprobar si un elemento está en el array
+    let exists = array.includes(40); // Devuelve true
+        document.getElementById('output-search').innerHTML += `<br><br>array.includes(40): ${exists}`;
+
+</textarea></pre>
+    </div>
+    <button onclick="executeExample('code-search', 'output-search')">Ejecutar Código</button>
+    <div class="output" id="output-search"></div>
+</div>
+
+</body>
+</html>
