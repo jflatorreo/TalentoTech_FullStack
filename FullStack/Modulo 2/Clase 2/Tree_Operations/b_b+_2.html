@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árboles B y B+</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .tree-container {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        .info-panel {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Árboles B y B+</h1>
+
+    <h2>Árbol B</h2>
+    <div id="b-tree" class="tree-container"></div>
+    <div id="b-tree-info" class="info-panel"></div>
+    <button onclick="insertBTree()">Insertar</button>
+    <button onclick="deleteBTree()">Eliminar</button>
+
+    <h2>Árbol B+</h2>
+    <div id="b-plus-tree" class="tree-container"></div>
+    <div id="b-plus-tree-info" class="info-panel"></div>
+    <button onclick="insertBPlusTree()">Insertar</button>
+    <button onclick="deleteBPlusTree()">Eliminar</button>
+</div>
+
+<script>
+    class BTreeNode {
+        constructor(leaf = false) {
+            this.keys = [];
+            this.children = [];
+            this.leaf = leaf;
+        }
+    }
+
+    class BTree {
+        constructor(t) {
+            this.root = new BTreeNode(true);
+            this.t = t; // Minimum degree
+        }
+
+        insert(k) {
+            let r = this.root;
+            if (r.keys.length === 2 * this.t - 1) {
+                let s = new BTreeNode();
+                this.root = s;
+                s.children.push(r);
+                this.splitChild(s, 0);
+                this.insertNonFull(s, k);
+            } else {
+                this.insertNonFull(r, k);
+            }
+        }
+
+        insertNonFull(x, k) {
+            let i = x.keys.length - 1;
+            if (x.leaf) {
+                x.keys.push(0);
+                while (i >= 0 && k < x.keys[i]) {
+                    x.keys[i + 1] = x.keys[i];
+                    i--;
+                }
+                x.keys[i + 1] = k;
+            } else {
+                while (i >= 0 && k < x.keys[i]) {
+                    i--;
+                }
+                i++;
+                if (x.children[i].keys.length === 2 * this.t - 1) {
+                    this.splitChild(x, i);
+                    if (k > x.keys[i]) {
+                        i++;
+                    }
+                }
+                this.insertNonFull(x.children[i], k);
+            }
+        }
+
+        splitChild(x, i) {
+            let t = this.t;
+            let y = x.children[i];
+            let z = new BTreeNode(y.leaf);
+            x.children.splice(i + 1, 0, z);
+            x.keys.splice(i, 0, y.keys[t - 1]);
+            z.keys = y.keys.splice(t, t - 1);
+            if (!y.leaf) {
+                z.children = y.children.splice(t, t);
+            }
+        }
+
+        delete(k) {
+            this.deleteKey(this.root, k);
+            if (this.root.keys.length === 0 && !this.root.leaf) {
+                this.root = this.root.children[0];
+            }
+        }
+
+        deleteKey(x, k) {
+            let i = this.findKey(x, k);
+            if (i < x.keys.length && x.keys[i] === k) {
+                if (x.leaf) {
+                    x.keys.splice(i, 1);
+                } else {
+                    this.deleteInternal(x, k, i);
+                }
+            } else {
+                if (x.leaf) {
+                    return;
+                }
+                let flag = (i === x.keys.length);
+                if (x.children[i].keys.length < this.t) {
+                    this.fill(x, i);
+                }
+                if (flag && i > x.keys.length) {
+                    this.deleteKey(x.children[i - 1], k);
+                } else {
+                    this.deleteKey(x.children[i], k);
+                }
+            }
+        }
+
+        deleteInternal(x, k, i) {
+            if (x.children[i].keys.length >= this.t) {
+                let pred = this.getPred(x, i);
+                x.keys[i] = pred;
+                this.deleteKey(x.children[i], pred);
+            } else if (x.children[i + 1].keys.length >= this.t) {
+                let succ = this.getSucc(x, i);
+                x.keys[i] = succ;
+                this.deleteKey(x.children[i + 1], succ);
+            } else {
+                this.merge(x, i);
+                this.deleteKey(x.children[i], k);
+            }
+        }
+
+        getPred(x, i) {
+            let cur = x.children[i];
+            while (!cur.leaf) {
+                cur = cur.children[cur.children.length - 1];
+            }
+            return cur.keys[cur.keys.length - 1];
+        }
+
+        getSucc(x, i) {
+            let cur = x.children[i + 1];
+            while (!cur.leaf) {
+                cur = cur.children[0];
+            }
+            return cur.keys[0];
+        }
+
+        fill(x, i) {
+            if (i !== 0 && x.children[i - 1].keys.length >= this.t) {
+                this.borrowFromPrev(x, i);
+            } else if (i !== x.keys.length && x.children[i + 1].keys.length >= this.t) {
+                this.borrowFromNext(x, i);
+            } else {
+                if (i !== x.keys.length) {
+                    this.merge(x, i);
+                } else {
+                    this.merge(x, i - 1);
+                }
+            }
+        }
+
+        borrowFromPrev(x, i) {
+            let child = x.children[i];
+            let sibling = x.children[i - 1];
+            child.keys.unshift(x.keys[i - 1]);
+            if (!child.leaf) {
+                child.children.unshift(sibling.children.pop());
+            }
+            x.keys[i - 1] = sibling.keys.pop();
+        }
+
+        borrowFromNext(x, i) {
+            let child = x.children[i];
+            let sibling = x.children[i + 1];
+            child.keys.push(x.keys[i]);
+            if (!child.leaf) {
+                child.children.push(sibling.children.shift());
+            }
+            x.keys[i] = sibling.keys.shift();
+        }
+
+        merge(x, i) {
+            let child = x.children[i];
+            let sibling = x.children[i + 1];
+            child.keys.push(x.keys[i]);
+            for (let j = 0; j < sibling.keys.length; j++) {
+                child.keys.push(sibling.keys[j]);
+            }
+            if (!child.leaf) {
+                for (let j = 0; j < sibling.children.length; j++) {
+                    child.children.push(sibling.children[j]);
+                }
+            }
+            x.keys.splice(i, 1);
+            x.children.splice(i + 1, 1);
+        }
+
+        findKey(x, k) {
+            let i = 0;
+            while (i < x.keys.length && k > x.keys[i]) {
+                i++;
+            }
+            return i;
+        }
+    }
+
+    class BPlusTreeNode {
+        constructor(leaf = false) {
+            this.keys = [];
+            this.children = [];
+            this.leaf = leaf;
+            this.next = null;
+        }
+    }
+
+    class BPlusTree {
+        constructor(t) {
+            this.root = new BPlusTreeNode(true);
+            this.t = t; // Minimum degree
+        }
+
+        insert(k) {
+            if (this.root.keys.length === 2 * this.t - 1) {
+                let newRoot = new BPlusTreeNode();
+                newRoot.children.push(this.root);
+                this.splitChild(newRoot, 0);
+                this.root = newRoot;
+            }
+            this.insertNonFull(this.root, k);
+        }
+
+        insertNonFull(x, k) {
+            let i = x.keys.length - 1;
+            if (x.leaf) {
+                x.keys.push(0);
+                while (i >= 0 && k < x.keys[i]) {
+                    x.keys[i + 1] = x.keys[i];
+                    i--;
+                }
+                x.keys[i + 1] = k;
+            } else {
+                while (i >= 0 && k < x.keys[i]) {
+                    i--;
+                }
+                i++;
+                if (x.children[i].keys.length === 2 * this.t - 1) {
+                    this.splitChild(x, i);
+                    if (k > x.keys[i]) {
+                        i++;
+                    }
+                }
+                this.insertNonFull(x.children[i], k);
+            }
+        }
+
+        splitChild(x, i) {
+            let y = x.children[i];
+            let z = new BPlusTreeNode(y.leaf);
+            x.children.splice(i + 1, 0, z);
+            x.keys.splice(i, 0, y.keys[this.t - 1]);
+            z.keys = y.keys.splice(this.t - 1);
+            if (!y.leaf) {
+                z.children = y.children.splice(this.t);
+            } else {
+                z.next = y.next;
+                y.next = z;
+            }
+        }
+
+        delete(k) {
+            this.deleteKey(this.root, k);
+            if (this.root.keys.length === 0 && !this.root.leaf) {
+                this.root = this.root.children[0];
+            }
+        }
+
+        deleteKey(x, k) {
+            let i = this.findKey(x, k);
+            if (x.leaf) {
+                if (i < x.keys.length && x.keys[i] === k) {
+                    x.keys.splice(i, 1);
+                }
+            } else {
+                if (i < x.keys.length && x.keys[i] === k) {
+                    this.deleteInternal(x, k, i);
+                } else {
+                    if (x.children[i].keys.length < this.t) {
+                        this.fill(x, i);
+                    }
+                    if (i > x.keys.length) {
+                        this.deleteKey(x.children[i - 1], k);
+                    } else {
+                        this.deleteKey(x.children[i], k);
+                    }
+                }
+            }
+        }
+
+        deleteInternal(x, k, i) {
+            if (x.children[i].keys.length >= this.t) {
+                let pred = this.getPred(x, i);
+                x.keys[i] = pred;
+                this.deleteKey(x.children[i], pred);
+            } else if (x.children[i + 1].keys.length >= this.t) {
+                let succ = this.getSucc(x, i);
+                x.keys[i] = succ;
+                this.deleteKey(x.children[i + 1], succ);
+            } else {
+                this.merge(x, i);
+                this.deleteKey(x.children[i], k);
+            }
+        }
+
+        getPred(x, i) {
+            let cur = x.children[i];
+            while (!cur.leaf) {
+                cur = cur.children[cur.children.length - 1];
+            }
+            return cur.keys[cur.keys.length - 1];
+        }
+
+        getSucc(x, i) {
+            let cur = x.children[i + 1];
+            while (!cur.leaf) {
+                cur = cur.children[0];
+            }
+            return cur.keys[0];
+        }
+
+        fill(x, i) {
+            if (i !== 0 && x.children[i - 1].keys.length >= this.t) {
+                this.borrowFromPrev(x, i);
+            } else if (i !== x.keys.length && x.children[i + 1].keys.length >= this.t) {
+                this.borrowFromNext(x, i);
+            } else {
+                if (i !== x.keys.length) {
+                    this.merge(x, i);
+                } else {
+                    this.merge(x, i - 1);
+                }
+            }
+        }
+
+        borrowFromPrev(x, i) {
+            let child = x.children[i];
+            let sibling = x.children[i - 1];
+            child.keys.unshift(x.keys[i - 1]);
+            x.keys[i - 1] = sibling.keys.pop();
+            if (!child.leaf) {
+                child.children.unshift(sibling.children.pop());
+            }
+        }
+
+        borrowFromNext(x, i) {
+            let child = x.children[i];
+            let sibling = x.children[i + 1];
+            child.keys.push(x.keys[i]);
+            x.keys[i] = sibling.keys.shift();
+            if (!child.leaf) {
+                child.children.push(sibling.children.shift());
+            }
+        }
+
+        merge(x, i) {
+            let child = x.children[i];
+            let sibling = x.children[i + 1];
+            child.keys.push(x.keys[i]);
+            for (let j = 0; j < sibling.keys.length; j++) {
+                child.keys.push(sibling.keys[j]);
+            }
+            if (!child.leaf) {
+                for (let j = 0; j < sibling.children.length; j++) {
+                    child.children.push(sibling.children[j]);
+                }
+            } else {
+                child.next = sibling.next;
+            }
+            x.keys.splice(i, 1);
+            x.children.splice(i + 1, 1);
+        }
+
+        findKey(x, k) {
+            let i = 0;
+            while (i < x.keys.length && k > x.keys[i]) {
+                i++;
+            }
+            return i;
+        }
+    }
+
+    let bTree = new BTree(3);
+    let bPlusTree = new BPlusTree(3);
+
+    function updateTree(tree, containerId) {
+        const container = document.getElementById(containerId);
+        const nodes = [];
+        const edges = [];
+
+        function traverseTree(node, parentId = null, level = 0) {
+            const nodeId = nodes.length;
+            nodes.push({
+                id: nodeId,
+                label: node.keys.join(", "),
+                level: level,
+                color: node.leaf ? '#D2E5FF' : '#97C2FC'
+            });
+
+            if (parentId !== null) {
+                edges.push({from: parentId, to: nodeId});
+            }
+
+            if (!node.leaf) {
+                for (let i = 0; i < node.children.length; i++) {
+                    traverseTree(node.children[i], nodeId, level + 1);
+                }
+            }
+
+            return nodeId;
+        }
+
+        traverseTree(tree.root);
+
+        const data = {
+            nodes: new vis.DataSet(nodes),
+            edges: new vis.DataSet(edges)
+        };
+
+        const options = {
+            layout: {
+                hierarchical: {
+                    direction: 'UD',
+                    sortMethod: 'directed',
+                    levelSeparation: 100,
+                    nodeSpacing: 150
+                }
+            },
+            nodes: {
+                shape: 'box',
+                font: {
+                    size: 14
+                }
+            },
+            edges: {
+                smooth: {
+                    type: 'cubicBezier',
+                    forceDirection: 'vertical',
+                    roundness: 0.4
+                }
+            },
+            physics: false
+        };
+
+        new vis.Network(container, data, options);
+    }
+
+    function insertBTree() {
+        const value = Math.floor(Math.random() * 100);
+        bTree.insert(value);
+        updateTree(bTree, "b-tree");
+        document.getElementById("b-tree-info").innerHTML = `Inserted ${value} into B-Tree`;
+    }
+
+    function deleteBTree() {
+        if (bTree.root.keys.length > 0) {
+            const value = bTree.root.keys[Math.floor(Math.random() * bTree.root.keys.length)];
+            bTree.delete(value);
+            updateTree(bTree, "b-tree");
+            document.getElementById("b-tree-info").innerHTML = `Deleted ${value} from B-Tree`;
+        } else {
+            document.getElementById("b-tree-info").innerHTML = "B-Tree is empty";
+        }
+    }
+
+    function insertBPlusTree() {
+        const value = Math.floor(Math.random() * 100);
+        bPlusTree.insert(value);
+        updateTree(bPlusTree, "b-plus-tree");
+        document.getElementById("b-plus-tree-info").innerHTML = `Inserted ${value} into B+ Tree`;
+    }
+
+    function deleteBPlusTree() {
+        if (bPlusTree.root.keys.length > 0) {
+            const value = bPlusTree.root.keys[Math.floor(Math.random() * bPlusTree.root.keys.length)];
+            bPlusTree.delete(value);
+            updateTree(bPlusTree, "b-plus-tree");
+            document.getElementById("b-plus-tree-info").innerHTML = `Deleted ${value} from B+ Tree`;
+        } else {
+            document.getElementById("b-plus-tree-info").innerHTML = "B+ Tree is empty";
+        }
+    }
+
+    // Inicializar los árboles
+    updateTree(bTree, "b-tree");
+    updateTree(bPlusTree, "b-plus-tree");
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotación a la Derecha en Árbol AVL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #tree-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            background-color: white;
+            position: relative;
+        }
+        #tree {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .node {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.5s ease;
+        }
+        .edge {
+            position: absolute;
+            background-color: #333;
+            height: 2px;
+            transform-origin: 0 50%;
+            transition: all 0.5s ease;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #explanation {
+            width: 100%;
+            max-width: 600px;
+            height: 150px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: white;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="tree-container">
+        <div id="tree"></div>
+    </div>
+    <button onclick="animateRotation()">Realizar Rotación a la Derecha</button>
+    <div id="explanation"></div>
+</div>
+
+<script>
+    class TreeNode {
+        constructor(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+            this.height = 1;
+        }
+    }
+
+    let root = new TreeNode(50);
+    root.left = new TreeNode(30);
+    root.left.left = new TreeNode(20);
+    root.left.right = new TreeNode(40);
+    root.right = new TreeNode(70);
+    root.left.left.left = new TreeNode(10);
+
+    function createTreeDOM(node, parentDiv, x = 0, y = 0, level = 0) {
+        if (node === null) return;
+
+        const nodeDiv = document.createElement('div');
+        nodeDiv.className = 'node';
+        nodeDiv.textContent = node.value;
+        nodeDiv.id = `node-${node.value}`;
+        nodeDiv.style.left = `${x}px`;
+        nodeDiv.style.top = `${y}px`;
+        parentDiv.appendChild(nodeDiv);
+
+        const horizontalSpacing = 100;
+        const verticalSpacing = 60;
+
+        if (node.left) {
+            createTreeDOM(node.left, parentDiv, x - horizontalSpacing / (level + 1), y + verticalSpacing, level + 1);
+            createEdge(nodeDiv, `node-${node.left.value}`);
+        }
+
+        if (node.right) {
+            createTreeDOM(node.right, parentDiv, x + horizontalSpacing / (level + 1), y + verticalSpacing, level + 1);
+            createEdge(nodeDiv, `node-${node.right.value}`);
+        }
+    }
+
+    function createEdge(parentNode, childNodeId) {
+        const childNode = document.getElementById(childNodeId);
+        const edge = document.createElement('div');
+        edge.className = 'edge';
+
+        const parentRect = parentNode.getBoundingClientRect();
+        const childRect = childNode.getBoundingClientRect();
+
+        const deltaX = childRect.left - parentRect.left;
+        const deltaY = childRect.top - parentRect.top;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const angle = Math.atan2(deltaY, deltaX);
+
+        edge.style.width = `${distance}px`;
+        edge.style.left = `${parentRect.width / 2}px`;
+        edge.style.top = `${parentRect.height / 2}px`;
+        edge.style.transform = `rotate(${angle}rad)`;
+
+        parentNode.appendChild(edge);
+    }
+
+    function drawTree() {
+        const treeContainer = document.getElementById('tree');
+        treeContainer.innerHTML = '';
+        createTreeDOM(root, treeContainer, 0, 0);
+    }
+
+    drawTree();
+
+    function rotateRight(node) {
+        const newRoot = node.left;
+        node.left = newRoot.right;
+        newRoot.right = node;
+        updateHeight(node);
+        updateHeight(newRoot);
+        return newRoot;
+    }
+
+    function updateHeight(node) {
+        if (node === null) return 0;
+        node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
+    }
+
+    function getHeight(node) {
+        return node ? node.height : 0;
+    }
+
+    function getBalanceFactor(node) {
+        return getHeight(node.left) - getHeight(node.right);
+    }
+
+    function explain(text) {
+        const explanation = document.getElementById('explanation');
+        explanation.innerHTML += text + '<br><br>';
+        explanation.scrollTop = explanation.scrollHeight;
+    }
+
+    async function animateRotation() {
+        const node50 = document.getElementById('node-50');
+        const node30 = document.getElementById('node-30');
+        const node20 = document.getElementById('node-20');
+        const node40 = document.getElementById('node-40');
+        const node70 = document.getElementById('node-70');
+        const node10 = document.getElementById('node-10');
+
+        document.getElementById('explanation').innerHTML = '';
+
+        explain("Iniciando rotación a la derecha:");
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 1: Identificamos el nodo 50 como la raíz actual y el nodo 30 como su hijo izquierdo.");
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 2: El nodo 30 se convertirá en la nueva raíz. Movemos el nodo 50 hacia abajo y a la derecha.");
+        node50.style.top = `${parseInt(node50.style.top) + 60}px`;
+        node50.style.left = `${parseInt(node50.style.left) + 50}px`;
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 3: Elevamos el nodo 30 a la posición de la raíz.");
+        node30.style.top = `${parseInt(node30.style.top) - 60}px`;
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 4: Ajustamos las posiciones de los nodos 20 y 40 (hijos de 30).");
+        node20.style.left = `${parseInt(node20.style.left) + 25}px`;
+        node40.style.left = `${parseInt(node40.style.left) - 25}px`;
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 5: Ajustamos la posición del nodo 70 (hijo derecho original de 50).");
+        node70.style.top = `${parseInt(node70.style.top) + 60}px`;
+        node70.style.left = `${parseInt(node70.style.left) + 50}px`;
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 6: Ajustamos la posición del nodo 10 (hijo izquierdo de 20).");
+        node10.style.left = `${parseInt(node10.style.left) + 25}px`;
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 7: Actualizamos la estructura interna del árbol.");
+        root = rotateRight(root);
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        explain("Paso 8: Redibujamos el árbol para reflejar la nueva estructura.");
+        drawTree();
+
+        explain("Rotación a la derecha completada. El nodo 30 es ahora la nueva raíz del árbol.");
+
+        const balanceFactor = getBalanceFactor(root);
+        explain(`El factor de balance de la nueva raíz es: ${balanceFactor}`);
+        if (Math.abs(balanceFactor) <= 1) {
+            explain("El árbol está balanceado después de la rotación.");
+        } else {
+            explain("El árbol no está perfectamente balanceado y podría requerir más rotaciones.");
+        }
+    }
+</script>
+</body>
+</html>

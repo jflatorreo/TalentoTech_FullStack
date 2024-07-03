@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .graph-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+        }
+        .node {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #333;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .edge {
+            position: absolute;
+            border-top: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+<div class="graph-container" id="graphContainer">
+    <!-- Nodos y aristas se dibujarán aquí -->
+</div>
+
+<script>
+    // JavaScript para dibujar el grafo y manejar eventos
+    const graph = {
+        vertices: ['A', 'B', 'C', 'D', 'E'],
+        edges: [
+            ['A', 'B'],
+            ['A', 'C'],
+            ['B', 'C'],
+            ['B', 'D'],
+            ['C', 'D'],
+            ['D', 'E'],
+            ['D', 'A'],
+            ['A', 'E']
+        ]
+    };
+
+    // Dibujar nodos y aristas
+    const graphContainer = document.getElementById('graphContainer');
+
+    // Posiciones de los nodos en el contenedor
+    const nodePositions = {
+        'A': { x: 50, y: 50 },
+        'B': { x: 250, y: 50 },
+        'C': { x: 150, y: 150 },
+        'D': { x: 350, y: 150 },
+        'E': { x: 250, y: 250 }
+    };
+
+    // Dibujar nodos
+    graph.vertices.forEach(vertex => {
+        const { x, y } = nodePositions[vertex];
+        const nodeElement = document.createElement('div');
+        nodeElement.classList.add('node');
+        nodeElement.style.left = `${x}px`;
+        nodeElement.style.top = `${y}px`;
+        nodeElement.textContent = vertex;
+        graphContainer.appendChild(nodeElement);
+    });
+
+    // Dibujar aristas
+    graph.edges.forEach(edge => {
+        const [vertex1, vertex2] = edge;
+        const startPos = nodePositions[vertex1];
+        const endPos = nodePositions[vertex2];
+
+        const edgeElement = document.createElement('div');
+        edgeElement.classList.add('edge');
+        edgeElement.style.width = `${Math.sqrt((endPos.x - startPos.x) ** 2 + (endPos.y - startPos.y) ** 2)}px`;
+        edgeElement.style.left = `${startPos.x}px`;
+        edgeElement.style.top = `${startPos.y}px`;
+        edgeElement.style.transformOrigin = 'top left';
+        edgeElement.style.transform = `rotate(${Math.atan2(endPos.y - startPos.y, endPos.x - startPos.x)}rad)`;
+        graphContainer.appendChild(edgeElement);
+    });
+</script>
+</body>
+</html>

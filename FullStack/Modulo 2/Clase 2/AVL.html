@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVL Tree</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .node {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #333;
+            border-radius: 50%;
+            background-color: #fff;
+            margin: 0 5px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>AVL Tree</h1>
+    <div id="avl" class="avl">
+        <!-- Nodes will be dynamically added here -->
+    </div>
+    <br>
+    <label for="node-value">Insert Value:</label>
+    <input type="number" id="node-value" min="1" max="100">
+    <button onclick="insertNode()">Insert</button>
+    <br><br>
+    <label for="delete-value">Delete Value:</label>
+    <input type="number" id="delete-value" min="1" max="100">
+    <button onclick="deleteNode()">Delete</button>
+</div>
+
+<script>
+    // Definición del nodo del árbol
+    class TreeNode {
+        constructor(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+            this.height = 1; // Altura inicial del nodo
+        }
+    }
+
+    // Clase AVL Tree
+    class AVLTree {
+        constructor() {
+            this.root = null;
+        }
+
+        // Método para obtener la altura de un nodo
+        getHeight(node) {
+            if (!node) return 0;
+            return node.height;
+        }
+
+        // Método para obtener el balance de un nodo
+        getBalance(node) {
+            if (!node) return 0;
+            return this.getHeight(node.left) - this.getHeight(node.right);
+        }
+
+        // Método para rotar a la derecha en el árbol AVL
+        rotateRight(y) {
+            const x = y.left;
+            const T2 = x.right;
+
+            // Realizar rotación
+            x.right = y;
+            y.left = T2;
+
+            // Actualizar alturas
+            y.height = Math.max(this.getHeight(y.left), this.getHeight(y.right)) + 1;
+            x.height = Math.max(this.getHeight(x.left), this.getHeight(x.right)) + 1;
+
+            // Devolver nueva raíz
+            return x;
+        }
+
+        // Método para rotar a la izquierda en el árbol AVL
+        rotateLeft(x) {
+            const y = x.right;
+            const T2 = y.left;
+
+            // Realizar rotación
+            y.left = x;
+            x.right = T2;
+
+            // Actualizar alturas
+            x.height = Math.max(this.getHeight(x.left), this.getHeight(x.right)) + 1;
+            y.height = Math.max(this.getHeight(y.left), this.getHeight(y.right)) + 1;
+
+            // Devolver nueva raíz
+            return y;
+        }
+
+        // Método para insertar un valor en el árbol AVL
+        insert(value) {
+            this.root = this._insertRecursive(this.root, value);
+            this.render();
+        }
+
+        _insertRecursive(node, value) {
+            // 1. Realizar la inserción estándar BST
+            if (!node) return new TreeNode(value);
+
+            if (value < node.value) {
+                node.left = this._insertRecursive(node.left, value);
+            } else if (value > node.value) {
+                node.right = this._insertRecursive(node.right, value);
+            } else {
+                // Valor duplicado no se permite en un BST
+                return node;
+            }
+
+            // 2. Actualizar la altura del nodo actual
+            node.height = 1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
+
+            // 3. Obtener el factor de equilibrio del nodo para verificar si se ha desequilibrado
+            const balance = this.getBalance(node);
+
+            // 4. Caso de desequilibrio:
+
+            // Caso Izquierda Izquierda
+            if (balance > 1 && value < node.left.value) {
+                return this.rotateRight(node);
+            }
+
+            // Caso Derecha Derecha
+            if (balance < -1 && value > node.right.value) {
+                return this.rotateLeft(node);
+            }
+
+            // Caso Izquierda Derecha
+            if (balance > 1 && value > node.left.value) {
+                node.left = this.rotateLeft(node.left);
+                return this.rotateRight(node);
+            }
+
+            // Caso Derecha Izquierda
+            if (balance < -1 && value < node.right.value) {
+                node.right = this.rotateRight(node.right);
+                return this.rotateLeft(node);
+            }
+
+            // Devolver el nodo sin cambios si no hay desequilibrio
+            return node;
+        }
+
+        // Método para eliminar un valor del árbol AVL
+        delete(value) {
+            this.root = this._deleteRecursive(this.root, value);
+            this.render();
+        }
+
+        _deleteRecursive(node, value) {
+            // 1. Realizar la eliminación estándar BST
+            if (!node) return node;
+
+            if (value < node.value) {
+                node.left = this._deleteRecursive(node.left, value);
+            } else if (value > node.value) {
+                node.right = this._deleteRecursive(node.right, value);
+            } else {
+                // Encontrado el nodo a eliminar
+
+                // Caso 1 o Caso 2: Nodo con uno o ningún hijo
+                if (!node.left || !node.right) {
+                    let temp = node.left ? node.left : node.right;
+
+                    // Caso 1: Nodo sin hijos
+                    if (!temp) {
+                        temp = node;
+                        node = null;
+                    } else { // Caso 2: Nodo con un hijo
+                        node = temp;
+                    }
+                } else {
+                    // Caso 3: Nodo con dos hijos
+                    const temp = this._findMin(node.right);
+                    node.value = temp.value;
+                    node.right = this._deleteRecursive(node.right, temp.value);
+                }
+            }
+
+            // Si el árbol tenía solo un nodo, devolver
+            if (!node) return node;
+
+            // 2. Actualizar la altura del nodo actual
+            node.height = 1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
+
+            // 3. Obtener el factor de equilibrio del nodo para verificar si se ha desequilibrado
+            const balance = this.getBalance(node);
+
+            // 4. Caso de desequilibrio:
+
+            // Caso Izquierda Izquierda
+            if (balance > 1 && this.getBalance(node.left) >= 0) {
+                return this.rotateRight(node);
+            }
+
+            // Caso Izquierda Derecha
+            if (balance > 1 && this.getBalance(node.left) < 0) {
+                node.left = this.rotateLeft(node.left);
+                return this.rotateRight(node);
+            }
+
+            // Caso Derecha Derecha
+            if (balance < -1 && this.getBalance(node.right) <= 0) {
+                return this.rotateLeft(node);
+            }
+
+            // Caso Derecha Izquierda
+            if (balance < -1 && this.getBalance(node.right) > 0) {
+                node.right = this.rotateRight(node.right);
+                return this.rotateLeft(node);
+            }
+
+            // Devolver el nodo sin cambios si no hay desequilibrio
+            return node;
+        }
+
+        _findMin(node) {
+            while (node.left) {
+                node = node.left;
+            }
+            return node;
+        }
+
+        // Método para recorrer el árbol en orden (inorder traversal)
+        inorderTraversal() {
+            const nodes = [];
+            this._inorderRecursive(this.root, nodes);
+            return nodes;
+        }
+
+        _inorderRecursive(node, nodes) {
+            if (node) {
+                this._inorderRecursive(node.left, nodes);
+                nodes.push(node.value);
+                this._inorderRecursive(node.right, nodes);
+            }
+        }
+
+        // Método para renderizar el árbol en la interfaz HTML
+        render() {
+            const avlContainer = document.getElementById('avl');
+            avlContainer.innerHTML = '';
+            this._renderRecursive(this.root, avlContainer);
+        }
+
+        _renderRecursive(node, container) {
+            if (node) {
+                this._renderRecursive(node.left, container);
+                const nodeElement = document.createElement('div');
+                nodeElement.classList.add('node');
+                nodeElement.textContent = node.value;
+                container.appendChild(nodeElement);
+                this._renderRecursive(node.right, container);
+            }
+        }
+    }
+
+    // Instancia del Árbol AVL
+    const avlTree = new AVLTree();
+
+    // Función para insertar un nodo
+    function insertNode() {
+        const value = parseInt(document.getElementById('node-value').value);
+        if (!isNaN(value)) {
+            avlTree.insert(value);
+            document.getElementById('node-value').value = '';
+        } else {
+            alert('Please enter a valid number.');
+        }
+    }
+
+    // Función para eliminar un nodo
+    function deleteNode() {
+        const value = parseInt(document.getElementById('delete-value').value);
+        if (!isNaN(value)) {
+            avlTree.delete(value);
+            document.getElementById('delete-value').value = '';
+        } else {
+            alert('Please enter a valid number.');
+        }
+    }
+</script>
+</body>
+</html>
+
+<!--
+Clase TreeNode: Define la estructura de cada nodo del Árbol AVL con un campo adicional height para mantener la altura del nodo.
+
+Clase AVLTree: Implementa la lógica del Árbol AVL con métodos para obtener la altura (getHeight), obtener el balance (getBalance), rotar a la derecha (rotateRight) y rotar a la izquierda (rotateLeft). Además, incluye métodos para insertar (insert), eliminar (delete), realizar el recorrido en orden (inorderTraversal) y renderizar el árbol en la interfaz HTML (render).
+
+Funciones insertNode y deleteNode: Manejan la interacción del usuario con la página web, obteniendo valores de entrada y llamando a los métodos correspondientes de la instancia de AVLTree para insertar y eliminar nodos.
+
+-->

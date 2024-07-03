@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree (BST)</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .node {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #333;
+            border-radius: 50%;
+            background-color: #fff;
+            margin: 0 5px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Binary Search Tree (BST)</h1>
+    <div id="bst" class="bst">
+        <!-- Nodes will be dynamically added here -->
+    </div>
+    <br>
+    <label for="node-value">Insert Value:</label>
+    <input type="number" id="node-value" min="1" max="100">
+    <button onclick="insertNode()">Insert</button>
+    <br><br>
+    <label for="search-value">Search Value:</label>
+    <input type="number" id="search-value" min="1" max="100">
+    <button onclick="searchNode()">Search</button>
+    <br><br>
+    <label for="delete-value">Delete Value:</label>
+    <input type="number" id="delete-value" min="1" max="100">
+    <button onclick="deleteNode()">Delete</button>
+</div>
+
+<script>
+    // Definición del nodo del árbol
+    class TreeNode {
+        constructor(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    // Clase BST (Árbol Binario de Búsqueda)
+    class BST {
+        constructor() {
+            this.root = null;
+        }
+
+        // Método para insertar un valor en el árbol
+        insert(value) {
+            const newNode = new TreeNode(value);
+            if (!this.root) {
+                this.root = newNode;
+            } else {
+                this._insertRecursive(this.root, newNode);
+            }
+            this.render();
+        }
+
+        _insertRecursive(node, newNode) {
+            if (newNode.value < node.value) {
+                if (!node.left) {
+                    node.left = newNode;
+                } else {
+                    this._insertRecursive(node.left, newNode);
+                }
+            } else {
+                if (!node.right) {
+                    node.right = newNode;
+                } else {
+                    this._insertRecursive(node.right, newNode);
+                }
+            }
+        }
+
+        // Método para buscar un valor en el árbol
+        search(value) {
+            return this._searchRecursive(this.root, value);
+        }
+
+        _searchRecursive(node, value) {
+            if (!node) return false;
+            if (node.value === value) return true;
+            if (value < node.value) {
+                return this._searchRecursive(node.left, value);
+            } else {
+                return this._searchRecursive(node.right, value);
+            }
+        }
+
+        // Método para eliminar un valor del árbol
+        delete(value) {
+            this.root = this._deleteRecursive(this.root, value);
+            this.render();
+        }
+
+        _deleteRecursive(node, value) {
+            if (!node) return null;
+
+            if (value < node.value) {
+                node.left = this._deleteRecursive(node.left, value);
+            } else if (value > node.value) {
+                node.right = this._deleteRecursive(node.right, value);
+            } else {
+                // Caso 1: Nodo sin hijos
+                if (!node.left && !node.right) {
+                    return null;
+                }
+                // Caso 2: Nodo con un solo hijo
+                if (!node.left) {
+                    return node.right;
+                }
+                if (!node.right) {
+                    return node.left;
+                }
+                // Caso 3: Nodo con dos hijos
+                const successor = this._findMin(node.right);
+                node.value = successor.value;
+                node.right = this._deleteRecursive(node.right, successor.value);
+            }
+            return node;
+        }
+
+        _findMin(node) {
+            while (node.left) {
+                node = node.left;
+            }
+            return node;
+        }
+
+        // Método para recorrer el árbol en orden (inorder traversal)
+        inorderTraversal() {
+            const nodes = [];
+            this._inorderRecursive(this.root, nodes);
+            return nodes;
+        }
+
+        _inorderRecursive(node, nodes) {
+            if (node) {
+                this._inorderRecursive(node.left, nodes);
+                nodes.push(node.value);
+                this._inorderRecursive(node.right, nodes);
+            }
+        }
+
+        // Método para renderizar el árbol en la interfaz HTML
+        render() {
+            const bstContainer = document.getElementById('bst');
+            bstContainer.innerHTML = '';
+            this._renderRecursive(this.root, bstContainer);
+        }
+
+        _renderRecursive(node, container) {
+            if (node) {
+                this._renderRecursive(node.left, container);
+                const nodeElement = document.createElement('div');
+                nodeElement.classList.add('node');
+                nodeElement.textContent = node.value;
+                container.appendChild(nodeElement);
+                this._renderRecursive(node.right, container);
+            }
+        }
+    }
+
+    // Instancia del BST
+    const bst = new BST();
+
+    // Función para insertar un nodo
+    function insertNode() {
+        const value = parseInt(document.getElementById('node-value').value);
+        if (!isNaN(value)) {
+            bst.insert(value);
+            document.getElementById('node-value').value = '';
+        } else {
+            alert('Please enter a valid number.');
+        }
+    }
+
+    // Función para buscar un nodo
+    function searchNode() {
+        const value = parseInt(document.getElementById('search-value').value);
+        if (!isNaN(value)) {
+            const found = bst.search(value);
+            if (found) {
+                alert(`Node ${value} found in the tree.`);
+            } else {
+                alert(`Node ${value} not found in the tree.`);
+            }
+            document.getElementById('search-value').value = '';
+        } else {
+            alert('Please enter a valid number.');
+        }
+    }
+
+    // Función para eliminar un nodo
+    function deleteNode() {
+        const value = parseInt(document.getElementById('delete-value').value);
+        if (!isNaN(value)) {
+            bst.delete(value);
+            document.getElementById('delete-value').value = '';
+        } else {
+            alert('Please enter a valid number.');
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recorridos de Árbol Binario con Aristas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #tree-container {
+            width: 100%;
+            height: 400px;
+            overflow: auto;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        #tree {
+            position: relative;
+            min-width: 100%;
+            min-height: 100%;
+        }
+        .node {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s ease;
+        }
+        .node.active {
+            background-color: #FF5722;
+            transform: scale(1.2);
+        }
+        .edge {
+            position: absolute;
+            background-color: #333;
+            height: 2px;
+            transform-origin: 0 50%;
+        }
+        #controls {
+            margin-bottom: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #output {
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="tree-container">
+        <div id="tree"></div>
+    </div>
+    <div id="controls">
+        <button onclick="traverse('preorder')">Preorden</button>
+        <button onclick="traverse('inorder')">Inorden</button>
+        <button onclick="traverse('postorder')">Postorden</button>
+    </div>
+    <div id="output"></div>
+</div>
+
+<script>
+    class TreeNode {
+        constructor(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    const root = new TreeNode(1);
+    root.left = new TreeNode(2);
+    root.right = new TreeNode(3);
+    root.left.left = new TreeNode(4);
+    root.left.right = new TreeNode(5);
+    root.right.left = new TreeNode(6);
+    root.right.right = new TreeNode(7);
+
+    function createTreeDOM(node, parentDiv, x = 0, y = 0, level = 0) {
+        if (node === null) return;
+
+        const nodeDiv = document.createElement('div');
+        nodeDiv.className = 'node';
+        nodeDiv.textContent = node.value;
+        nodeDiv.id = `node-${node.value}`;
+        nodeDiv.style.left = `${x}px`;
+        nodeDiv.style.top = `${y}px`;
+        parentDiv.appendChild(nodeDiv);
+
+        const horizontalSpacing = 80;
+        const verticalSpacing = 80;
+
+        if (node.left) {
+            createTreeDOM(node.left, parentDiv, x - horizontalSpacing / (level + 1), y + verticalSpacing, level + 1);
+            createEdge(nodeDiv, `node-${node.left.value}`);
+        }
+
+        if (node.right) {
+            createTreeDOM(node.right, parentDiv, x + horizontalSpacing / (level + 1), y + verticalSpacing, level + 1);
+            createEdge(nodeDiv, `node-${node.right.value}`);
+        }
+    }
+
+    function createEdge(parentNode, childNodeId) {
+        const childNode = document.getElementById(childNodeId);
+        const edge = document.createElement('div');
+        edge.className = 'edge';
+
+        const parentRect = parentNode.getBoundingClientRect();
+        const childRect = childNode.getBoundingClientRect();
+
+        const deltaX = childRect.left - parentRect.left;
+        const deltaY = childRect.top - parentRect.top;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const angle = Math.atan2(deltaY, deltaX);
+
+        edge.style.width = `${distance}px`;
+        edge.style.left = `${parentRect.width / 2}px`;
+        edge.style.top = `${parentRect.height / 2}px`;
+        edge.style.transform = `rotate(${angle}rad)`;
+
+        parentNode.appendChild(edge);
+    }
+
+    const treeContainer = document.getElementById('tree');
+    createTreeDOM(root, treeContainer, treeContainer.offsetWidth / 2, 40);
+
+    async function traverse(order) {
+        const output = document.getElementById('output');
+        output.textContent = '';
+        const result = [];
+
+        async function preorder(node) {
+            if (node === null) return;
+            result.push(node.value);
+            await highlightNode(node.value);
+            await preorder(node.left);
+            await preorder(node.right);
+        }
+
+        async function inorder(node) {
+            if (node === null) return;
+            await inorder(node.left);
+            result.push(node.value);
+            await highlightNode(node.value);
+            await inorder(node.right);
+        }
+
+        async function postorder(node) {
+            if (node === null) return;
+            await postorder(node.left);
+            await postorder(node.right);
+            result.push(node.value);
+            await highlightNode(node.value);
+        }
+
+        switch (order) {
+            case 'preorder':
+                await preorder(root);
+                break;
+            case 'inorder':
+                await inorder(root);
+                break;
+            case 'postorder':
+                await postorder(root);
+                break;
+        }
+
+        output.textContent = `Recorrido ${order}: ${result.join(' - ')}`;
+    }
+
+    async function highlightNode(value) {
+        const node = document.getElementById(`node-${value}`);
+        node.classList.add('active');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        node.classList.remove('active');
+    }
+</script>
+</body>
+</html>

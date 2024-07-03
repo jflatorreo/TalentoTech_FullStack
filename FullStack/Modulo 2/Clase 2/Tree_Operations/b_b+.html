@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Árboles B y B+</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .tree-container {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 3px;
+            cursor: pointer;
+        }
+        .node text {
+            font: 12px sans-serif;
+        }
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 2px;
+        }
+        .info-panel {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .node circle.highlight {
+            fill: yellow;
+            stroke: orange;
+        }
+        .node circle.new-node {
+            fill: lime;
+        }
+        .node circle.remove {
+            fill: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Árboles B y B+</h1>
+
+    <h2>Árbol B</h2>
+    <p>Un árbol B es una estructura de datos de árbol autobalanceado que mantiene los datos ordenados y permite búsquedas, inserciones y eliminaciones en tiempo logarítmico.</p>
+    <div id="b-tree" class="tree-container"></div>
+    <div id="b-tree-info" class="info-panel"></div>
+    <button onclick="showProperties('b')">Mostrar Propiedades</button>
+    <button onclick="simulateOperation('b', 'insert')">Simular Inserción</button>
+    <button onclick="simulateOperation('b', 'delete')">Simular Eliminación</button>
+
+    <h2>Árbol B+</h2>
+    <p>Un árbol B+ es una variación del árbol B que tiene todas las claves en las hojas y copias de las claves en los nodos internos. Esto permite un acceso secuencial más eficiente.</p>
+    <div id="b-plus-tree" class="tree-container"></div>
+    <div id="b-plus-tree-info" class="info-panel"></div>
+    <button onclick="showProperties('bplus')">Mostrar Propiedades</button>
+    <button onclick="simulateOperation('bplus', 'insert')">Simular Inserción</button>
+    <button onclick="simulateOperation('bplus', 'delete')">Simular Eliminación</button>
+</div>
+
+<script>
+    let bTreeSvg, bPlusTreeSvg;
+
+    function createTree(containerId, data) {
+        const width = 700;
+        const height = 300;
+        const margin = {top: 20, right: 90, bottom: 30, left: 90};
+
+        const svg = d3.select("#" + containerId)
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        if (containerId === "b-tree") {
+            bTreeSvg = svg;
+        } else {
+            bPlusTreeSvg = svg;
+        }
+
+        updateTree(svg, data);
+    }
+
+    function updateTree(svg, data) {
+        svg.selectAll("*").remove();
+
+        const width = 700 - 180;
+        const height = 300 - 50;
+
+        const tree = d3.tree().size([height, width]);
+        const root = d3.hierarchy(data);
+        tree(root);
+
+        const link = svg.selectAll(".link")
+            .data(root.links())
+            .enter().append("path")
+            .attr("class", "link")
+            .attr("d", d3.linkHorizontal()
+                .x(d => d.y)
+                .y(d => d.x));
+
+        const node = svg.selectAll(".node")
+            .data(root.descendants())
+            .enter().append("g")
+            .attr("class", d => "node" + (d.children ? " node--internal" : " node--leaf"))
+            .attr("transform", d => `translate(${d.y},${d.x})`);
+
+        node.append("circle")
+            .attr("r", 10);
+
+        node.append("text")
+            .attr("dy", ".35em")
+            .attr("x", d => d.children ? -13 : 13)
+            .style("text-anchor", d => d.children ? "end" : "start")
+            .text(d => d.data.name);
+
+        node.select("circle").on("click", function() {
+            d3.select(this).transition()
+                .duration(300)
+                .attr("r", 15)
+                .transition()
+                .duration(300)
+                .attr("r", 10);
+        });
+    }
+
+    // Datos para el árbol B
+    const bTreeData = {
+        name: "30",
+        children: [
+            {
+                name: "15",
+                children: [
+                    {name: "10"},
+                    {name: "20"}
+                ]
+            },
+            {
+                name: "45",
+                children: [
+                    {name: "40"},
+                    {name: "50"}
+                ]
+            }
+        ]
+    };
+
+    // Datos para el árbol B+
+    const bPlusTreeData = {
+        name: "30",
+        children: [
+            {
+                name: "15",
+                children: [
+                    {name: "10 | 15"},
+                    {name: "20 | 25"}
+                ]
+            },
+            {
+                name: "45",
+                children: [
+                    {name: "30 | 35 | 40"},
+                    {name: "45 | 50"}
+                ]
+            }
+        ]
+    };
+
+    // Crear los árboles
+    createTree("b-tree", bTreeData);
+    createTree("b-plus-tree", bPlusTreeData);
+
+    function simulateOperation(treeType, operation) {
+        const svg = treeType === 'b' ? bTreeSvg : bPlusTreeSvg;
+        const treeData = treeType === 'b' ? bTreeData : bPlusTreeData;
+
+        if (operation === 'insert') {
+            const newValue = Math.floor(Math.random() * 60);
+            const insertionPath = findInsertionPath(treeData, newValue);
+            highlightInsertionPath(svg, insertionPath);
+            setTimeout(() => {
+                insertNode(treeData, newValue, insertionPath);
+                updateTree(svg, treeData);
+                showOperationInfo(treeType, 'insert', newValue, insertionPath);
+            }, 1500);
+        } else if (operation === 'delete') {
+            const nodeToDelete = getRandomLeafNode(treeData);
+            if (nodeToDelete) {
+                highlightNodeToRemove(svg, nodeToDelete);
+                setTimeout(() => {
+                    deleteNode(treeData, nodeToDelete.name);
+                    updateTree(svg, treeData);
+                    showOperationInfo(treeType, 'delete', nodeToDelete.name);
+                }, 1500);
+            }
+        }
+    }
+
+    function findInsertionPath(node, value) {
+        let path = [node];
+        while (node.children) {
+            let inserted = false;
+            for (let i = 0; i < node.children.length; i++) {
+                if (parseInt(node.children[i].name) > value) {
+                    node = node.children[i];
+                    path.push(node);
+                    inserted = true;
+                    break;
+                }
+            }
+            if (!inserted) {
+                node = node.children[node.children.length - 1];
+                path.push(node);
+            }
+        }
+        return path;
+    }
+
+    function highlightInsertionPath(svg, path) {
+        svg.selectAll(".node circle")
+            .transition()
+            .duration(500)
+            .style("fill", (d) => path.includes(d.data) ? "yellow" : "white");
+    }
+
+    function insertNode(data, value, path) {
+        let node = path[path.length - 1];
+        if (!node.children) {
+            node.children = [];
+        }
+        node.children.push({name: value.toString()});
+        node.children.sort((a, b) => parseInt(a.name) - parseInt(b.name));
+    }
+
+    function highlightNodeToRemove(svg, node) {
+        svg.selectAll(".node")
+            .filter(d => d.data === node)
+            .select("circle")
+            .transition()
+            .duration(500)
+            .style("fill", "red");
+    }
+
+    function deleteNode(data, value) {
+        if (data.children) {
+            data.children = data.children.filter(child => child.name !== value);
+            data.children.forEach(child => deleteNode(child, value));
+        }
+    }
+
+    function getRandomLeafNode(node) {
+        if (!node.children) {
+            return node;
+        }
+        const randomChild = node.children[Math.floor(Math.random() * node.children.length)];
+        return getRandomLeafNode(randomChild);
+    }
+
+    function showOperationInfo(treeType, operation, value, path) {
+        const infoPanel = document.getElementById(treeType === 'b' ? 'b-tree-info' : 'b-plus-tree-info');
+        let info = '';
+        if (operation === 'insert') {
+            info = `<h3>Inserción:</h3>
+                    <p>Se ha insertado el valor ${value}.</p>
+                    <p>Camino de inserción: ${path.map(node => node.name).join(' -> ')}</p>
+                    <p>El valor se insertó en el nodo hoja: ${path[path.length - 1].name}</p>`;
+        } else {
+            info = `<h3>Eliminación:</h3><p>Se ha eliminado el valor ${value}.</p>`;
+        }
+        infoPanel.innerHTML = info;
+    }
+
+    function showProperties(treeType) {
+        const infoPanel = document.getElementById(treeType === 'b' ? 'b-tree-info' : 'b-plus-tree-info');
+        let properties = '';
+
+        if (treeType === 'b') {
+            properties = `
+        <h3>Propiedades del Árbol B:</h3>
+        <ul>
+            <li><strong>Balanceo perfecto:</strong> Todos los nodos hoja están al mismo nivel. Esto garantiza un rendimiento consistente en las operaciones de búsqueda, inserción y eliminación, con una complejidad de tiempo de O(log n).</li>
+
+            <li><strong>Estructura de nodos internos:</strong> Un nodo no hoja con k claves tiene exactamente k+1 hijos. Esta propiedad mantiene la relación entre claves e hijos, crucial para la navegación eficiente en el árbol.</li>
+
+            <li><strong>Ocupación de nodos:</strong> El número de claves en cada nodo está entre t-1 y 2t-1, donde t es el grado mínimo del árbol. Esto asegura que los nodos estén suficientemente llenos, optimizando el uso del espacio y manteniendo el árbol balanceado.</li>
+
+            <li><strong>Propiedad de la raíz:</strong> La raíz tiene al menos 2 hijos si no es una hoja. Esto permite que el árbol crezca en altura solo cuando es necesario, manteniendo una estructura eficiente.</li>
+
+            <li><strong>Ordenamiento:</strong> Las claves dentro de cada nodo y entre nodos están ordenadas, lo que permite búsquedas binarias eficientes dentro de los nodos y a través del árbol.</li>
+
+            <li><strong>Crecimiento desde la raíz:</strong> El árbol crece y se contrae desde la raíz, a diferencia de muchas otras estructuras de árboles. Esto mantiene el balance sin necesidad de rotaciones complejas.</li>
+        </ul>
+    `;
+        } else {
+            properties = `
+        <h3>Propiedades del Árbol B+:</h3>
+        <ul>
+            <li><strong>Separación de datos e índices:</strong> Todas las claves y datos están en las hojas. Esto optimiza el almacenamiento y permite que los nodos internos contengan más claves de índice, reduciendo la altura del árbol.</li>
+
+            <li><strong>Nodos internos como índices puros:</strong> Los nodos internos actúan exclusivamente como índices, sin almacenar datos. Esto permite una navegación más rápida y eficiente a través del árbol.</li>
+
+            <li><strong>Enlace entre hojas:</strong> Las hojas están enlazadas secuencialmente. Esta característica permite un acceso secuencial extremadamente eficiente, ideal para operaciones de rango y escaneo completo de datos.</li>
+
+            <li><strong>Propiedad de la raíz:</strong> Al igual que en el árbol B, la raíz tiene al menos 2 hijos si no es una hoja, manteniendo la eficiencia en árboles pequeños.</li>
+
+            <li><strong>Duplicación de claves:</strong> Las claves en los nodos internos también aparecen en los nodos hoja, facilitando las búsquedas y manteniendo la estructura del índice.</li>
+
+            <li><strong>Consistencia en búsquedas:</strong> Todas las búsquedas terminan en un nodo hoja, lo que hace que el tiempo de búsqueda sea más consistente en comparación con el árbol B estándar.</li>
+
+            <li><strong>Eficiencia en operaciones de rango:</strong> La estructura de enlaces entre hojas permite realizar operaciones de rango de manera muy eficiente, una ventaja significativa en aplicaciones de bases de datos.</li>
+        </ul>
+    `;
+        }
+
+        infoPanel.innerHTML = properties;
+    }
+</script>
+</body>
+</html>

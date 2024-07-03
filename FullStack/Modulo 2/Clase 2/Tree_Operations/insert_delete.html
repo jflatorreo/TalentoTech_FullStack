@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Árbol AVL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #canvas {
+            border: 1px solid #000;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Visualización de Árbol AVL</h1>
+<canvas id="canvas" width="800" height="400"></canvas>
+<div id="controls">
+    <input type="number" id="valueInput" placeholder="Valor">
+    <button onclick="insertNode()">Insertar</button>
+    <button onclick="deleteNode()">Eliminar</button>
+</div>
+
+<script>
+    class Node {
+        constructor(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+            this.height = 1;
+        }
+    }
+
+    class AVLTree {
+        constructor() {
+            this.root = null;
+        }
+
+        height(node) {
+            return node ? node.height : 0;
+        }
+
+        updateHeight(node) {
+            node.height = 1 + Math.max(this.height(node.left), this.height(node.right));
+        }
+
+        balanceFactor(node) {
+            return this.height(node.left) - this.height(node.right);
+        }
+
+        rotateRight(y) {
+            let x = y.left;
+            let T2 = x.right;
+
+            x.right = y;
+            y.left = T2;
+
+            this.updateHeight(y);
+            this.updateHeight(x);
+
+            return x;
+        }
+
+        rotateLeft(x) {
+            let y = x.right;
+            let T2 = y.left;
+
+            y.left = x;
+            x.right = T2;
+
+            this.updateHeight(x);
+            this.updateHeight(y);
+
+            return y;
+        }
+
+        balance(node) {
+            if (!node) return node;
+
+            this.updateHeight(node);
+            let balance = this.balanceFactor(node);
+
+            if (balance > 1) {
+                if (this.balanceFactor(node.left) < 0) {
+                    node.left = this.rotateLeft(node.left);
+                }
+                return this.rotateRight(node);
+            }
+            if (balance < -1) {
+                if (this.balanceFactor(node.right) > 0) {
+                    node.right = this.rotateRight(node.right);
+                }
+                return this.rotateLeft(node);
+            }
+
+            return node;
+        }
+
+        insert(value) {
+            this.root = this._insert(this.root, value);
+        }
+
+        _insert(node, value) {
+            if (!node) return new Node(value);
+
+            if (value < node.value) {
+                node.left = this._insert(node.left, value);
+            } else if (value > node.value) {
+                node.right = this._insert(node.right, value);
+            } else {
+                return node; // Duplicate values are not allowed
+            }
+
+            return this.balance(node);
+        }
+
+        delete(value) {
+            this.root = this._delete(this.root, value);
+        }
+
+        _delete(node, value) {
+            if (!node) return node;
+
+            if (value < node.value) {
+                node.left = this._delete(node.left, value);
+            } else if (value > node.value) {
+                node.right = this._delete(node.right, value);
+            } else {
+                if (!node.left || !node.right) {
+                    node = node.left || node.right;
+                } else {
+                    let temp = this.findMin(node.right);
+                    node.value = temp.value;
+                    node.right = this._delete(node.right, temp.value);
+                }
+            }
+
+            if (!node) return node;
+            return this.balance(node);
+        }
+
+        findMin(node) {
+            while (node.left) node = node.left;
+            return node;
+        }
+    }
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const avl = new AVLTree();
+
+    function drawTree() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawNode(avl.root, 400, 50, 200);
+    }
+
+    function drawNode(node, x, y, horizontalSpacing) {
+        if (!node) return;
+
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, 2 * Math.PI);
+        ctx.fillStyle = 'white';
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = 'black';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(node.value, x, y);
+
+        if (node.left) {
+            ctx.beginPath();
+            ctx.moveTo(x, y + 20);
+            ctx.lineTo(x - horizontalSpacing, y + 80);
+            ctx.stroke();
+            drawNode(node.left, x - horizontalSpacing, y + 80, horizontalSpacing / 2);
+        }
+
+        if (node.right) {
+            ctx.beginPath();
+            ctx.moveTo(x, y + 20);
+            ctx.lineTo(x + horizontalSpacing, y + 80);
+            ctx.stroke();
+            drawNode(node.right, x + horizontalSpacing, y + 80, horizontalSpacing / 2);
+        }
+    }
+
+    function insertNode() {
+        const value = parseInt(document.getElementById('valueInput').value);
+        if (!isNaN(value)) {
+            avl.insert(value);
+            drawTree();
+        }
+    }
+
+    function deleteNode() {
+        const value = parseInt(document.getElementById('valueInput').value);
+        if (!isNaN(value)) {
+            avl.delete(value);
+            drawTree();
+        }
+    }
+
+    drawTree();
+</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos en Grafos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .graph-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .node {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #333;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .edge {
+            position: absolute;
+            border-top: 2px solid #333;
+        }
+        .visited {
+            background-color: #6ab04c;
+        }
+    </style>
+</head>
+<body>
+<div class="graph-container" id="graphContainer">
+    <!-- Nodos y aristas se dibujarán aquí -->
+</div>
+
+<button onclick="runDFS()">Run DFS</button>
+<button onclick="runBFS()">Run BFS</button>
+
+<script>
+    // Grafo representado como lista de adyacencia
+    const graph = {
+        vertices: ['A', 'B', 'C', 'D', 'E'],
+        edges: [
+            ['A', 'B'],
+            ['A', 'C'],
+            ['B', 'C'],
+            ['B', 'D'],
+            ['C', 'D'],
+            ['D', 'E']
+        ]
+    };
+
+    // Dibujar nodos y aristas (similar al ejemplo anterior)
+
+    // Función para dibujar nodos y aristas
+    function drawGraph() {
+        const graphContainer = document.getElementById('graphContainer');
+
+        // Posiciones de los nodos en el contenedor
+        const nodePositions = {
+            'A': { x: 50, y: 50 },
+            'B': { x: 250, y: 50 },
+            'C': { x: 150, y: 150 },
+            'D': { x: 350, y: 150 },
+            'E': { x: 250, y: 250 }
+        };
+
+        // Dibujar nodos
+        graph.vertices.forEach(vertex => {
+            const { x, y } = nodePositions[vertex];
+            const nodeElement = document.createElement('div');
+            nodeElement.id = vertex; // Asignar id para manipulación posterior
+            nodeElement.classList.add('node');
+            nodeElement.style.left = `${x}px`;
+            nodeElement.style.top = `${y}px`;
+            nodeElement.textContent = vertex;
+            graphContainer.appendChild(nodeElement);
+        });
+
+        // Dibujar aristas
+        graph.edges.forEach(edge => {
+            const [vertex1, vertex2] = edge;
+            const startPos = nodePositions[vertex1];
+            const endPos = nodePositions[vertex2];
+
+            const edgeElement = document.createElement('div');
+            edgeElement.classList.add('edge');
+            edgeElement.style.width = `${Math.sqrt((endPos.x - startPos.x) ** 2 + (endPos.y - startPos.y) ** 2)}px`;
+            edgeElement.style.left = `${startPos.x}px`;
+            edgeElement.style.top = `${startPos.y}px`;
+            edgeElement.style.transformOrigin = 'top left';
+            edgeElement.style.transform = `rotate(${Math.atan2(endPos.y - startPos.y, endPos.x - startPos.x)}rad)`;
+            graphContainer.appendChild(edgeElement);
+        });
+    }
+
+    // Ejecutar dibujo del grafo al cargar la página
+    document.addEventListener('DOMContentLoaded', drawGraph);
+
+    // Función para ejecutar DFS
+    function runDFS() {
+        const visited = new Set();
+        const dfsResult = [];
+
+        function dfs(vertex) {
+            visited.add(vertex);
+            dfsResult.push(vertex);
+
+            const nodeElement = document.getElementById(vertex);
+            if (nodeElement) {
+                nodeElement.classList.add('visited');
+            }
+
+            graph.edges.forEach(edge => {
+                const [v1, v2] = edge;
+                if (v1 === vertex && !visited.has(v2)) {
+                    dfs(v2);
+                } else if (v2 === vertex && !visited.has(v1)) {
+                    dfs(v1);
+                }
+            });
+        }
+
+        dfs(graph.vertices[0]); // Comenzar DFS desde el primer vértice
+        console.log('DFS Result:', dfsResult);
+    }
+
+    // Función para ejecutar BFS
+    function runBFS() {
+        const visited = new Set();
+        const bfsResult = [];
+        const queue = [];
+
+        queue.push(graph.vertices[0]); // Comenzar BFS desde el primer vértice
+
+        while (queue.length > 0) {
+            const current = queue.shift();
+            visited.add(current);
+            bfsResult.push(current);
+
+            const nodeElement = document.getElementById(current);
+            if (nodeElement) {
+                nodeElement.classList.add('visited');
+            }
+
+            graph.edges.forEach(edge => {
+                const [v1, v2] = edge;
+                if (v1 === current && !visited.has(v2) && !queue.includes(v2)) {
+                    queue.push(v2);
+                } else if (v2 === current && !visited.has(v1) && !queue.includes(v1)) {
+                    queue.push(v1);
+                }
+            });
+        }
+
+        console.log('BFS Result:', bfsResult);
+    }
+</script>
+</body>
+</html>

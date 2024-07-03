@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree (BST)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .tree {
+            text-align: center;
+            font-size: 1.2em;
+            border: 2px solid #333;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        .node {
+            display: inline-block;
+            margin: 0 10px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="tree" id="bst">
+    <!-- Tree nodes will be dynamically added here -->
+</div>
+
+<script>
+    // Definición del nodo del árbol
+    class TreeNode {
+        constructor(value) {
+            this.value = value;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    // Clase BST (Árbol Binario de Búsqueda)
+    class BST {
+        constructor() {
+            this.root = null;
+        }
+
+        // Método para insertar un valor en el árbol
+        insert(value) {
+            const newNode = new TreeNode(value);
+            if (!this.root) {
+                this.root = newNode;
+            } else {
+                this._insertRecursive(this.root, newNode);
+            }
+        }
+
+        _insertRecursive(node, newNode) {
+            if (newNode.value < node.value) {
+                if (!node.left) {
+                    node.left = newNode;
+                } else {
+                    this._insertRecursive(node.left, newNode);
+                }
+            } else {
+                if (!node.right) {
+                    node.right = newNode;
+                } else {
+                    this._insertRecursive(node.right, newNode);
+                }
+            }
+        }
+
+        // Método para recorrer el árbol en orden (inorder traversal)
+        inorderTraversal() {
+            const nodes = [];
+            this._inorderRecursive(this.root, nodes);
+            return nodes;
+        }
+
+        _inorderRecursive(node, nodes) {
+            if (node) {
+                this._inorderRecursive(node.left, nodes);
+                nodes.push(node.value);
+                this._inorderRecursive(node.right, nodes);
+            }
+        }
+    }
+
+    // Crear una instancia de BST y agregar algunos nodos
+    const bst = new BST();
+    for (var i=0;i<100;i++){
+        bst.insert(Math.floor(Math.random()*100));
+    }
+
+    // Obtener nodos en orden y actualizar el DOM
+    const bstContainer = document.getElementById('bst');
+    const nodesInOrder = bst.inorderTraversal();
+    nodesInOrder.forEach(value => {
+        const nodeElement = document.createElement('div');
+        nodeElement.classList.add('node');
+        nodeElement.textContent = value;
+        bstContainer.appendChild(nodeElement);
+    });
+</script>
+</body>
+</html>
