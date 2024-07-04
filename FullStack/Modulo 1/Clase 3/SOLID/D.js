@@ -11,7 +11,6 @@ class RepositorioSQL extends IRepositorio {
 }
 class RepositorioNoSQL extends IRepositorio {
     guardar(datos) {
-        // Implementación para guardar en SQL
     }
 }
 
@@ -26,6 +25,6 @@ class Servicio {
 }
 
 // Uso
-const repositorio = new RepositorioNoSQL();
+const repositorio = new RepositorioSQL();
 const servicio = new Servicio(repositorio);
 servicio.guardarDatos({ nombre: "John", salario: 5000 });

@@ -5,7 +5,7 @@ class Empleado {
     }
 
     calcularSalario() {
-        // Lógica para calcular el salario
+       this.nombre;
     }
 }
 

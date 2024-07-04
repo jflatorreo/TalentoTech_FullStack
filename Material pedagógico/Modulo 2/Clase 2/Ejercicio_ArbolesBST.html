@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario de Libros</title>
+    <style>
+        /* Estilos CSS aquí */
+    </style>
+</head>
+<body>
+    <h1>Gestión de Inventario de Libros</h1>
+    
+    <div class="form-group">
+        <label for="id">ID:</label>
+        <input type="number" id="id" required>
+    </div>
+    <div class="form-group">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" required>
+    </div>
+    <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" step="0.01" required>
+    </div>
+    
+    <button onclick="insertarLibro()">Insertar Libro</button>
+    <button onclick="buscarLibro()">Buscar Libro</button>
+    <button onclick="eliminarLibro()">Eliminar Libro</button>
+    <button onclick="mostrarInventario()">Mostrar Inventario</button>
+    
+    <div id="output"></div>
+
+    <script>
+        class Libro {
+            constructor(id, titulo, precio) {
+                this.id = id;
+                this.titulo = titulo;
+                this.precio = precio;
+            }
+        }
+
+        class Nodo {
+            constructor(libro) {
+                this.libro = libro;
+                this.izquierda = null;
+                this.derecha = null;
+            }
+        }
+
+        class BST {
+            constructor() {
+                this.raiz = null;
+            }
+
+            insertar(libro) {
+                // Implementa la inserción de un libro en el BST
+                // Crea un nuevo nodo con el libro
+                // Si el árbol está vacío, el nuevo nodo se convierte en la raíz
+                // Si no, llama a un método auxiliar para insertar el nodo en la posición correcta
+            }
+
+            _insertarNodo(nodo, nuevoNodo) {
+                // Implementa la lógica recursiva para insertar un nuevo nodo en el árbol
+                // Compara los IDs para decidir si ir a la izquierda o derecha
+                // Si no hay un nodo hijo en la dirección correcta, inserta el nuevo nodo allí
+                // Si hay un nodo hijo, llama recursivamente a este método en ese nodo
+            }
+
+            buscar(id) {
+                // Implementa la búsqueda de un libro por ID
+                // Llama a un método auxiliar para buscar recursivamente en el árbol
+            }
+
+            _buscarNodo(nodo, id) {
+                // Implementa la lógica recursiva para buscar un nodo por ID
+                // Si el nodo es null, retorna null (no se encontró)
+                // Si el ID coincide, retorna el libro
+                // Si el ID es menor, busca en el subárbol izquierdo
+                // Si el ID es mayor, busca en el subárbol derecho
+            }
+
+            eliminar(id) {
+                // Implementa la eliminación de un libro por ID
+                // Llama a un método auxiliar para eliminar el nodo y reestructurar el árbol si es necesario
+            }
+
+            _eliminarNodo(nodo, id) {
+                // Implementa la lógica recursiva para eliminar un nodo y reestructurar el árbol
+                // Considera los casos: nodo hoja, nodo con un hijo, nodo con dos hijos
+            }
+
+            _encontrarMinimo(nodo) {
+                // Implementa la lógica para encontrar el nodo con el ID mínimo en un subárbol
+            }
+
+            mostrarOrdenado() {
+                // Implementa la visualización ordenada de todos los libros
+                // Llama a un método auxiliar para realizar un recorrido inorden del árbol
+            }
+
+            _inOrden(nodo) {
+                // Implementa el recorrido inorden del árbol
+                // Visita el subárbol izquierdo, luego el nodo actual, luego el subárbol derecho
+            }
+        }
+
+        const inventario = new BST();
+
+        function insertarLibro() {
+            // Implementa la lógica para insertar un libro desde la interfaz de usuario
+        }
+
+        function buscarLibro() {
+            // Implementa la lógica para buscar un libro desde la interfaz de usuario
+        }
+
+        function eliminarLibro() {
+            // Implementa la lógica para eliminar un libro desde la interfaz de usuario
+        }
+
+        function mostrarInventario() {
+            // Implementa la lógica para mostrar todo el inventario
+        }
+
+        function mostrarMensaje(mensaje) {
+            document.getElementById('output').textContent = mensaje;
+        }
+    </script>
+</body>
+</html>

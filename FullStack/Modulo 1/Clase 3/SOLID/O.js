@@ -16,6 +16,12 @@ class Resta {
     }
 }
 
+class Multiplicar {
+    calcular(a, b) {
+        return a * b;
+    }
+}
+
 // Uso
 const calculadora = new Calculadora();
 const suma = new Suma();
