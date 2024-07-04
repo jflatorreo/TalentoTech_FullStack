@@ -36,6 +36,21 @@
             height: 400px;
             border: 1px solid #ccc;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
@@ -212,11 +227,23 @@
 
     function mostrarMatrizAdyacencia() {
         const matriz = grafo.obtenerMatrizAdyacencia();
-        let output = "Matriz de Adyacencia:\n";
-        output += "  " + grafo.obtenerNodos().join(" ") + "\n";
-        matriz.forEach((fila, i) => {
-            output += grafo.obtenerNodos()[i] + " " + fila.join(" ") + "\n";
+        const nodos = grafo.obtenerNodos();
+
+        let output = "<table><thead><tr><th></th>";
+        nodos.forEach(nodo => {
+            output += `<th>${nodo}</th>`;
         });
+        output += "</tr></thead><tbody>";
+
+        matriz.forEach((fila, i) => {
+            output += `<tr><th>${nodos[i]}</th>`;
+            fila.forEach(celda => {
+                output += `<td>${celda}</td>`;
+            });
+            output += "</tr>";
+        });
+
+        output += "</tbody></table>";
         mostrarResultado(output);
     }
 
@@ -245,7 +272,7 @@
     }
 
     function mostrarResultado(mensaje) {
-        document.getElementById('output').textContent = mensaje;
+        document.getElementById('output').innerHTML = mensaje;
     }
 
     // Inicializar la red al cargar la página

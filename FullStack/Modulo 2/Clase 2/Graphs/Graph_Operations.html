@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BFS - DFS</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .graph-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .node {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .edge {
+            position: absolute;
+            background-color: #333;
+            height: 2px;
+            transform-origin: left center;
+            transition: all 0.3s ease;
+        }
+        .visited {
+            background-color: #4CAF50;
+            color: white;
+            transform: scale(1.1);
+        }
+        .current {
+            background-color: #FFC107;
+            color: black;
+            transform: scale(1.2);
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #stepInfo {
+            font-size: 18px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        #pseudocode {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        #pseudocode pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        #pseudocode .highlight {
+            background-color: #FFFF00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>Visualización de Algoritmos en Grafos</h1>
+<div class="graph-container" id="graphContainer">
+    <!-- Nodos y aristas se dibujarán aquí -->
+</div>
+<div class="controls">
+    <button onclick="startDFS()">Iniciar DFS</button>
+    <button onclick="startBFS()">Iniciar BFS</button>
+    <button onclick="nextStep()" id="nextStepBtn" disabled>Siguiente Paso</button>
+    <button onclick="resetGraph()">Reiniciar</button>
+</div>
+<div id="stepInfo"></div>
+<div id="pseudocode"></div>
+
+<script>
+    const graph = {
+        vertices: ['A', 'B', 'C', 'D', 'E', 'F'],
+        edges: [
+            ['A', 'B'], ['A', 'C'],
+            ['B', 'D'], ['B', 'E'],
+            ['C', 'E'], ['C', 'F'],
+            ['D', 'E'], ['E', 'F']
+        ]
+    };
+
+    const nodePositions = {
+        'A': { x: 300, y: 50 },
+        'B': { x: 150, y: 150 },
+        'C': { x: 450, y: 150 },
+        'D': { x: 75, y: 300 },
+        'E': { x: 300, y: 300 },
+        'F': { x: 525, y: 300 }
+    };
+
+    let currentAlgorithm = null;
+    let algorithmSteps = [];
+    let currentStepIndex = 0;
+
+    const dfsPseudocode = [
+        "DFS(G, v):",
+        "    marcar v como visitado",
+        "    para cada vecino w de v en G:",
+        "        si w no está visitado:",
+        "            DFS(G, w)"
+    ];
+
+    const bfsPseudocode = [
+        "BFS(G, inicio):",
+        "    crear una cola Q",
+        "    marcar inicio como visitado y encolar inicio en Q",
+        "    mientras Q no esté vacía:",
+        "        v = Q.desencolar()",
+        "        para cada vecino w de v en G:",
+        "            si w no está visitado:",
+        "                marcar w como visitado",
+        "                encolar w en Q"
+    ];
+
+    function drawGraph() {
+        const graphContainer = document.getElementById('graphContainer');
+        graphContainer.innerHTML = '';
+
+        graph.edges.forEach(edge => {
+            const [v1, v2] = edge;
+            const start = nodePositions[v1];
+            const end = nodePositions[v2];
+
+            const edgeElement = document.createElement('div');
+            edgeElement.classList.add('edge');
+            const length = Math.sqrt((end.x - start.x)**2 + (end.y - start.y)**2);
+            const angle = Math.atan2(end.y - start.y, end.x - start.x);
+
+            edgeElement.style.width = `${length}px`;
+            edgeElement.style.left = `${start.x}px`;
+            edgeElement.style.top = `${start.y}px`;
+            edgeElement.style.transform = `rotate(${angle}rad)`;
+
+            graphContainer.appendChild(edgeElement);
+        });
+
+        graph.vertices.forEach(vertex => {
+            const { x, y } = nodePositions[vertex];
+            const nodeElement = document.createElement('div');
+            nodeElement.id = vertex;
+            nodeElement.classList.add('node');
+            nodeElement.style.left = `${x - 20}px`;
+            nodeElement.style.top = `${y - 20}px`;
+            nodeElement.textContent = vertex;
+            graphContainer.appendChild(nodeElement);
+        });
+    }
+
+    function startDFS() {
+        resetGraph();
+        currentAlgorithm = 'DFS';
+        algorithmSteps = generateDFSSteps(graph.vertices[0]);
+        currentStepIndex = 0;
+        document.getElementById('nextStepBtn').disabled = false;
+        document.getElementById('stepInfo').textContent = 'DFS iniciado. Presiona "Siguiente Paso" para continuar.';
+        displayPseudocode(dfsPseudocode);
+    }
+
+    function startBFS() {
+        resetGraph();
+        currentAlgorithm = 'BFS';
+        algorithmSteps = generateBFSSteps(graph.vertices[0]);
+        currentStepIndex = 0;
+        document.getElementById('nextStepBtn').disabled = false;
+        document.getElementById('stepInfo').textContent = 'BFS iniciado. Presiona "Siguiente Paso" para continuar.';
+        displayPseudocode(bfsPseudocode);
+    }
+
+    function displayPseudocode(pseudocode) {
+        const pseudocodeContainer = document.getElementById('pseudocode');
+        pseudocodeContainer.innerHTML = '<pre>' + pseudocode.map((line, index) =>
+            `<span id="line-${index}">${line}</span>`
+        ).join('\n') + '</pre>';
+    }
+
+    function highlightPseudocodeLine(lineIndex) {
+        const pseudocodeContainer = document.getElementById('pseudocode');
+        const lines = pseudocodeContainer.getElementsByTagName('span');
+
+        for (let line of lines) {
+            line.classList.remove('highlight');
+        }
+
+        if (lineIndex >= 0 && lineIndex < lines.length) {
+            lines[lineIndex].classList.add('highlight');
+        }
+    }
+
+    function nextStep() {
+        if (currentStepIndex < algorithmSteps.length) {
+            const step = algorithmSteps[currentStepIndex];
+            applyStep(step);
+            currentStepIndex++;
+            updateStepInfo();
+            highlightPseudocodeLine(step.pseudocodeLineIndex);
+        } else {
+            document.getElementById('nextStepBtn').disabled = true;
+            document.getElementById('stepInfo').textContent = `${currentAlgorithm} completado.`;
+            highlightPseudocodeLine(-1); // Desmarcar todas las líneas
+        }
+    }
+
+    function applyStep(step) {
+        const { node, status } = step;
+        const nodeElement = document.getElementById(node);
+        nodeElement.classList.remove('current', 'visited');
+        if (status === 'current') {
+            nodeElement.classList.add('current');
+        } else if (status === 'visited') {
+            nodeElement.classList.add('visited');
+        }
+    }
+
+    function updateStepInfo() {
+        const step = algorithmSteps[currentStepIndex - 1];
+        let infoText = `Paso ${currentStepIndex}: `;
+        if (step.status === 'current') {
+            infoText += `Explorando nodo ${step.node}`;
+        } else if (step.status === 'visited') {
+            infoText += `Nodo ${step.node} visitado`;
+        }
+        document.getElementById('stepInfo').textContent = infoText;
+    }
+
+    function generateDFSSteps(startNode) {
+        const steps = [];
+        const visited = new Set();
+
+        function dfs(node) {
+            steps.push({ node, status: 'current', pseudocodeLineIndex: 0 });
+            steps.push({ node, status: 'visited', pseudocodeLineIndex: 1 });
+            visited.add(node);
+
+            graph.edges.forEach(edge => {
+                const [v1, v2] = edge;
+                if (v1 === node && !visited.has(v2)) {
+                    steps.push({ node: v2, status: 'current', pseudocodeLineIndex: 2 });
+                    steps.push({ node: v2, status: 'current', pseudocodeLineIndex: 3 });
+                    dfs(v2);
+                } else if (v2 === node && !visited.has(v1)) {
+                    steps.push({ node: v1, status: 'current', pseudocodeLineIndex: 2 });
+                    steps.push({ node: v1, status: 'current', pseudocodeLineIndex: 3 });
+                    dfs(v1);
+                }
+            });
+        }
+
+        dfs(startNode);
+        return steps;
+    }
+
+    function generateBFSSteps(startNode) {
+        const steps = [];
+        const visited = new Set();
+        const queue = [startNode];
+
+        steps.push({ node: startNode, status: 'current', pseudocodeLineIndex: 1 });
+        steps.push({ node: startNode, status: 'current', pseudocodeLineIndex: 2 });
+        steps.push({ node: startNode, status: 'visited', pseudocodeLineIndex: 3 });
+        visited.add(startNode);
+
+        while (queue.length > 0) {
+            steps.push({ node: queue[0], status: 'current', pseudocodeLineIndex: 4 });
+            const node = queue.shift();
+            steps.push({ node, status: 'current', pseudocodeLineIndex: 5 });
+
+            graph.edges.forEach(edge => {
+                const [v1, v2] = edge;
+                let neighbor = null;
+                if (v1 === node && !visited.has(v2)) {
+                    neighbor = v2;
+                } else if (v2 === node && !visited.has(v1)) {
+                    neighbor = v1;
+                }
+
+                if (neighbor) {
+                    steps.push({ node: neighbor, status: 'current', pseudocodeLineIndex: 6 });
+                    steps.push({ node: neighbor, status: 'current', pseudocodeLineIndex: 7 });
+                    steps.push({ node: neighbor, status: 'visited', pseudocodeLineIndex: 8 });
+                    visited.add(neighbor);
+                    queue.push(neighbor);
+                    steps.push({ node: neighbor, status: 'current', pseudocodeLineIndex: 9 });
+                }
+            });
+        }
+
+        return steps;
+    }
+
+    function resetGraph() {
+        drawGraph();
+        currentAlgorithm = null;
+        algorithmSteps = [];
+        currentStepIndex = 0;
+        document.getElementById('nextStepBtn').disabled = true;
+        document.getElementById('stepInfo').textContent = '';
+        document.getElementById('pseudocode').innerHTML = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', drawGraph);
+</script>
+</body>
+</html>
