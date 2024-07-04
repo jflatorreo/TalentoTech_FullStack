@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Dijkstra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<h1>Algoritmo de Dijkstra</h1>
+
+<div>
+    <label for="start">Nodo de inicio:</label>
+    <input type="text" id="start" required>
+</div>
+
+<button onclick="ejecutarDijkstra()">Ejecutar Dijkstra</button>
+
+<div id="output"></div>
+
+<script>
+    class Graph {
+        constructor() {
+            this.nodes = {};
+        }
+
+        addNode(node) {
+            if (!this.nodes[node]) {
+                this.nodes[node] = {};
+            }
+        }
+
+        addEdge(node1, node2, weight) {
+            this.addNode(node1);
+            this.addNode(node2);
+            this.nodes[node1][node2] = weight;
+            this.nodes[node2][node1] = weight;
+        }
+    }
+
+    function dijkstra(graph, startNode) {
+        const distances = {};
+        const previous = {};
+        const pq = new PriorityQueue();
+
+        // Inicialización
+        for (let node in graph.nodes) {
+            if (node === startNode) {
+                distances[node] = 0;
+                pq.enqueue(node, 0);
+            } else {
+                distances[node] = Infinity;
+                pq.enqueue(node, Infinity);
+            }
+            previous[node] = null;
+        }
+
+        while (!pq.isEmpty()) {
+            let minNode = pq.dequeue();
+            let currentNode = minNode.element;
+
+            for (let neighbor in graph.nodes[currentNode]) {
+                let distance = distances[currentNode] + graph.nodes[currentNode][neighbor];
+                if (distance < distances[neighbor]) {
+                    distances[neighbor] = distance;
+                    previous[neighbor] = currentNode;
+                    pq.enqueue(neighbor, distance);
+                }
+            }
+        }
+
+        return { distances, previous };
+    }
+
+    function ejecutarDijkstra() {
+        const startNode = document.getElementById('start').value;
+        if (!graph.nodes[startNode]) {
+            mostrarResultado(`El nodo "${startNode}" no existe en el grafo.`);
+            return;
+        }
+
+        const result = dijkstra(graph, startNode);
+        let output = `Distancias más cortas desde ${startNode}:\n`;
+        for (let node in result.distances) {
+            output += `${node}: ${result.distances[node]}\n`;
+        }
+        mostrarResultado(output);
+    }
+
+    // Implementación simple de una cola de prioridad
+    class PriorityQueue {
+        constructor() {
+            this.elements = [];
+        }
+
+        enqueue(element, priority) {
+            this.elements.push({ element, priority });
+            this.elements.sort((a, b) => a.priority - b.priority);
+        }
+
+        dequeue() {
+            return this.elements.shift();
+        }
+
+        isEmpty() {
+            return this.elements.length === 0;
+        }
+    }
+
+    // Crear y poblar el grafo de ejemplo
+    const graph = new Graph();
+    graph.addEdge('A', 'B', 4);
+    graph.addEdge('A', 'C', 2);
+    graph.addEdge('B', 'D', 3);
+    graph.addEdge('C', 'D', 1);
+    graph.addEdge('C', 'E', 5);
+    graph.addEdge('D', 'E', 2);
+
+    function mostrarResultado(mensaje) {
+        document.getElementById('output').textContent = mensaje;
+    }
+</script>
+</body>
+</html>

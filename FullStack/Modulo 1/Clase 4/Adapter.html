@@ -22,14 +22,14 @@
 <script>
     // Clase Adaptada (la que queremos adaptar)
     class OldSystem {
-        specificRequest(a) {
+        specificRequest() {
             return 'Respuesta del sistema antiguo';
         }
     }
 
     // Interfaz que espera el cliente
     class Target {
-        request() {
+        request(a) {
             throw new Error('El método request() debe ser implementado');
         }
     }
@@ -41,9 +41,9 @@
             this.oldSystem = oldSystem;
         }
 
-        request(a=0) {
-
-            return this.oldSystem.specificRequest(a);
+        request(a) {
+            console.log("argumento a recibido"+a);
+            return this.oldSystem.specificRequest();
         }
     }
 
@@ -52,7 +52,7 @@
         const oldSystem = new OldSystem();
         const adapter = new Adapter(oldSystem);
 
-        mostrarResultado(adapter.request());
+        mostrarResultado(adapter.request("Hola"));
     }
 
     // Función para mostrar los resultados en el div

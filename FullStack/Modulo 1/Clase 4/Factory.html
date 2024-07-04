@@ -25,7 +25,7 @@
 
 <script>
     // Product: Interfaz para los productos a ser creados
-    class Product {
+    class IProduct {
         constructor(name) {
             this.name = name;
         }
@@ -36,14 +36,14 @@
     }
 
     // ConcreteProduct A: Implementación específica de Product
-    class ConcreteProductA extends Product {
+    class ConcreteProductA extends IProduct {
         constructor() {
             super("Producto A");
         }
     }
 
     // ConcreteProduct B: Implementación específica de Product
-    class ConcreteProductB extends Product {
+    class ConcreteProductB extends IProduct {
         constructor() {
             super("Producto B");
         }

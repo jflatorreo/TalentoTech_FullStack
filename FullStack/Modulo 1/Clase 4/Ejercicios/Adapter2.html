@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor de Música Multiservicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<h1>Reproductor de Música Multiservicio</h1>
+
+<div>
+    <h2>Spotify</h2>
+    <button onclick="playSpotify('001')">Reproducir Spotify</button>
+    <button onclick="pauseSpotify()">Pausar Spotify</button>
+</div>
+
+<div>
+    <h2>Apple Music</h2>
+    <button onclick="playAppleMusic('002')">Reproducir Apple Music</button>
+    <button onclick="pauseAppleMusic()">Pausar Apple Music</button>
+</div>
+
+<div id="output"></div>
+
+<script>
+    // Interfaces de los servicios de streaming
+    class SpotifyAPI {
+        play(trackId) {
+            log(`Spotify reproduciendo pista: ${trackId}`);
+        }
+
+        pause() {
+            log("Spotify pausado");
+        }
+    }
+
+    class AppleMusicAPI {
+        startPlayback(songId) {
+            log(`Apple Music reproduciendo canción: ${songId}`);
+        }
+
+        stop() {
+            log("Apple Music detenido");
+        }
+    }
+
+    // Interfaz común que queremos usar en nuestra aplicación
+    class MusicPlayerInterface {
+        playTrack(id) {}
+        pausePlayback() {}
+    }
+
+    // Adapters
+    class SpotifyAdapter extends MusicPlayerInterface {
+        constructor(spotifyApi) {
+            super();
+            this.spotifyApi = spotifyApi;
+        }
+
+        playTrack(id) {
+            this.spotifyApi.play(id);
+        }
+
+        pausePlayback() {
+            this.spotifyApi.pause();
+        }
+    }
+
+    class AppleMusicAdapter extends MusicPlayerInterface {
+        constructor(appleMusicApi) {
+            super();
+            this.appleMusicApi = appleMusicApi;
+        }
+
+        playTrack(id) {
+            this.appleMusicApi.startPlayback(id);
+        }
+
+        pausePlayback() {
+            this.appleMusicApi.stop();
+        }
+    }
+
+    // Uso
+    class MusicApp {
+        constructor(musicPlayerAdapter) {
+            this.player = musicPlayerAdapter;
+        }
+
+        playMusic(trackId) {
+            this.player.playTrack(trackId);
+        }
+
+        pauseMusic() {
+            this.player.pausePlayback();
+        }
+    }
+
+    // Instancias
+    const spotifyPlayer = new SpotifyAdapter(new SpotifyAPI());
+    const appleMusicPlayer = new AppleMusicAdapter(new AppleMusicAPI());
+
+    const spotifyApp = new MusicApp(spotifyPlayer);
+    const appleMusicApp = new MusicApp(appleMusicPlayer);
+
+    // Funciones para la interfaz de usuario
+    function playSpotify(trackId) {
+        spotifyApp.playMusic(trackId);
+    }
+
+    function pauseSpotify() {
+        spotifyApp.pauseMusic();
+    }
+
+    function playAppleMusic(trackId) {
+        appleMusicApp.playMusic(trackId);
+    }
+
+    function pauseAppleMusic() {
+        appleMusicApp.pauseMusic();
+    }
+
+    // Función para mostrar los mensajes en la página
+    function log(message) {
+        const output = document.getElementById('output');
+        output.innerHTML += message + '<br>';
+    }
+</script>
+</body>
+</html>

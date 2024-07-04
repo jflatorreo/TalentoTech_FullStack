@@ -73,9 +73,12 @@
 
         const videoPlayerWindows = new VideoPlayer(windowsPlatform);
         const musicPlayerLinux = new MusicPlayer(linuxPlatform);
+        const videoPlayerLinux = new VideoPlayer(linuxPlatform);
 
         mostrarResultado(videoPlayerWindows.run());
         mostrarResultado(musicPlayerLinux.run());
+        mostrarResultado(videoPlayerLinux.run());
+
     }
 
     // Función para mostrar los resultados en el div

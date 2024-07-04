@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario de Libros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 200px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<h1>Gestión de Inventario de Libros</h1>
+
+<div class="form-group">
+    <label for="id">ID:</label>
+    <input type="number" id="id" required>
+</div>
+<div class="form-group">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" required>
+</div>
+<div class="form-group">
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio" step="0.01" required>
+</div>
+
+<button onclick="insertarLibro()">Insertar Libro</button>
+<button onclick="buscarLibro()">Buscar Libro</button>
+<button onclick="eliminarLibro()">Eliminar Libro</button>
+<button onclick="mostrarInventario()">Mostrar Inventario</button>
+
+<div id="output"></div>
+
+<script>
+    class Libro {
+        constructor(id, titulo, precio) {
+            this.id = id;
+            this.titulo = titulo;
+            this.precio = precio;
+        }
+    }
+
+    class Nodo {
+        constructor(libro) {
+            this.libro = libro;
+            this.izquierda = null;
+            this.derecha = null;
+        }
+    }
+
+    class BST {
+        constructor() {
+            this.raiz = null;
+        }
+
+        insertar(libro) {
+            if (this.raiz === null) {
+                this.raiz = new Nodo(libro);
+            } else {
+                const resultado = this._insertarNodo(this.raiz, libro);
+                if (!resultado) {
+                    return false; // Inserción fallida (ID duplicado)
+                }
+            }
+            return true; // Inserción exitosa
+        }
+
+        _insertarNodo(nodo, libro) {
+            if (libro.id === nodo.libro.id) {
+                // ID duplicado, actualizamos la información del libro
+                nodo.libro = libro;
+                return false; // Indicamos que no se insertó un nuevo nodo
+            }
+
+            if (libro.id < nodo.libro.id) {
+                if (nodo.izquierda === null) {
+                    nodo.izquierda = new Nodo(libro);
+                } else {
+                    return this._insertarNodo(nodo.izquierda, libro);
+                }
+            } else {
+                if (nodo.derecha === null) {
+                    nodo.derecha = new Nodo(libro);
+                } else {
+                    return this._insertarNodo(nodo.derecha, libro);
+                }
+            }
+            return true; // Inserción exitosa
+        }
+
+        buscar(id) {
+            return this._buscarNodo(this.raiz, id);
+        }
+
+        _buscarNodo(nodo, id) {
+            if (nodo === null) {
+                return null;
+            }
+            if (id === nodo.libro.id) {
+                return nodo.libro;
+            }
+            if (id < nodo.libro.id) {
+                return this._buscarNodo(nodo.izquierda, id);
+            }
+            return this._buscarNodo(nodo.derecha, id);
+        }
+
+        eliminar(id) {
+            this.raiz = this._eliminarNodo(this.raiz, id);
+        }
+
+        _eliminarNodo(nodo, id) {
+            if (nodo === null) {
+                return null;
+            }
+            if (id < nodo.libro.id) {
+                nodo.izquierda = this._eliminarNodo(nodo.izquierda, id);
+            } else if (id > nodo.libro.id) {
+                nodo.derecha = this._eliminarNodo(nodo.derecha, id);
+            } else {
+                if (nodo.izquierda === null && nodo.derecha === null) {
+                    return null;
+                }
+                if (nodo.izquierda === null) {
+                    return nodo.derecha;
+                }
+                if (nodo.derecha === null) {
+                    return nodo.izquierda;
+                }
+                let sucesor = this._encontrarMinimo(nodo.derecha);
+                nodo.libro = sucesor.libro;
+                nodo.derecha = this._eliminarNodo(nodo.derecha, sucesor.libro.id);
+            }
+            return nodo;
+        }
+
+        _encontrarMinimo(nodo) {
+            while (nodo.izquierda !== null) {
+                nodo = nodo.izquierda;
+            }
+            return nodo;
+        }
+
+        mostrarOrdenado() {
+            this._inOrden(this.raiz);
+        }
+
+        _inOrden(nodo) {
+            if (nodo !== null) {
+                this._inOrden(nodo.izquierda);
+                console.log(`ID: ${nodo.libro.id}, Título: ${nodo.libro.titulo}, Precio: $${nodo.libro.precio}`);
+                this._inOrden(nodo.derecha);
+            }
+        }
+    }
+
+    const inventario = new BST();
+
+    function insertarLibro() {
+        const id = parseInt(document.getElementById('id').value);
+        const titulo = document.getElementById('titulo').value;
+        const precio = parseFloat(document.getElementById('precio').value);
+
+        const libro = new Libro(id, titulo, precio);
+        const insertado = inventario.insertar(libro);
+
+        if (insertado) {
+            mostrarMensaje(`Libro insertado: ID ${id}, Título: ${titulo}, Precio: $${precio}`);
+        } else {
+            mostrarMensaje(`Libro con ID ${id} actualizado: Título: ${titulo}, Precio: $${precio}`);
+        }
+    }
+
+    function buscarLibro() {
+        const id = parseInt(document.getElementById('id').value);
+        const libro = inventario.buscar(id);
+        if (libro) {
+            mostrarMensaje(`Libro encontrado: ID ${libro.id}, Título: ${libro.titulo}, Precio: $${libro.precio}`);
+        } else {
+            mostrarMensaje(`No se encontró un libro con ID ${id}`);
+        }
+    }
+
+    function eliminarLibro() {
+        const id = parseInt(document.getElementById('id').value);
+        inventario.eliminar(id);
+        mostrarMensaje(`Libro con ID ${id} eliminado (si existía)`);
+    }
+
+    function mostrarInventario() {
+        const output = document.getElementById('output');
+        output.innerHTML = '';
+        console.log = function(message) {
+            output.innerHTML += message + '\n';
+        };
+        inventario.mostrarOrdenado();
+    }
+
+    function mostrarMensaje(mensaje) {
+        document.getElementById('output').textContent = mensaje;
+    }
+</script>
+</body>
+</html>

@@ -50,14 +50,14 @@
     class ConcreteDecoratorA extends Decorator {
         operation() {
             //procesar
-            return `Decorator A (${this.component.operation()})`;
+            return `Decoración que hace A a la operación (${this.component.operation()})`;
         }
     }
 
     // Decorador Concreto 2: Extiende la funcionalidad del componente agregando nuevas funcionalidades
     class ConcreteDecoratorB extends Decorator {
         operation() {
-            return `Decorator B (${this.component.operation()})`;
+            return `Decoración que hace B a la operación (${this.component.operation()})`;
         }
     }
 

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creación y Visualización de Grafos</title>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input, select, button {
+            width: 200px;
+        }
+        #output {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+        #grafo {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<h1>Creación y Visualización de Grafos</h1>
+
+<h2>Agregar Nodo</h2>
+<div class="form-group">
+    <label for="nodoId">ID del Nodo:</label>
+    <input type="text" id="nodoId" required>
+</div>
+<button onclick="agregarNodo()">Agregar Nodo</button>
+
+<h2>Agregar Arista</h2>
+<div class="form-group">
+    <label for="nodoOrigen">Nodo Origen:</label>
+    <select id="nodoOrigen"></select>
+</div>
+<div class="form-group">
+    <label for="nodoDestino">Nodo Destino:</label>
+    <select id="nodoDestino"></select>
+</div>
+<div class="form-group">
+    <label for="peso">Peso:</label>
+    <input type="number" id="peso" required>
+</div>
+<div class="form-group">
+    <label for="dirigida">Dirigida:</label>
+    <input type="checkbox" id="dirigida">
+</div>
+<button onclick="agregarArista()">Agregar Arista</button>
+
+<h2>Visualización</h2>
+<button onclick="mostrarMatrizAdyacencia()">Mostrar Matriz de Adyacencia</button>
+<button onclick="mostrarListaAdyacencia()">Mostrar Lista de Adyacencia</button>
+
+<div id="output"></div>
+
+<h2>Grafo Visual</h2>
+<div id="grafo"></div>
+
+<script>
+    class Grafo {
+        constructor() {
+            this.nodos = new Map();
+            this.aristas = new Map();
+        }
+
+        agregarNodo(id, info) {
+            if (!this.nodos.has(id)) {
+                this.nodos.set(id, info);
+                this.aristas.set(id, new Map());
+                return true;
+            }
+            return false;
+        }
+
+        eliminarNodo(id) {
+            if (this.nodos.has(id)) {
+                this.nodos.delete(id);
+                this.aristas.delete(id);
+                for (let [, conexiones] of this.aristas) {
+                    conexiones.delete(id);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        agregarArista(id1, id2, peso, dirigida = false) {
+            if (this.nodos.has(id1) && this.nodos.has(id2)) {
+                this.aristas.get(id1).set(id2, peso);
+                if (!dirigida) {
+                    this.aristas.get(id2).set(id1, peso);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        obtenerNodos() {
+            return Array.from(this.nodos.keys());
+        }
+
+        obtenerVecinos(id) {
+            return Array.from(this.aristas.get(id).keys());
+        }
+
+        obtenerPeso(id1, id2) {
+            return this.aristas.get(id1).get(id2);
+        }
+
+        obtenerMatrizAdyacencia() {
+            const nodos = this.obtenerNodos();
+            const matriz = [];
+            for (let i = 0; i < nodos.length; i++) {
+                matriz[i] = [];
+                for (let j = 0; j < nodos.length; j++) {
+                    matriz[i][j] = this.obtenerPeso(nodos[i], nodos[j]) || 0;
+                }
+            }
+            return matriz;
+        }
+
+        obtenerListaAdyacencia() {
+            const lista = {};
+            for (let nodo of this.nodos.keys()) {
+                lista[nodo] = Array.from(this.aristas.get(nodo).entries());
+            }
+            return lista;
+        }
+    }
+
+    const grafo = new Grafo();
+    let nodes, edges, network;
+
+    function inicializarRed() {
+        nodes = new vis.DataSet();
+        edges = new vis.DataSet();
+        const container = document.getElementById('grafo');
+        const data = { nodes, edges };
+        const options = {
+            physics: {
+                enabled: true,
+                barnesHut: {
+                    gravitationalConstant: -2000,
+                    centralGravity: 0.3,
+                    springLength: 95,
+                    springConstant: 0.04,
+                    damping: 0.09,
+                    avoidOverlap: 0
+                }
+            }
+        };
+        network = new vis.Network(container, data, options);
+    }
+
+    function agregarNodo() {
+        const id = document.getElementById('nodoId').value;
+        if (grafo.agregarNodo(id, id)) {
+            mostrarResultado(`Nodo ${id} agregado`);
+            actualizarSelectores();
+            nodes.add({id: id, label: id});
+        } else {
+            mostrarResultado(`Error: Ya existe un nodo con el ID ${id}`);
+        }
+    }
+
+    function agregarArista() {
+        const origen = document.getElementById('nodoOrigen').value;
+        const destino = document.getElementById('nodoDestino').value;
+        const peso = parseInt(document.getElementById('peso').value);
+        const dirigida = document.getElementById('dirigida').checked;
+        if (grafo.agregarArista(origen, destino, peso, dirigida)) {
+            mostrarResultado(`Arista agregada de ${origen} a ${destino} con peso ${peso}`);
+            edges.add({
+                from: origen,
+                to: destino,
+                label: String(peso),
+                arrows: dirigida ? 'to' : '',
+                id: `${origen}-${destino}`
+            });
+            if (!dirigida) {
+                edges.add({
+                    from: destino,
+                    to: origen,
+                    label: String(peso),
+                    id: `${destino}-${origen}`
+                });
+            }
+        } else {
+            mostrarResultado(`Error: No se pudo agregar la arista`);
+        }
+    }
+
+    function mostrarMatrizAdyacencia() {
+        const matriz = grafo.obtenerMatrizAdyacencia();
+        let output = "Matriz de Adyacencia:\n";
+        output += "  " + grafo.obtenerNodos().join(" ") + "\n";
+        matriz.forEach((fila, i) => {
+            output += grafo.obtenerNodos()[i] + " " + fila.join(" ") + "\n";
+        });
+        mostrarResultado(output);
+    }
+
+    function mostrarListaAdyacencia() {
+        const lista = grafo.obtenerListaAdyacencia();
+        let output = "Lista de Adyacencia:\n";
+        for (let [nodo, vecinos] of Object.entries(lista)) {
+            output += `${nodo}: ${vecinos.map(([v, p]) => `${v}(${p})`).join(", ")}\n`;
+        }
+        mostrarResultado(output);
+    }
+
+    function actualizarSelectores() {
+        const nodos = grafo.obtenerNodos();
+        const selectores = ['nodoOrigen', 'nodoDestino'];
+        selectores.forEach(id => {
+            const select = document.getElementById(id);
+            select.innerHTML = '';
+            nodos.forEach(nodo => {
+                const option = document.createElement('option');
+                option.value = nodo;
+                option.textContent = nodo;
+                select.appendChild(option);
+            });
+        });
+    }
+
+    function mostrarResultado(mensaje) {
+        document.getElementById('output').textContent = mensaje;
+    }
+
+    // Inicializar la red al cargar la página
+    window.onload = inicializarRed;
+</script>
+</body>
+</html>

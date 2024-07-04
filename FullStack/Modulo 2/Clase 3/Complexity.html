@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Complejidad Temporal</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .input-section {
+            margin-bottom: 10px;
+        }
+        .chart-container {
+            margin-top: 20px;
+        }
+        .complexity-container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<h1>Análisis de Complejidad Temporal</h1>
+
+<div class="complexity-container">
+    <h2>O(1) - Tiempo Constante</h2>
+    <p>Operaciones que toman un tiempo constante, independientemente del tamaño del input. En el ejemplo, acceder directamente a un elemento en un array es O(1) porque el tiempo de acceso no depende del tamaño del array, sino solo de la posición del elemento.</p>
+</div>
+
+<div class="input-section">
+    <label for="inputSizeStartO1">Tamaño del Input (Inicial) - O(1):</label>
+    <input type="number" id="inputSizeStartO1" value="1">
+    <label for="inputSizeEndO1">Tamaño del Input (Final) - O(1):</label>
+    <input type="number" id="inputSizeEndO1" value="10">
+</div>
+
+<div class="complexity-container">
+    <h2>O(n) - Tiempo Lineal</h2>
+    <p>Operaciones cuyo tiempo de ejecución aumenta linealmente con el tamaño del input. Ejemplo: búsqueda lineal en un array, donde cada elemento se verifica secuencialmente hasta encontrar el objetivo.</p>
+</div>
+
+<div class="input-section">
+    <label for="inputSizeStartON">Tamaño del Input (Inicial) - O(n):</label>
+    <input type="number" id="inputSizeStartON" value="100">
+    <label for="inputSizeEndON">Tamaño del Input (Final) - O(n):</label>
+    <input type="number" id="inputSizeEndON" value="1000">
+</div>
+
+<div class="complexity-container">
+    <h2>O(n²) - Tiempo Cuadrático</h2>
+    <p>Operaciones cuyo tiempo de ejecución crece cuadráticamente con el tamaño del input. Ejemplo: ordenamiento burbuja, donde cada elemento se compara con todos los demás.</p>
+</div>
+
+<div class="input-section">
+    <label for="inputSizeStartON2">Tamaño del Input (Inicial) - O(n²):</label>
+    <input type="number" id="inputSizeStartON2" value="10">
+    <label for="inputSizeEndON2">Tamaño del Input (Final) - O(n²):</label>
+    <input type="number" id="inputSizeEndON2" value="100">
+</div>
+
+<div class="complexity-container">
+    <h2>O(log n) - Tiempo Logarítmico</h2>
+    <p>Operaciones cuyo tiempo de ejecución aumenta logarítmicamente con el tamaño del input. Ejemplo: búsqueda binaria en un array ordenado, donde el conjunto de datos se reduce a la mitad en cada paso.</p>
+</div>
+
+<div class="input-section">
+    <label for="inputSizeStartLogN">Tamaño del Input (Inicial) - O(log n):</label>
+    <input type="number" id="inputSizeStartLogN" value="100">
+    <label for="inputSizeEndLogN">Tamaño del Input (Final) - O(log n):</label>
+    <input type="number" id="inputSizeEndLogN" value="1000">
+</div>
+
+<div>
+    <button onclick="ejecutarAnalisis()">Ejecutar Análisis</button>
+</div>
+
+<div class="chart-container">
+    <canvas id="chartO1"></canvas>
+</div>
+
+<div class="chart-container">
+    <canvas id="chartON"></canvas>
+</div>
+
+<div class="chart-container">
+    <canvas id="chartON2"></canvas>
+</div>
+
+<div class="chart-container">
+    <canvas id="chartLogN"></canvas>
+</div>
+
+<script>
+    function ejecutarAnalisis() {
+        const inputSizeStartO1 = parseInt(document.getElementById('inputSizeStartO1').value);
+        const inputSizeEndO1 = parseInt(document.getElementById('inputSizeEndO1').value);
+        const inputSizeStartON = parseInt(document.getElementById('inputSizeStartON').value);
+        const inputSizeEndON = parseInt(document.getElementById('inputSizeEndON').value);
+        const inputSizeStartON2 = parseInt(document.getElementById('inputSizeStartON2').value);
+        const inputSizeEndON2 = parseInt(document.getElementById('inputSizeEndON2').value);
+        const inputSizeStartLogN = parseInt(document.getElementById('inputSizeStartLogN').value);
+        const inputSizeEndLogN = parseInt(document.getElementById('inputSizeEndLogN').value);
+
+        const dataO1 = [];
+        const dataON = [];
+        const dataON2 = [];
+        const dataLogN = [];
+
+        for (let size = inputSizeStartO1; size <= inputSizeEndO1; size++) {
+            let totalTimeO1 = 0;
+            const iterations = 5; // Ejecutar varias veces para promediar
+
+            for (let i = 0; i < iterations; i++) {
+                totalTimeO1 += medirTiempoO1(size);
+            }
+
+            const averageTimeO1 = totalTimeO1 / iterations;
+            dataO1.push({ x: size, y: averageTimeO1 });
+        }
+
+        for (let size = inputSizeStartON; size <= inputSizeEndON; size += 100) {
+            let totalTimeON = 0;
+            const iterations = 5; // Ejecutar varias veces para promediar
+
+            for (let i = 0; i < iterations; i++) {
+                totalTimeON += medirTiempoON(size);
+            }
+
+            const averageTimeON = totalTimeON / iterations;
+            dataON.push({ x: size, y: averageTimeON });
+        }
+
+        for (let size = inputSizeStartON2; size <= inputSizeEndON2; size += 10) {
+            let totalTimeON2 = 0;
+            const iterations = 5; // Ejecutar varias veces para promediar
+
+            for (let i = 0; i < iterations; i++) {
+                totalTimeON2 += medirTiempoON2(size);
+            }
+
+            const averageTimeON2 = totalTimeON2 / iterations;
+            dataON2.push({ x: size, y: averageTimeON2 });
+        }
+
+        for (let size = inputSizeStartLogN; size <= inputSizeEndLogN; size += 100) {
+            let totalTimeLogN = 0;
+            const iterations = 5; // Ejecutar varias veces para promediar
+
+            for (let i = 0; i < iterations; i++) {
+                totalTimeLogN += medirTiempoLogN(size);
+            }
+
+            const averageTimeLogN = totalTimeLogN / iterations;
+            dataLogN.push({ x: size, y: averageTimeLogN });
+        }
+
+        actualizarGrafico('chartO1', 'O(1)', dataO1, 'Acceso Directo a Elemento');
+        actualizarGrafico('chartON', 'O(n)', dataON, 'Búsqueda Lineal');
+        actualizarGrafico('chartON2', 'O(n²)', dataON2, 'Ordenamiento Burbuja');
+        actualizarGrafico('chartLogN', 'O(log n)', dataLogN, 'Búsqueda Binaria');
+    }
+
+    function medirTiempoO1(size) {
+        const startTime = performance.now();
+
+        // Operación O(1) - Ejemplo: Acceso directo a un elemento
+        const array = Array.from({ length: size }, (_, i) => i);
+        const index = Math.floor(Math.random() * size);
+        const element = array[index];
+
+        const endTime = performance.now();
+        return endTime - startTime;
+    }
+
+    function medirTiempoON(size) {
+        const startTime = performance.now();
+
+        // Operación O(n) - Ejemplo: Búsqueda lineal
+        const array = Array.from({ length: size }, (_, i) => i);
+        const target = Math.floor(Math.random() * size);
+        let found = false;
+        for (let i = 0; i < size; i++) {
+            if (array[i] === target) {
+                found = true;
+                break;
+            }
+        }
+
+        const endTime = performance.now();
+        return endTime - startTime;
+    }
+
+    function medirTiempoON2(size) {
+        const startTime = performance.now();
+
+        // Operación O(n²) - Ejemplo: Ordenamiento burbuja
+        const array = Array.from({ length: size }, () => Math.floor(Math.random() * size));
+        for (let i = 0; i < size - 1; i++) {
+            for (let j = 0; j < size - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    const temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+
+        const endTime = performance.now();
+        return endTime - startTime;
+    }
+
+    function medirTiempoLogN(size) {
+        const startTime = performance.now();
+
+        // Operación O(log n) - Ejemplo: Búsqueda binaria
+        const array = Array.from({ length: size }, (_, i) => i);
+        const target = Math.floor(Math.random() * size);
+        let low = 0;
+        let high = size - 1;
+        while (low <= high) {
+            const mid = Math.floor((low + high) / 2);
+            if (array[mid] === target) {
+                break;
+            } else if (array[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        const endTime = performance.now();
+        return endTime - startTime;
+    }
+
+    function actualizarGrafico(id, label, data, algoritmo) {
+        const ctx = document.getElementById(id).getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    pointRadius: 3,
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'Tamaño del Input'
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Tiempo (ms)'
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const dataLabel = context.dataset.label || '';
+                                return `${dataLabel}: ${context.raw.y.toFixed(2)} ms`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const container = document.createElement('div');
+        container.innerHTML = `<h2>${label} - ${algoritmo}</h2>`;
+        container.appendChild(chart.canvas);
+        document.body.appendChild(container);
+    }
+</script>
+
+</body>
+</html>

@@ -86,7 +86,7 @@
     }
 
     // Uso del patrón Composite
-    function usarComposite() {
+    //function usarComposite() {
         const root = new Composite('Root');
         const branch1 = new Composite('Branch 1');
         const branch2 = new Composite('Branch 2');
@@ -94,12 +94,16 @@
         const leaf2 = new Leaf('Leaf 2');
 
         branch1.add(leaf1);
+        branch1.add(leaf1);
+        branch1.add(leaf1);
+        branch1.add(leaf1);
+
         branch2.add(leaf2);
         root.add(branch1);
         root.add(branch2);
 
         mostrarResultado(root.display(0));
-    }
+   // }
 
     // Función para mostrar los resultados en el div
     function mostrarResultado(resultado) {
