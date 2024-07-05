@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrones de Diseño en la Granja</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .pattern-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        #farm {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .animal {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrones de Diseño en la Granja</h1>
+
+<div class="pattern-section">
+    <h2>Singleton: Gestor de Recursos</h2>
+    <p>Recursos actuales: <span id="resources">100</span></p>
+    <button onclick="ResourceManager.getInstance().addResources(10)">Añadir recursos</button>
+</div>
+
+<div class="pattern-section">
+    <h2>Factory: Creación de Animales</h2>
+    <button onclick="createAnimal('cow')">Crear Vaca</button>
+    <button onclick="createAnimal('chicken')">Crear Gallina</button>
+    <button onclick="createAnimal('pig')">Crear Cerdo</button>
+    <div id="farm"></div>
+</div>
+
+<div class="pattern-section">
+    <h2>Observer: Notificaciones de la Granja</h2>
+    <div id="notifications"></div>
+</div>
+
+<div class="pattern-section">
+    <h2>Strategy: Estrategias de Alimentación</h2>
+    <button onclick="changeFeedingStrategy('BasicFeeding')">Alimentación Básica</button>
+    <button onclick="changeFeedingStrategy('PremiumFeeding')">Alimentación Premium</button>
+    <p>Estrategia actual: <span id="currentStrategy">BasicFeeding</span></p>
+</div>
+
+<div class="pattern-section">
+    <h2>Adapter: Conversión de Unidades</h2>
+    <p>Peso del último animal (kg): <span id="weightKg">0</span></p>
+    <p>Peso del último animal (lb): <span id="weightLb">0</span></p>
+</div>
+
+<div class="pattern-section">
+    <h2>Decorator: Mejoras de Animales</h2>
+    <button onclick="upgradeLastAnimal()">Mejorar último animal</button>
+    <p>Último animal mejorado: <span id="upgradedAnimal">Ninguno</span></p>
+</div>
+
+<script>
+    // Singleton: ResourceManager
+    class ResourceManager {
+        constructor() {
+            this.resources = 100;
+        }
+
+        static getInstance() {
+            // TODO: Implementa el método getInstance para el patrón Singleton
+            // Pasos:
+            // 1. Verifica si ya existe una instancia de ResourceManager
+            // 2. Si no existe, crea una nueva instancia
+            // 3. Retorna la instancia (sea la existente o la recién creada)
+        }
+
+        addResources(amount) {
+            // TODO: Implementa la lógica para añadir recursos
+            // Pasos:
+            // 1. Incrementa this.resources en la cantidad especificada
+            // 2. Actualiza el elemento HTML con id 'resources'
+            // 3. Notifica el cambio usando FarmObserver.notify()
+        }
+
+        useResources(amount) {
+            // TODO: Implementa la lógica para usar recursos
+            // Pasos:
+            // 1. Verifica si hay suficientes recursos (this.resources >= amount)
+            // 2. Si hay suficientes, reduce this.resources y actualiza el HTML
+            // 3. Retorna true si se usaron los recursos, false si no había suficientes
+        }
+    }
+
+    // Factory: AnimalFactory
+    class AnimalFactory {
+        static createAnimal(type) {
+            // TODO: Implementa el método createAnimal para el patrón Factory
+            // Pasos:
+            // 1. Usa un switch o if para determinar el tipo de animal
+            // 2. Crea y retorna una nueva instancia del animal correspondiente
+            // 3. Si el tipo no es reconocido, lanza un error
+        }
+    }
+
+    class Animal {
+        constructor(type, cost, image) {
+            this.type = type;
+            this.cost = cost;
+            this.image = image;
+            this.weight = Math.floor(Math.random() * 50) + 10; // peso aleatorio entre 10 y 60 kg
+        }
+
+        render() {
+            return `<div class="animal" style="background-image: url('${this.image}');">${this.type}</div>`;
+        }
+    }
+
+    // TODO: Implementa las clases Cow, Chicken y Pig que extienden de Animal
+    // Pasos para cada clase:
+    // 1. Crea la clase extendiendo de Animal
+    // 2. Implementa el constructor llamando a super con los parámetros adecuados
+
+    // Observer: FarmObserver
+    class FarmObserver {
+        static observers = [];
+
+        static addObserver(observer) {
+            // TODO: Implementa el método addObserver
+            // Pasos:
+            // 1. Añade el observer al array observers
+        }
+
+        static notify(message) {
+            // TODO: Implementa el método notify
+            // Pasos:
+            // 1. Itera sobre el array observers
+            // 2. Llama al método update de cada observer con el mensaje
+        }
+    }
+
+    class NotificationDisplay {
+        update(message) {
+            // TODO: Implementa el método update
+            // Pasos:
+            // 1. Obtén el elemento HTML con id 'notifications'
+            // 2. Añade un nuevo párrafo con el mensaje al elemento
+        }
+    }
+
+    // Strategy: FeedingStrategy
+    class FeedingStrategy {
+        feed(animal) {}
+    }
+
+    // TODO: Implementa las clases BasicFeeding y PremiumFeeding que extienden de FeedingStrategy
+    // Pasos para cada clase:
+    // 1. Crea la clase extendiendo de FeedingStrategy
+    // 2. Implementa el método feed que retorne un string describiendo la alimentación
+
+    // Adapter: WeightAdapter
+    class WeightAdapter {
+        static kgToLb(kg) {
+            // TODO: Implementa el método estático kgToLb
+            // Pasos:
+            // 1. Convierte el peso de kg a lb (1 kg = 2.20462 lb)
+            // 2. Retorna el resultado
+        }
+    }
+
+    // Decorator: AnimalDecorator
+    class AnimalDecorator {
+        constructor(animal) {
+            this.animal = animal;
+        }
+
+        get type() {
+            return this.animal.type;
+        }
+
+        get cost() {
+            return this.animal.cost;
+        }
+
+        get image() {
+            return this.animal.image;
+        }
+
+        get weight() {
+            return this.animal.weight;
+        }
+
+        render() {
+            // TODO: Implementa el método render
+            // Pasos:
+            // 1. Llama y retorna el método render del animal decorado
+        }
+    }
+
+    class UpgradedAnimal extends AnimalDecorator {
+        get type() {
+            // TODO: Implementa el getter type
+            // Pasos:
+            // 1. Retorna el tipo del animal decorado con "Upgraded " al inicio
+        }
+
+        get cost() {
+            // TODO: Implementa el getter cost
+            // Pasos:
+            // 1. Retorna el costo del animal decorado multiplicado por 1.5
+        }
+
+        render() {
+            // TODO: Implementa el método render
+            // Pasos:
+            // 1. Obtén el render base llamando al método render del animal decorado
+            // 2. Modifica el string para añadir un borde dorado al elemento
+            // 3. Retorna el string modificado
+        }
+    }
+
+    // Aplicación
+    let animals = [];
+    let currentStrategy = new BasicFeeding();
+
+    FarmObserver.addObserver(new NotificationDisplay());
+
+    function createAnimal(type) {
+        // TODO: Implementa la lógica para crear un animal usando la fábrica
+        // Pasos:
+        // 1. Usa AnimalFactory para crear un animal del tipo especificado
+        // 2. Verifica si hay suficientes recursos para crear el animal
+        // 3. Si hay recursos, añade el animal al array y actualiza el HTML
+        // 4. Notifica la creación o la falta de recursos
+    }
+
+    function changeFeedingStrategy(strategy) {
+        // TODO: Implementa la lógica para cambiar la estrategia de alimentación
+        // Pasos:
+        // 1. Crea una nueva instancia de la estrategia especificada
+        // 2. Actualiza currentStrategy y el HTML
+        // 3. Si hay animales, aplica la nueva estrategia al último animal
+    }
+
+    function updateWeightDisplay(animal) {
+        // TODO: Implementa la lógica para actualizar la visualización del peso
+        // Pasos:
+        // 1. Actualiza el HTML con el peso en kg
+        // 2. Usa WeightAdapter para convertir a lb y actualiza el HTML
+    }
+
+    function upgradeLastAnimal() {
+        // TODO: Implementa la lógica para mejorar el último animal
+        // Pasos:
+        // 1. Verifica si hay animales
+        // 2. Si hay, toma el último y créale un UpgradedAnimal
+        // 3. Reemplaza el animal en el array y actualiza el HTML
+        // 4. Notifica la mejora
+    }
+</script>
+</body>
+</html>
