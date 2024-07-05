@@ -103,12 +103,17 @@
     class ResourceManager {
         constructor() {
             this.resources = 100;
+            this.instance = null;
         }
 
         static getInstance() {
             // TODO: Implementa el método getInstance para el patrón Singleton
             // Pasos:
             // 1. Verifica si ya existe una instancia de ResourceManager
+            if (!this.instance) {
+                this.instance = new ResourceManager();
+            }
+            return this.instance;
             // 2. Si no existe, crea una nueva instancia
             // 3. Retorna la instancia (sea la existente o la recién creada)
         }
@@ -117,18 +122,29 @@
             // TODO: Implementa la lógica para añadir recursos
             // Pasos:
             // 1. Incrementa this.resources en la cantidad especificada
+            this.resources += amount;
             // 2. Actualiza el elemento HTML con id 'resources'
+            document.getElementById("resources").innerHTML = this.resources;
             // 3. Notifica el cambio usando FarmObserver.notify()
+            FarmObserver.notify(`Se incrementaron los recursos en ${amount} unidades`);
+            FarmObserver.notify(`Ahora los recursos totales son: ${this.resources}`)
         }
 
         useResources(amount) {
             // TODO: Implementa la lógica para usar recursos
             // Pasos:
             // 1. Verifica si hay suficientes recursos (this.resources >= amount)
-            // 2. Si hay suficientes, reduce this.resources y actualiza el HTML
+            if (this.resources >= amount){
+                // 2. Si hay suficientes, reduce this.resources y actualiza el HTML
+                this.resources -= amount;
+                document.getElementById("resources").innerHTML=this.resources;
+                return true;
+            }
+            return false;
             // 3. Retorna true si se usaron los recursos, false si no había suficientes
         }
     }
+
 
     // Factory: AnimalFactory
     class AnimalFactory {
@@ -136,6 +152,20 @@
             // TODO: Implementa el método createAnimal para el patrón Factory
             // Pasos:
             // 1. Usa un switch o if para determinar el tipo de animal
+            switch (type){
+                case 'vaca':
+                    return new Vaca();
+                    break;
+                case'perro':
+                    return new Perro();
+                    break;
+                case 'gato':
+                    return new Gato();
+                    break;
+                default:
+                    throw new Error("Tipo de Animal no reconocido");
+                    //FarmObserver.notify("Tipo de Animal no reconocido");
+            }
             // 2. Crea y retorna una nueva instancia del animal correspondiente
             // 3. Si el tipo no es reconocido, lanza un error
         }
@@ -154,10 +184,21 @@
         }
     }
 
-    // TODO: Implementa las clases Cow, Chicken y Pig que extienden de Animal
-    // Pasos para cada clase:
-    // 1. Crea la clase extendiendo de Animal
-    // 2. Implementa el constructor llamando a super con los parámetros adecuados
+    class Vaca extends Animal{
+        constructor() {
+            super('vaca','200',''); //Agregar una URL a la imagen
+        }
+    }
+    class Perro extends Animal{
+        constructor() {
+            super('perro','100',''); //Agregar una URL a la imagen
+        }
+    }
+    class Gato extends Animal{
+        constructor() {
+            super('gato','50',''); //Agregar una URL a la imagen
+        }
+    }
 
     // Observer: FarmObserver
     class FarmObserver {
@@ -167,13 +208,17 @@
             // TODO: Implementa el método addObserver
             // Pasos:
             // 1. Añade el observer al array observers
+            this.observers.push(observer);
+            //this.observers[this.observers.size]=observer;
         }
 
         static notify(message) {
             // TODO: Implementa el método notify
             // Pasos:
             // 1. Itera sobre el array observers
+
             // 2. Llama al método update de cada observer con el mensaje
+            this.observers.forEach(observer => observer.update(message))
         }
     }
 
@@ -182,6 +227,7 @@
             // TODO: Implementa el método update
             // Pasos:
             // 1. Obtén el elemento HTML con id 'notifications'
+            document.getElementById("notifications").innerHTML += `<p>${message}</p>`
             // 2. Añade un nuevo párrafo con el mensaje al elemento
         }
     }
@@ -195,6 +241,25 @@
     // Pasos para cada clase:
     // 1. Crea la clase extendiendo de FeedingStrategy
     // 2. Implementa el método feed que retorne un string describiendo la alimentación
+    class FeedingStrategy{ //Interface del patron Strategy
+        feed(animal){
+            return ("Esta clase deberia ser implementada por las subclases ")
+        }
+    }
+
+    class AlimentacionBasica extends FeedingStrategy {
+        feed(animal){
+            return ("Esta es la dieta básica ")
+        }
+    }
+
+    class AlimentacionPremium extends FeedingStrategy {
+        feed(animal){
+            return ("Esta es la dieta Premium ");
+        }
+    }
+
+
 
     // Adapter: WeightAdapter
     class WeightAdapter {
@@ -203,6 +268,7 @@
             // Pasos:
             // 1. Convierte el peso de kg a lb (1 kg = 2.20462 lb)
             // 2. Retorna el resultado
+            return kg*2.20462;
         }
     }
 
@@ -232,6 +298,7 @@
             // TODO: Implementa el método render
             // Pasos:
             // 1. Llama y retorna el método render del animal decorado
+            return this.animal.render();
         }
     }
 
@@ -240,18 +307,23 @@
             // TODO: Implementa el getter type
             // Pasos:
             // 1. Retorna el tipo del animal decorado con "Upgraded " al inicio
+            return ` ${this.animal.type} Decorado`
         }
 
         get cost() {
             // TODO: Implementa el getter cost
             // Pasos:
             // 1. Retorna el costo del animal decorado multiplicado por 1.5
+            return this.animal.cost*1.5;
+
         }
 
         render() {
             // TODO: Implementa el método render
             // Pasos:
             // 1. Obtén el render base llamando al método render del animal decorado
+            const baseRender = this.animal.render();
+            baseRender.replace(">","style='border:3px solid gold;'>")
             // 2. Modifica el string para añadir un borde dorado al elemento
             // 3. Retorna el string modificado
         }
