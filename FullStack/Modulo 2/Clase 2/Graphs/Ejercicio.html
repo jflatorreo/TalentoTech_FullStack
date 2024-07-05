@@ -5,17 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Red Transmilenio - Modelo Pedagógico</title>
     <style>
-        /* Estilos CSS (sin cambios) */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        select, button, input {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        #resultado, #estaciones {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
+
 </head>
 <body>
 <h1>Red Transmilenio - Modelo Pedagógico</h1>
+<h2>Crear Nueva Estación</h2>
+<form id="nuevaEstacionForm">
+    <label for="idEstacion">ID de la Estación:</label>
+    <input type="text" id="idEstacion" required>
+    <label for="nombreEstacion">Nombre de la Estación:</label>
+    <input type="text" id="nombreEstacion" required>
+    <button type="submit">Crear Estación</button>
+</form>
 
-<!-- Formulario para crear una nueva estación (sin cambios) -->
+<h2>Conexiones entre Estaciones</h2>
+<table id="conexionesTable">
+    <thead>
+    <tr>
+        <th>Estación</th>
+        <!-- Las columnas de estaciones se agregarán dinámicamente -->
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Las filas se agregarán dinámicamente -->
+    </tbody>
+</table>
 
-<!-- Tabla para mostrar y editar conexiones entre estaciones (sin cambios) -->
+<h2>Encontrar Ruta Óptima</h2>
+<div>
+    <label for="estacionInicio">Estación de inicio:</label>
+    <select id="estacionInicio"></select>
+</div>
+<div>
+    <label for="estacionFin">Estación de destino:</label>
+    <select id="estacionFin"></select>
+</div>
+<button onclick="encontrarRuta()">Encontrar Ruta</button>
+<div id="resultado"></div>
 
-<!-- Sección para encontrar la ruta óptima (sin cambios) -->
 
 <script>
     class Grafo {
@@ -103,17 +158,36 @@
 
         // TODO: Implementar métodos específicos para la red de Transmilenio
         // 1. Método para agregar una estación a la red
+            agregarEstacion(estacion){
+            let id=estacion.id; // Tarea: encapsular
+            let nombre=estacion.nombre; //Encapsular
+             return this.agregarNodo(id,[id, nombre]);
+            }
         // 2. Método para agregar una conexión entre estaciones
+            agregarConexion(id1,id2,tiempo){
+            return this.agregarArista(id1,id2,tiempo);
+            }
         // 3. Método para obtener todas las estaciones de la red
+            obtenerEstaciones(){
+            return this.obtenerNodos();
+            }
         // Tip: utilizar y extender los métodos de la clase Grafo
     }
 
-    // Creación de la red de Transmilenio y agregado de algunas estaciones y conexiones iniciales
     const redTransmilenio = new TransmilenioNetwork();
-    // TODO: Agregar algunas estaciones y conexiones de ejemplo
-    // Ejemplo:
-    // redTransmilenio.agregarEstacion("Portal Norte", "Portal Norte");
-    // redTransmilenio.agregarConexion("Portal Norte", "Calle 100", 10);
+    const estacion1 =new Estacion("1","Portal Norte");
+    redTransmilenio.agregarEstacion(estacion1);
+    redTransmilenio.agregarEstacion(new Estacion("2", "Calle 100"));
+    redTransmilenio.agregarEstacion(new Estacion("3", "Calle 72"));
+    redTransmilenio.agregarEstacion(new Estacion("4", "Calle 45"));
+
+    redTransmilenio.agregarConexion(redTransmilenio.obtenerNodos()["1"],redTransmilenio.obtenerNodos()["4"],45);
+    redTransmilenio.agregarConexion(redTransmilenio.obtenerNodos()["1"],redTransmilenio.obtenerNodos()["2"],10);
+    redTransmilenio.agregarConexion(redTransmilenio.obtenerNodos()["2"],redTransmilenio.obtenerNodos()["3"],15);
+    redTransmilenio.agregarConexion(redTransmilenio.obtenerNodos()["3"],redTransmilenio.obtenerNodos()["4"],5);
+
+    // Creación de la red de Transmilenio y agregado de algunas estaciones y conexiones iniciales
+
 
     function actualizarInterfaz() {
         const estaciones = redTransmilenio.obtenerEstaciones();
@@ -190,8 +264,42 @@
     function dijkstra(grafo, inicio, fin) {
         // TODO: Implementar el algoritmo de Dijkstra
         // 1. Inicializar las estructuras de datos necesarias
+            const distacias ={};
+            const ruta = {};
+            const estaciones = new Set(grafo.obtenerNodos());
+        for (let estacion of estaciones){
+            distacias[estacion]= Infinity;
+        }
+        distacias[inicio]=0;
         // 2. Implementar el bucle principal del algoritmo
+            while(estaciones.size > 0){
+                let estacionActual=null;
+                for (let estacion of estaciones){
+                    if (estacionActual==null || distacias[estacion]<distacias[estacionActual]){
+                        estacionActual=estacion;
+                    }
+                }
+                if (estacionActual===fin){
+                    break;
+                }
+                estaciones.delete(estacionActual);
+                for(let vecino of grafo.obtenerVecinos(estacionActual)){
+                    let distaciaAlternativa = distacias[estacionActual]+grafo.obtenerPeso(estacionActual,vecino);
+                    if (distaciaAlternativa < distacias[vecino]){
+                        distacias[vecino]=distaciaAlternativa;
+                        ruta[vecino] = estacionActual;
+                    }
+                }
+            }
         // 3. Reconstruir y devolver la ruta más corta
+        const rutafinal = [];
+        let u = fin;
+        while (u !== undefined) {
+            rutafinal.unshift(u);
+            u = ruta[u];
+        }
+                return {rutafinal,distancia:distacias[fin]}
+
         // Tip: Utilizar los métodos del grafo como obtenerNodos(), obtenerVecinos(), obtenerPeso()
     }
 
@@ -199,10 +307,22 @@
     function encontrarRuta() {
         // TODO: Implementar la lógica para encontrar y mostrar la ruta
         // 1. Obtener las estaciones de inicio y fin seleccionadas
+        const inicio = document.getElementById("estacionInicio").value;
+            const final = document.getElementById("estacionFin").value;
         // 2. Llamar al algoritmo de Dijkstra
+
+        const resultado = dijkstra(redTransmilenio,inicio,final);
+
+        let html = "<h1>Ruta mas corta:</h1>"
+        html += `Estaciones ${resultado.rutafinal.join (' -> ')}`;
+        html += `Tiempo Total = ${resultado.distancia}`;
+
+        document.getElementById("resultado").innerHTML = html;
+
         // 3. Mostrar el resultado en el HTML
         // Tip: Usar document.getElementById() para obtener los valores y actualizar el resultado
     }
+
 
     // Inicializar la interfaz al cargar la página
     actualizarInterfaz();
