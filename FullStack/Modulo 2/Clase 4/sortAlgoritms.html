@@ -47,7 +47,7 @@
     function generateArray() {
         array = [];
         container.innerHTML = '';
-        for (let i = 0; i < 5; i++) {  // Reducido a 10 elementos para una visualización más clara
+        for (let i = 0; i < 50; i++) {  // Reducido a 10 elementos para una visualización más clara
             const value = Math.floor(Math.random() * 100) + 1;
             array.push(value);
             const bar = document.createElement('div');
@@ -200,7 +200,7 @@
     async function updateVisual(index) {
         const bars = container.getElementsByClassName('bar');
         bars[index].style.height = `${array[index] * 3}px`;
-        await sleep(500);  // Espera 3 segundos después de cada actualización visual
+        await sleep(50);  // Espera 3 segundos después de cada actualización visual
     }
 
     function sleep(ms) {
@@ -210,7 +210,7 @@
     async function explain(message) {
         explanationArea.value += message + '\n';
         explanationArea.scrollTop = explanationArea.scrollHeight;
-        await sleep(1800);  // Espera 3 segundos después de cada explicación
+        await sleep(10);  // Espera 3 segundos después de cada explicación
     }
 
     generateArray();
