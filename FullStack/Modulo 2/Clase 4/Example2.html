@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscando Contactos: Complejidad Temporal y Espacial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .contact-list {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .contact {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        button, input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Buscando Contactos en tu Teléfono</h1>
+    <p>Este ejemplo muestra cómo diferentes métodos de búsqueda afectan la complejidad temporal (tiempo) y espacial (memoria extra usada) al buscar un contacto en tu lista de teléfonos.</p>
+
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="Nombre a buscar">
+        <button onclick="searchContact('linear')">Búsqueda Lineal</button>
+        <button onclick="searchContact('binary')">Búsqueda Binaria</button>
+        <button onclick="searchContact('hash')">Búsqueda Hash</button>
+    </div>
+
+    <div class="contact-list" id="contactList"></div>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let contacts = [];
+    let contactsHash = {};
+
+    function generateContacts() {
+        const names = ["Ana", "Beto", "Carlos", "Diana", "Elena", "Fernando", "Gabriela", "Hugo", "Isabel", "Juan", "Karen", "Luis", "María", "Nora", "Oscar", "Patricia", "Quintín", "Rosa", "Sergio", "Teresa"];
+        contacts = names.map(name => ({
+            name,
+            phone: Math.floor(Math.random() * 9000000000) + 1000000000
+        }));
+        contacts.sort((a, b) => a.name.localeCompare(b.name));
+        contactsHash = Object.fromEntries(contacts.map(contact => [contact.name, contact]));
+        displayContacts();
+    }
+
+    function displayContacts() {
+        const contactList = document.getElementById('contactList');
+        contactList.innerHTML = contacts.map(contact => `<div class="contact">${contact.name}: ${contact.phone}</div>`).join('');
+    }
+
+    async function searchContact(method) {
+        const name = document.getElementById('searchInput').value;
+        if (!name) {
+            alert("Por favor, ingresa un nombre para buscar.");
+            return;
+        }
+
+        const startTime = performance.now();
+        let comparisons = 0;
+        let result;
+
+        if (method === 'linear') {
+            for (let contact of contacts) {
+                comparisons++;
+                if (contact.name === name) {
+                    result = contact;
+                    break;
+                }
+                await new Promise(resolve => setTimeout(resolve, 100));
+                highlightContact(comparisons - 1);
+            }
+        } else if (method === 'binary') {
+            let left = 0;
+            let right = contacts.length - 1;
+            while (left <= right) {
+                comparisons++;
+                const mid = Math.floor((left + right) / 2);
+                highlightContact(mid);
+                await new Promise(resolve => setTimeout(resolve, 300));
+                if (contacts[mid].name === name) {
+                    result = contacts[mid];
+                    break;
+                } else if (contacts[mid].name < name) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        } else if (method === 'hash') {
+            comparisons = 1;
+            result = contactsHash[name];
+        }
+
+        const endTime = performance.now();
+        const timeElapsed = endTime - startTime;
+
+        clearHighlights();
+
+        let complexity, spaceComplexity;
+        if (method === 'linear') {
+            complexity = 'O(n)';
+            spaceComplexity = 'O(1)';
+        } else if (method === 'binary') {
+            complexity = 'O(log n)';
+            spaceComplexity = 'O(1)';
+        } else {
+            complexity = 'O(1) en promedio';
+            spaceComplexity = 'O(n)';
+        }
+
+        document.getElementById('results').innerHTML = `
+                <h3>Resultados para búsqueda ${method === 'linear' ? 'Lineal' : method === 'binary' ? 'Binaria' : 'Hash'}:</h3>
+                <p>Contacto ${result ? 'encontrado' : 'no encontrado'}: ${result ? `${result.name}: ${result.phone}` : 'N/A'}</p>
+                <p>Tiempo de búsqueda: ${timeElapsed.toFixed(2)} ms</p>
+                <p>Comparaciones realizadas: ${comparisons}</p>
+                <p>Complejidad temporal: ${complexity}</p>
+                <p>Complejidad espacial: ${spaceComplexity}</p>
+            `;
+    }
+
+    function highlightContact(index) {
+        clearHighlights();
+        const contacts = document.querySelectorAll('.contact');
+        if (contacts[index]) {
+            contacts[index].classList.add('highlight');
+        }
+    }
+
+    function clearHighlights() {
+        document.querySelectorAll('.contact').forEach(contact => contact.classList.remove('highlight'));
+    }
+
+    // Generar contactos iniciales
+    generateContacts();
+</script>
+</body>
+</html>

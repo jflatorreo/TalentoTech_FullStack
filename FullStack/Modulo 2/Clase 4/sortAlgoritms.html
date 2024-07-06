@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Algoritmos de Ordenamiento</title>
+    <style>
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 300px;
+            border: 1px solid black;
+            margin-bottom: 20px;
+        }
+        .bar {
+            width: 20px;
+            margin: 0 1px;
+            background-color: blue;
+            transition: height 0.3s ease;
+        }
+        #explanation {
+            width: 100%;
+            height: 150px;
+            border: 1px solid black;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+<select id="algorithm">
+    <option value="bubble">Burbuja</option>
+    <option value="insertion">Inserción</option>
+    <option value="quick">Quicksort</option>
+    <option value="merge">Mergesort</option>
+</select>
+<button onclick="startSort()">Iniciar</button>
+<div id="container"></div>
+<textarea id="explanation" readonly></textarea>
+
+<script>
+    const container = document.getElementById('container');
+    const explanationArea = document.getElementById('explanation');
+    let array = [];
+
+    function generateArray() {
+        array = [];
+        container.innerHTML = '';
+        for (let i = 0; i < 5; i++) {  // Reducido a 10 elementos para una visualización más clara
+            const value = Math.floor(Math.random() * 100) + 1;
+            array.push(value);
+            const bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.style.height = `${value * 3}px`;
+            container.appendChild(bar);
+        }
+    }
+
+    async function startSort() {
+        generateArray();
+        explanationArea.value = '';
+        const algorithm = document.getElementById('algorithm').value;
+        switch(algorithm) {
+            case 'bubble':
+                await bubbleSort();
+                break;
+            case 'insertion':
+                await insertionSort();
+                break;
+            case 'quick':
+                await quickSort(0, array.length - 1);
+                break;
+            case 'merge':
+                await mergeSort(0, array.length - 1);
+                break;
+        }
+    }
+
+    async function bubbleSort() {
+        await explain("Iniciando Bubble Sort (Ordenamiento de Burbuja)");
+        await explain("Este algoritmo compara pares adyacentes y los intercambia si están en el orden incorrecto");
+        for (let i = 0; i < array.length; i++) {
+            await explain(`Iniciando pasada ${i+1}`);
+            for (let j = 0; j < array.length - i - 1; j++) {
+                await explain(`Comparando ${array[j]} y ${array[j+1]}`);
+                if (array[j] > array[j + 1]) {
+                    await explain(`${array[j]} es mayor que ${array[j+1]}, intercambiando`);
+                    await swap(j, j + 1);
+                } else {
+                    await explain(`${array[j]} no es mayor que ${array[j+1]}, no se intercambian`);
+                }
+            }
+            await explain(`Fin de la pasada ${i+1}. El elemento más grande está ahora al final`);
+        }
+        await explain("Ordenamiento completado");
+    }
+
+    async function insertionSort() {
+        await explain("Iniciando Insertion Sort (Ordenamiento por Inserción)");
+        await explain("Este algoritmo construye la solución final una inserción a la vez");
+        for (let i = 1; i < array.length; i++) {
+            await explain(`Insertando el elemento ${array[i]} en la posición correcta`);
+            let j = i;
+            while (j > 0 && array[j - 1] > array[j]) {
+                await explain(`${array[j]} es menor que ${array[j-1]}, intercambiando`);
+                await swap(j, j - 1);
+                j--;
+            }
+            await explain(`${array[i]} insertado en la posición correcta`);
+        }
+        await explain("Ordenamiento completado");
+    }
+
+    async function quickSort(low, high) {
+        if (low < high) {
+            await explain(`Aplicando Quicksort en el rango [${low}, ${high}]`);
+            await explain(`Eligiendo ${array[high]} como pivote`);
+            const pi = await partition(low, high);
+            await explain(`Pivote ${array[pi]} colocado en la posición final ${pi}`);
+            await explain(`Ordenando subarreglo izquierdo [${low}, ${pi-1}]`);
+            await quickSort(low, pi - 1);
+            await explain(`Ordenando subarreglo derecho [${pi+1}, ${high}]`);
+            await quickSort(pi + 1, high);
+        }
+    }
+
+    async function partition(low, high) {
+        const pivot = array[high];
+        await explain(`Particionando con pivote ${pivot}`);
+        let i = low - 1;
+        for (let j = low; j < high; j++) {
+            await explain(`Comparando ${array[j]} con el pivote ${pivot}`);
+            if (array[j] < pivot) {
+                i++;
+                await explain(`${array[j]} es menor que el pivote, intercambiando con ${array[i]}`);
+                await swap(i, j);
+            } else {
+                await explain(`${array[j]} no es menor que el pivote, no se intercambia`);
+            }
+        }
+        await explain(`Colocando el pivote ${pivot} en su posición final`);
+        await swap(i + 1, high);
+        return i + 1;
+    }
+
+    async function mergeSort(left, right) {
+        if (left < right) {
+            const mid = Math.floor((left + right) / 2);
+            await explain(`Dividiendo el arreglo en [${left}, ${mid}] y [${mid+1}, ${right}]`);
+            await mergeSort(left, mid);
+            await mergeSort(mid + 1, right);
+            await merge(left, mid, right);
+        }
+    }
+
+    async function merge(left, mid, right) {
+        await explain(`Fusionando subarreglos [${left}, ${mid}] y [${mid+1}, ${right}]`);
+        const n1 = mid - left + 1;
+        const n2 = right - mid;
+        const L = array.slice(left, mid + 1);
+        const R = array.slice(mid + 1, right + 1);
+        let i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                await explain(`Colocando ${L[i]} del subarreglo izquierdo en la posición ${k}`);
+                array[k] = L[i];
+                i++;
+            } else {
+                await explain(`Colocando ${R[j]} del subarreglo derecho en la posición ${k}`);
+                array[k] = R[j];
+                j++;
+            }
+            await updateVisual(k);
+            k++;
+        }
+        while (i < n1) {
+            await explain(`Colocando ${L[i]} restante del subarreglo izquierdo en la posición ${k}`);
+            array[k] = L[i];
+            await updateVisual(k);
+            i++;
+            k++;
+        }
+        while (j < n2) {
+            await explain(`Colocando ${R[j]} restante del subarreglo derecho en la posición ${k}`);
+            array[k] = R[j];
+            await updateVisual(k);
+            j++;
+            k++;
+        }
+        await explain(`Fusión completada para el rango [${left}, ${right}]`);
+    }
+
+    async function swap(i, j) {
+        [array[i], array[j]] = [array[j], array[i]];
+        await updateVisual(i);
+        await updateVisual(j);
+    }
+
+    async function updateVisual(index) {
+        const bars = container.getElementsByClassName('bar');
+        bars[index].style.height = `${array[index] * 3}px`;
+        await sleep(500);  // Espera 3 segundos después de cada actualización visual
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function explain(message) {
+        explanationArea.value += message + '\n';
+        explanationArea.scrollTop = explanationArea.scrollHeight;
+        await sleep(1800);  // Espera 3 segundos después de cada explicación
+    }
+
+    generateArray();
+</script>
+</body>
+</html>

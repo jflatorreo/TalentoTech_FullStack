@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos de Búsqueda</title>
+    <style>
+        .array-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .array-element {
+            width: 30px;
+            height: 30px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 2px;
+        }
+        .current {
+            background-color: yellow;
+        }
+        .found {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+<h1>Algoritmos de Búsqueda</h1>
+<div>
+    <label for="search-value">Valor a buscar:</label>
+    <input type="number" id="search-value" min="1" max="20" value="10">
+    <button onclick="startSearch('linear')">Búsqueda Lineal</button>
+    <button onclick="startSearch('binary')">Búsqueda Binaria</button>
+</div>
+<div id="array-container" class="array-container"></div>
+<div id="steps"></div>
+
+<script>
+    const array = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+    let stepInterval;
+
+    function createArrayVisual() {
+        const container = document.getElementById('array-container');
+        container.innerHTML = '';
+        array.forEach(num => {
+            const element = document.createElement('div');
+            element.className = 'array-element';
+            element.textContent = num;
+            container.appendChild(element);
+        });
+    }
+
+    function updateSteps(step) {
+        document.getElementById('steps').innerHTML += `<p>${step}</p>`;
+    }
+
+    function highlightElement(index, className) {
+        const elements = document.getElementsByClassName('array-element');
+        elements[index].classList.add(className);
+    }
+
+    function clearHighlights() {
+        const elements = document.getElementsByClassName('array-element');
+        Array.from(elements).forEach(el => {
+            el.classList.remove('current', 'found');
+        });
+    }
+
+    function linearSearch(searchValue) {
+        let i = 0;
+        clearHighlights();
+        updateSteps("Iniciando búsqueda lineal...");
+
+        stepInterval = setInterval(() => {
+            if (i < array.length) {
+                clearHighlights();
+                highlightElement(i, 'current');
+                updateSteps(`Comparando ${array[i]} con ${searchValue}`);
+
+                if (array[i] === searchValue) {
+                    highlightElement(i, 'found');
+                    updateSteps(`¡Encontrado ${searchValue} en la posición ${i}!`);
+                    clearInterval(stepInterval);
+                }
+                i++;
+            } else {
+                updateSteps(`${searchValue} no encontrado en el array.`);
+                clearInterval(stepInterval);
+            }
+        }, 1000);
+    }
+
+    function binarySearch(searchValue) {
+        let left = 0;
+        let right = array.length - 1;
+        clearHighlights();
+        updateSteps("Iniciando búsqueda binaria...");
+
+        stepInterval = setInterval(() => {
+            if (left <= right) {
+                clearHighlights();
+                const mid = Math.floor((left + right) / 2);
+                highlightElement(mid, 'current');
+                updateSteps(`Comparando ${array[mid]} con ${searchValue}`);
+
+                if (array[mid] === searchValue) {
+                    highlightElement(mid, 'found');
+                    updateSteps(`¡Encontrado ${searchValue} en la posición ${mid}!`);
+                    clearInterval(stepInterval);
+                } else if (array[mid] < searchValue) {
+                    left = mid + 1;
+                    updateSteps("El valor buscado es mayor, moviendo a la derecha.");
+                } else {
+                    right = mid - 1;
+                    updateSteps("El valor buscado es menor, moviendo a la izquierda.");
+                }
+            } else {
+                updateSteps(`${searchValue} no encontrado en el array.`);
+                clearInterval(stepInterval);
+            }
+        }, 1000);
+    }
+
+    function startSearch(type) {
+        clearInterval(stepInterval);
+        document.getElementById('steps').innerHTML = '';
+        const searchValue = parseInt(document.getElementById('search-value').value);
+        if (type === 'linear') {
+            linearSearch(searchValue);
+        } else {
+            binarySearch(searchValue);
+        }
+    }
+
+    createArrayVisual();
+</script>
+</body>
+</html>

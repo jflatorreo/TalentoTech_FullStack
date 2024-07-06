@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Transmilenio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        select, button, input {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        #resultado, #estaciones {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Red Transmilenio</h1>
+
+<h2>Crear Nueva Estación</h2>
+<form id="nuevaEstacionForm">
+    <label for="idEstacion">ID de la Estación:</label>
+    <input type="text" id="idEstacion" required>
+    <label for="nombreEstacion">Nombre de la Estación:</label>
+    <input type="text" id="nombreEstacion" required>
+    <button type="submit">Crear Estación</button>
+</form>
+
+<h2>Conexiones entre Estaciones</h2>
+<table id="conexionesTable">
+    <thead>
+    <tr>
+        <th>Estación</th>
+        <!-- Las columnas de estaciones se agregarán dinámicamente -->
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Las filas se agregarán dinámicamente -->
+    </tbody>
+</table>
+
+<h2>Encontrar Ruta Óptima</h2>
+<div>
+    <label for="estacionInicio">Estación de inicio:</label>
+    <select id="estacionInicio"></select>
+</div>
+<div>
+    <label for="estacionFin">Estación de destino:</label>
+    <select id="estacionFin"></select>
+</div>
+<button onclick="encontrarRuta()">Encontrar Ruta</button>
+<div id="resultado"></div>
+
+<script>
+    class Grafo {
+        constructor() {
+            this.nodos = new Map();
+            this.aristas = new Map();
+        }
+
+        agregarNodo(id, info) {
+            if (!this.nodos.has(id)) {
+                this.nodos.set(id, info);
+                this.aristas.set(id, new Map());
+                return true;
+            }
+            return false;
+        }
+
+        eliminarNodo(id) {
+            if (this.nodos.has(id)) {
+                this.nodos.delete(id);
+                this.aristas.delete(id);
+                for (let [, conexiones] of this.aristas) {
+                    conexiones.delete(id);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        agregarArista(id1, id2, peso, dirigida = false) {
+            if (this.nodos.has(id1) && this.nodos.has(id2)) {
+                this.aristas.get(id1).set(id2, peso);
+                if (!dirigida) {
+                    this.aristas.get(id2).set(id1, peso);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        obtenerNodos() {
+            return Array.from(this.nodos.keys());
+        }
+
+        obtenerVecinos(id) {
+            return Array.from(this.aristas.get(id).keys());
+        }
+
+        obtenerPeso(id1, id2) {
+            return this.aristas.get(id1).get(id2);
+        }
+
+        obtenerMatrizAdyacencia() {
+            const nodos = this.obtenerNodos();
+            const matriz = [];
+            for (let i = 0; i < nodos.length; i++) {
+                matriz[i] = [];
+                for (let j = 0; j < nodos.length; j++) {
+                    matriz[i][j] = this.obtenerPeso(nodos[i], nodos[j]) || 0;
+                }
+            }
+            return matriz;
+        }
+
+        obtenerListaAdyacencia() {
+            const lista = {};
+            for (let nodo of this.nodos.keys()) {
+                lista[nodo] = Array.from(this.aristas.get(nodo).entries());
+            }
+            return lista;
+        }
+    }
+    class Estacion{
+        constructor(id,nombre) {
+            this.id=id;
+            this.nombre=nombre;
+        }
+    }
+    class TransmilenioNetwork extends Grafo {
+        constructor() {
+            super();
+        }
+
+        agregarEstacion(id,nombre) {
+            return this.agregarNodo(id, { id, nombre });
+        }
+
+        agregarConexion(id1, id2, tiempo) {
+            return this.agregarArista(id1, id2, tiempo);
+        }
+
+        obtenerEstaciones() {
+            return Array.from(this.nodos.values());
+        }
+    }
+
+    const redTransmilenio = new TransmilenioNetwork();
+    redTransmilenio.agregarEstacion("Portal Norte", "Portal Norte");
+    redTransmilenio.agregarEstacion("Calle 100", "Calle 100");
+    redTransmilenio.agregarEstacion("Calle 72", "Calle 72");
+    redTransmilenio.agregarEstacion("Calle 45", "Calle 45");
+    redTransmilenio.agregarConexion("Portal Norte", "Calle 100", 10);
+    redTransmilenio.agregarConexion("Calle 100", "Calle 72", 8);
+    redTransmilenio.agregarConexion("Calle 72", "Calle 45", 6);
+    redTransmilenio.agregarConexion("Calle 100", "Calle 45", 20);
+
+    function actualizarInterfaz() {
+        const estaciones = redTransmilenio.obtenerEstaciones();
+        const selectInicio = document.getElementById('estacionInicio');
+        const selectFin = document.getElementById('estacionFin');
+        const tabla = document.getElementById('conexionesTable');
+
+        selectInicio.innerHTML = '';
+        selectFin.innerHTML = '';
+
+        estaciones.forEach(estacion => {
+            const optionInicio = new Option(estacion.nombre, estacion.id);
+            const optionFin = new Option(estacion.nombre, estacion.id);
+            selectInicio.add(optionInicio);
+            selectFin.add(optionFin);
+        });
+
+        const thead = tabla.querySelector('thead tr');
+        const tbody = tabla.querySelector('tbody');
+
+        thead.innerHTML = '<th>Estación</th>';
+        tbody.innerHTML = '';
+
+        estaciones.forEach(estacion => {
+            const th = document.createElement('th');
+            th.textContent = estacion.nombre;
+            thead.appendChild(th);
+        });
+
+        estaciones.forEach(estacionOrigen => {
+            const tr = document.createElement('tr');
+            const tdNombre = document.createElement('td');
+            tdNombre.textContent = estacionOrigen.nombre;
+            tr.appendChild(tdNombre);
+
+            estaciones.forEach(estacionDestino => {
+                const td = document.createElement('td');
+                if (estacionOrigen.id !== estacionDestino.id) {
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.min = '0';
+                    input.dataset.origen = estacionOrigen.id;
+                    input.dataset.destino = estacionDestino.id;
+                    input.value = redTransmilenio.obtenerPeso(estacionOrigen.id, estacionDestino.id) || '';
+                    input.addEventListener('change', (e) => {
+                        const tiempo = parseInt(e.target.value);
+                        if (!isNaN(tiempo)) {
+                            redTransmilenio.agregarConexion(e.target.dataset.origen, e.target.dataset.destino, tiempo);
+                        }
+                    });
+                    td.appendChild(input);
+                }
+                tr.appendChild(td);
+            });
+
+            tbody.appendChild(tr);
+        });
+    }
+
+    document.getElementById('nuevaEstacionForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('idEstacion').value;
+        const nombre = document.getElementById('nombreEstacion').value;
+        if (redTransmilenio.agregarEstacion(id, nombre)) {
+            actualizarInterfaz();
+            document.getElementById('idEstacion').value = '';
+            document.getElementById('nombreEstacion').value = '';
+        } else {
+            alert('No se pudo agregar la estación. Puede que el ID ya exista.');
+        }
+    });
+
+    function dijkstra(grafo, inicio, fin) {
+        const distancias = {};
+        const anteriores = {};
+        const nodos = new Set(grafo.obtenerNodos());
+
+        for (let nodo of nodos) {
+            distancias[nodo] = Infinity;
+        }
+        distancias[inicio] = 0;
+
+        while (nodos.size > 0) {
+            let nodoActual = null;
+            for (let nodo of nodos) {
+                if (nodoActual === null || distancias[nodo] < distancias[nodoActual]) {
+                    nodoActual = nodo;
+                }
+            }
+
+            if (nodoActual === fin) {
+                break;
+            }
+
+            nodos.delete(nodoActual);
+
+            for (let vecino of grafo.obtenerVecinos(nodoActual)) {
+                let alt = distancias[nodoActual] + grafo.obtenerPeso(nodoActual, vecino);
+                if (alt < distancias[vecino]) {
+                    distancias[vecino] = alt;
+                    anteriores[vecino] = nodoActual;
+                }
+            }
+        }
+
+        const ruta = [];
+        let u = fin;
+        while (u !== undefined) {
+            ruta.unshift(u);
+            u = anteriores[u];
+        }
+
+        return { ruta, distancia: distancias[fin] };
+    }
+
+    function encontrarRuta() {
+        const inicio = document.getElementById('estacionInicio').value;
+        const fin = document.getElementById('estacionFin').value;
+        const resultado = dijkstra(redTransmilenio, inicio, fin);
+
+        let html = `<h2>Ruta más corta:</h2>`;
+        html += `<p>Estaciones: ${resultado.ruta.join(' -> ')}</p>`;
+        html += `<p>Tiempo total: ${resultado.distancia} minutos</p>`;
+
+        document.getElementById('resultado').innerHTML = html;
+    }
+
+    actualizarInterfaz();
+</script>
+</body>
+</html>

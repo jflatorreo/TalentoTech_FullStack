@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmos Voraz y Backtracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #explanation {
+            margin-top: 20px;
+            min-height: 50px;
+        }
+        canvas {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Algoritmos Voraz y Backtracking</h1>
+    <button onclick="startGreedy()">Iniciar Algoritmo Voraz</button>
+    <button onclick="startBacktracking()">Iniciar Algoritmo Backtracking</button>
+    <br><br>
+    <canvas id="canvas" width="400" height="200"></canvas>
+    <div id="explanation"></div>
+</div>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const explanation = document.getElementById('explanation');
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function showExplanation(text) {
+        explanation.textContent = text;
+        await sleep(2000);
+    }
+
+    async function startGreedy() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const items = [
+            {weight: 10, value: 60},
+            {weight: 20, value: 100},
+            {weight: 30, value: 120}
+        ];
+        const capacity = 50;
+
+        await showExplanation("Algoritmo Voraz: Problema de la Mochila");
+        await showExplanation("Ordenamos los objetos por su relación valor/peso");
+
+        items.sort((a, b) => (b.value / b.weight) - (a.value / a.weight));
+
+        let currentWeight = 0;
+        let currentValue = 0;
+
+        for (let i = 0; i < items.length; i++) {
+            ctx.fillStyle = 'lightblue';
+            ctx.fillRect(i * 100, 0, 80, 100);
+            ctx.fillStyle = 'black';
+            ctx.fillText(`Peso: ${items[i].weight}`, i * 100 + 10, 50);
+            ctx.fillText(`Valor: ${items[i].value}`, i * 100 + 10, 70);
+
+            await showExplanation(`Evaluando objeto ${i + 1}`);
+
+            if (currentWeight + items[i].weight <= capacity) {
+                currentWeight += items[i].weight;
+                currentValue += items[i].value;
+                ctx.fillStyle = 'green';
+                ctx.fillRect(i * 100, 100, 80, 20);
+                await showExplanation(`Objeto ${i + 1} añadido a la mochila`);
+            } else {
+                ctx.fillStyle = 'red';
+                ctx.fillRect(i * 100, 100, 80, 20);
+                await showExplanation(`Objeto ${i + 1} no cabe en la mochila`);
+            }
+        }
+
+        await showExplanation(`Solución voraz: Valor total = ${currentValue}, Peso total = ${currentWeight}`);
+    }
+
+    async function startBacktracking() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const items = [
+            {weight: 10, value: 60},
+            {weight: 20, value: 100},
+            {weight: 30, value: 120}
+        ];
+        const capacity = 50;
+
+        await showExplanation("Algoritmo Backtracking: Problema de la Mochila");
+
+        let bestSolution = {value: 0, weight: 0, items: []};
+
+        async function backtrack(index, currentWeight, currentValue, currentItems) {
+            if (index === items.length) {
+                if (currentValue > bestSolution.value) {
+                    bestSolution = {value: currentValue, weight: currentWeight, items: [...currentItems]};
+                }
+                return;
+            }
+
+            await showExplanation(`Evaluando objeto ${index + 1}`);
+
+            // No incluir el objeto actual
+            await backtrack(index + 1, currentWeight, currentValue, currentItems);
+
+            // Incluir el objeto actual si es posible
+            if (currentWeight + items[index].weight <= capacity) {
+                currentItems.push(index);
+                await showExplanation(`Añadiendo objeto ${index + 1} a la solución actual`);
+                await backtrack(index + 1, currentWeight + items[index].weight, currentValue + items[index].value, currentItems);
+                currentItems.pop();
+                await showExplanation(`Removiendo objeto ${index + 1} de la solución actual (backtracking)`);
+            }
+        }
+
+        await backtrack(0, 0, 0, []);
+
+        // Visualizar la mejor solución
+        for (let i = 0; i < items.length; i++) {
+            ctx.fillStyle = 'lightblue';
+            ctx.fillRect(i * 100, 0, 80, 100);
+            ctx.fillStyle = 'black';
+            ctx.fillText(`Peso: ${items[i].weight}`, i * 100 + 10, 50);
+            ctx.fillText(`Valor: ${items[i].value}`, i * 100 + 10, 70);
+
+            if (bestSolution.items.includes(i)) {
+                ctx.fillStyle = 'green';
+            } else {
+                ctx.fillStyle = 'red';
+            }
+            ctx.fillRect(i * 100, 100, 80, 20);
+        }
+
+        await showExplanation(`Mejor solución encontrada: Valor total = ${bestSolution.value}, Peso total = ${bestSolution.weight}`);
+    }
+</script>
+</body>
+</html>

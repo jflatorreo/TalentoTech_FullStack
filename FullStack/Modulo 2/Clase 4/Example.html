@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenando la Biblioteca: Complejidad Temporal y Espacial</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .book-shelf {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .book {
+            width: 30px;
+            height: 100px;
+            background-color: #007bff;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            transition: height 0.5s;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Ordenando la Biblioteca</h1>
+    <p>Este ejemplo muestra cómo diferentes algoritmos de ordenamiento afectan la complejidad temporal (tiempo) y espacial (memoria extra usada) al ordenar libros en una biblioteca.</p>
+
+    <div class="controls">
+        <button onclick="generateBooks()">Generar Nuevos Libros</button>
+        <button onclick="sortBooks('bubbleSort')">Ordenar con Bubble Sort</button>
+        <button onclick="sortBooks('quickSort')">Ordenar con Quick Sort</button>
+    </div>
+
+    <div class="book-shelf" id="bookShelf"></div>
+
+    <div id="results"></div>
+</div>
+
+<script>
+    let books = [];
+
+    function generateBooks() {
+        books = Array.from({length: 20}, () => Math.floor(Math.random() * 100) + 1);
+        displayBooks();
+        document.getElementById('results').innerHTML = '';
+    }
+
+    function displayBooks() {
+        const bookShelf = document.getElementById('bookShelf');
+        bookShelf.innerHTML = '';
+        books.forEach(height => {
+            const book = document.createElement('div');
+            book.className = 'book';
+            book.style.height = `${height}px`;
+            book.textContent = height;
+            bookShelf.appendChild(book);
+        });
+    }
+
+    async function sortBooks(algorithm) {
+        const startTime = performance.now();
+        let comparisons = 0;
+        let extraSpace = 0;
+
+        if (algorithm === 'bubbleSort') {
+            for (let i = 0; i < books.length; i++) {
+                for (let j = 0; j < books.length - i - 1; j++) {
+                    comparisons++;
+                    if (books[j] > books[j + 1]) {
+                        [books[j], books[j + 1]] = [books[j + 1], books[j]];
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                        displayBooks();
+                    }
+                }
+            }
+            extraSpace = 1; // Solo necesita una variable temporal para el intercambio
+        } else if (algorithm === 'quickSort') {
+            async function quickSort(arr, low, high) {
+                if (low < high) {
+                    let pi = await partition(arr, low, high);
+                    await quickSort(arr, low, pi - 1);
+                    await quickSort(arr, pi + 1, high);
+                }
+            }
+
+            async function partition(arr, low, high) {
+                let pivot = arr[high];
+                let i = low - 1;
+                for (let j = low; j < high; j++) {
+                    comparisons++;
+                    if (arr[j] < pivot) {
+                        i++;
+                        [arr[i], arr[j]] = [arr[j], arr[i]];
+                        await new Promise(resolve => setTimeout(resolve, 50));
+                        displayBooks();
+                    }
+                }
+                [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+                await new Promise(resolve => setTimeout(resolve, 50));
+                displayBooks();
+                return i + 1;
+            }
+
+            await quickSort(books, 0, books.length - 1);
+            extraSpace = Math.log2(books.length); // Espacio del stack de llamadas recursivas
+        }
+
+        const endTime = performance.now();
+        const timeElapsed = endTime - startTime;
+
+        document.getElementById('results').innerHTML = `
+                <h3>Resultados para ${algorithm === 'bubbleSort' ? 'Bubble Sort' : 'Quick Sort'}:</h3>
+                <p>Tiempo de ejecución: ${timeElapsed.toFixed(2)} ms</p>
+                <p>Comparaciones realizadas: ${comparisons}</p>
+                <p>Espacio extra utilizado: O(${extraSpace}) unidades</p>
+                <p>Complejidad temporal: ${algorithm === 'bubbleSort' ? 'O(n²)' : 'O(n log n)'} en promedio</p>
+                <p>Complejidad espacial: ${algorithm === 'bubbleSort' ? 'O(1)' : 'O(log n)'} en promedio</p>
+            `;
+    }
+
+    // Generar libros iniciales
+    generateBooks();
+</script>
+</body>
+</html>
