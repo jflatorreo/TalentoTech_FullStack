@@ -1,12 +1,14 @@
 Cristian Buirtear Cartas
 
-Jaime Duran: Registrar a varis de las cosas que hacemos en un sistema full stack
+Jaime Duran: Registrar a varis de las cosas que hacemos en un sistema full stack: Trazaiblidad de las gestión de solicitudes (tikets)
 
 Jhon Lozano: Si tuvieras cualquier negocio y solicitar un turno... crear un perfi)
 
-Felipe Lima: Gestion de notas y tareas (se debe tener conocimiento es paradigma funcional) Node.js...react.
+Felipe Lima: Gestion de notas y tareas (se debe tener conocimiento es paradigma funcional) Node.js...react.Hacer una petición get con fetch a un crl (certification revokative list) -> firmas cifradas que es un archivo que se actualicen
 
 Andres Sanchez
+
+Rodolfo Girata Tienda de elementos didactcos a nivel pedagógicos hace animaciones 2d y 3d ppor eso ha visto que para la educación básica primaria, la imagen y el boom de tecnología y uso desmedido de las herramienta tecnológicas es buena opción para que ciertos temas se implementen en el aula (MVC y CRUD) . En el back hace falta gestionar las apis
 
 3 pa
 

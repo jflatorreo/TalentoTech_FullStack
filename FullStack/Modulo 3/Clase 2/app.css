@@ -1,0 +1,31 @@
+.hooks-gallery {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.example-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.example-list button {
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.example-list button:hover {
+    background-color: #e0e0e0;
+}
+
+.example-display {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
