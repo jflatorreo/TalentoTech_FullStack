@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5884c39e-8a31-44b3-a466-44a3cf697223" name="Changes" comment="" />
+    <list default="true" id="5884c39e-8a31-44b3-a466-44a3cf697223" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej4.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej5.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 2/components/HooksGallery.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 2/components/HooksGallery.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,9 +21,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -33,25 +41,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "JavaScript Debug.polimorfismo.html.executor": "Debug",
-    "Node.js.tarea1.js.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Usuario/Desktop/FullStack/TalentoTech_FullStack/FullStack",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;JavaScript Debug.polimorfismo.html.executor&quot;: &quot;Debug&quot;,
+    &quot;Node.js.tarea1.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario/Desktop/FullStack/TalentoTech_FullStack/FullStack&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Usuario\WebstormProjects\fundamentosPOO" />
@@ -101,7 +109,8 @@
       <workItem from="1720061743187" duration="19143000" />
       <workItem from="1720127491898" duration="861000" />
       <workItem from="1720130255081" duration="122000" />
-      <workItem from="1720130381348" duration="38162000" />
+      <workItem from="1720130381348" duration="39690000" />
+      <workItem from="1720523028893" duration="5172000" />
     </task>
     <servers />
   </component>

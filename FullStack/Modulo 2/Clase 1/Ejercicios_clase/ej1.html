@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays y métodos de array</title>
+</head>
+<body>
+<h1>Arrays y métodos de array</h1>
+<div id="resultado"></div>
+
+<script>
+    // Tu código aquí
+    const numeros = [1, 5, 3, 8, 2];
+    //let numeros_ordenados= numeros.sort((a,b)=>b-a)
+    // Implementa las funciones aquí
+    var max=0;
+
+     numeros.filter((x)=>{if (max < x){max=x}})
+    // Muestra los resultados
+
+    const resultadoDiv = document.getElementById('resultado');
+    // Usa resultadoDiv.innerHTML para mostrar los resultados
+    resultadoDiv.innerHTML = max;
+</script>
+</body>
+</html>

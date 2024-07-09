@@ -20,7 +20,7 @@ const examples = [
 ];
 
 function HooksGallery() {
-    const [selectedExample, setSelectedExample] = useState(null);
+    const [selectedExample, setSelectedExample] = useState(5);
 
     return (
         <div className="hooks-gallery">

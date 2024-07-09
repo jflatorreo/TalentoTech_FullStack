@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objetos y manipulación</title>
+</head>
+<body>
+<h1>Objetos y manipulación</h1>
+<div id="libros"></div>
+
+<script>
+    // Tu código aquí
+    const coleccionLibros = [];
+    class libro {
+        constructor(titulo,genero,autor, paginas) {
+        this.titulo = titulo;
+        this.genero = genero;
+        this.autor = autor;
+        this.paginas = paginas;
+        }
+
+        getSummary (){
+            let resultado=`${this.titulo}`;
+            resultado += `<br>${this.autor}`;
+            resultado += `<br>Este libro tiene ${this.paginas} páginas<br><br>`
+            return resultado;
+        }
+
+    }
+
+    function agregarLibro(libro){
+        coleccionLibros.push(libro);
+    }
+
+    // Implementa las funciones aquí
+    var libro1=new libro("Don quijote de la Mancha","Literatura Universal","Miguel de Cervantes Saavedra",100)
+    var libro2=new libro("1964","Ciencia Ficción","George Orwell",200)
+
+    agregarLibro(libro1);
+    agregarLibro(libro2);
+    // Muestra los resultados
+    const librosDiv = document.getElementById('libros');
+    // Usa librosDiv.innerHTML para mostrar los libros
+    //librosDiv.innerHTML = `${JSON.stringify(coleccionLibros)}`;
+
+    coleccionLibros.forEach(libro=>librosDiv.innerHTML+="<br>"+libro.getSummary())
+
+
+</script>
+</body>
+</html>
