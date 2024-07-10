@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductor Multimedia</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .player-container {
+            background-color: #282828;
+            border-radius: 12px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .player-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .playlist-item {
+            background-color: #181818;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .playlist-item:hover {
+            background-color: #333333;
+        }
+        .playlist-item-title {
+            font-weight: bold;
+        }
+        .playlist-item-info {
+            font-size: 12px;
+            color: #b3b3b3;
+            margin-top: 5px;
+        }
+        .now-playing {
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="player-container">
+    <div class="player-header">Reproductor Multimedia</div>
+    <div id="playlist"></div>
+    <div id="nowPlaying" class="now-playing"></div>
+</div>
+
+<script>
+    class ArchivoMultimedia {
+        constructor(nombre, duracion) {
+            this.nombre = nombre;
+            this.duracion = duracion;
+        }
+
+        reproducir() {
+            console.log(`Reproduciendo: ${this.nombre}`);
+        }
+
+        mostrarInfo() {
+            console.log(`${this.nombre} - Duración: ${this.duracion}`);
+        }
+    }
+
+    class ArchivoAudio extends ArchivoMultimedia {
+        constructor(nombre, duracion, artista) {
+            super(nombre, duracion);
+            this.artista = artista;
+        }
+
+        reproducir() {
+            console.log(`🎵 Reproduciendo audio: ${this.nombre} - ${this.artista}`);
+        }
+
+        mostrarInfo() {
+            super.mostrarInfo();
+            console.log(`Artista: ${this.artista}`);
+        }
+    }
+
+    class ArchivoVideo extends ArchivoMultimedia {
+        constructor(nombre, duracion, resolucion) {
+            super(nombre, duracion);
+            this.resolucion = resolucion;
+        }
+
+        reproducir() {
+            console.log(`🎬 Reproduciendo video: ${this.nombre} (${this.resolucion})`);
+        }
+
+        mostrarInfo() {
+            super.mostrarInfo();
+            console.log(`Resolución: ${this.resolucion}`);
+        }
+    }
+
+    const playlist = [
+        new ArchivoAudio("Bohemian Rhapsody", "5:55", "Queen"),
+        new ArchivoVideo("Interestelar", "2:49:00", "4K"),
+        new ArchivoAudio("Shape of You", "3:54", "Ed Sheeran")
+    ];
+
+    function mostrarPlaylist() {
+        const playlistContainer = document.getElementById('playlist');
+        playlist.forEach((archivo, index) => {
+            const item = document.createElement('div');
+            item.className = 'playlist-item';
+            item.innerHTML = `
+                    <div class="playlist-item-title">${archivo.nombre}</div>
+                    <div class="playlist-item-info">${archivo.duracion}</div>
+                `;
+            item.onclick = () => reproducir(index);
+            playlistContainer.appendChild(item);
+        });
+    }
+
+    function reproducir(index) {
+        const archivo = playlist[index];
+        archivo.reproducir();
+        document.getElementById('nowPlaying').textContent = `Reproduciendo: ${archivo.nombre}`;
+    }
+
+    // Mostrar la playlist
+    mostrarPlaylist();
+</script>
+</body>
+</html>

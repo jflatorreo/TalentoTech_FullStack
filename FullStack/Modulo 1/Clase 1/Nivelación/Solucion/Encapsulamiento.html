@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Contraseñas</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .password-manager {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 400px;
+            padding: 20px;
+        }
+        .password-manager-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .password-list {
+            margin-top: 20px;
+        }
+        .password-item {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .password-item-site {
+            font-weight: bold;
+            color: #333;
+        }
+        .password-item-password {
+            color: #666;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+<div class="password-manager">
+    <div class="password-manager-header">Gestor de Contraseñas</div>
+    <div class="input-group">
+        <label for="site">Sitio:</label>
+        <input type="text" id="site" placeholder="Ej: gmail.com">
+    </div>
+    <div class="input-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" placeholder="Ingrese la contraseña">
+    </div>
+    <button id="addPassword" class="button">Agregar Contraseña</button>
+    <div id="passwordList" class="password-list"></div>
+</div>
+
+<script>
+    class GestorContraseñas {
+        #contraseñas = new Map();
+
+        agregarContraseña(sitio, contraseña) {
+            if (this.#validarContraseña(contraseña)) {
+                this.#contraseñas.set(sitio, this.#encriptar(contraseña));
+                console.log(`Contraseña agregada para ${sitio}`);
+                return true;
+            } else {
+                console.log("La contraseña no cumple con los requisitos de seguridad");
+                return false;
+            }
+        }
+
+        obtenerContraseña(sitio) {
+            if (this.#contraseñas.has(sitio)) {
+                return this.#desencriptar(this.#contraseñas.get(sitio));
+            }
+            return "Contraseña no encontrada";
+        }
+
+        #validarContraseña(contraseña) {
+            const tieneMinuscula = /[a-z]/.test(contraseña);
+            const tieneMayuscula = /[A-Z]/.test(contraseña);
+            const tieneNumero = /[0-9]/.test(contraseña);
+            const tieneCaracterEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(contraseña);
+            const longitudValida = contraseña.length >= 8;
+
+            return tieneMinuscula && tieneMayuscula && tieneNumero && tieneCaracterEspecial && longitudValida;
+        }
+
+        #encriptar(contraseña) {
+            return contraseña.split('').reverse().join('');
+        }
+
+        #desencriptar(contraseñaEncriptada) {
+            return contraseñaEncriptada.split('').reverse().join('');
+        }
+
+        mostrarEstadisticas() {
+            console.log(`Total de contraseñas almacenadas: ${this.#contraseñas.size}`);
+            console.log("Sitios con contraseñas guardadas:");
+            this.#contraseñas.forEach((_, sitio) => console.log(`- ${sitio}`));
+        }
+
+        // Nuevo método para obtener los sitios
+        obtenerSitios() {
+            return Array.from(this.#contraseñas.keys());
+        }
+    }
+
+    const gestor = new GestorContraseñas();
+
+    document.getElementById('addPassword').addEventListener('click', () => {
+        const site = document.getElementById('site').value;
+        const password = document.getElementById('password').value;
+        if (gestor.agregarContraseña(site, password)) {
+            actualizarListaContraseñas();
+            document.getElementById('site').value = '';
+            document.getElementById('password').value = '';
+        } else {
+            alert("La contraseña no cumple con los requisitos de seguridad. Debe tener al menos 8 caracteres, incluir mayúsculas, minúsculas, números y caracteres especiales.");
+        }
+    });
+
+    function actualizarListaContraseñas() {
+        const passwordList = document.getElementById('passwordList');
+        passwordList.innerHTML = '';
+        gestor.mostrarEstadisticas();
+        gestor.obtenerSitios().forEach(site => {
+            const passwordItem = document.createElement('div');
+            passwordItem.className = 'password-item';
+            passwordItem.innerHTML = `
+                    <div class="password-item-site">${site}</div>
+                    <div class="password-item-password">${gestor.obtenerContraseña(site)}</div>
+                `;
+            passwordList.appendChild(passwordItem);
+        });
+    }
+</script>
+</body>
+</html>

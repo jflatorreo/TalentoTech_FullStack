@@ -76,27 +76,55 @@
         }
     }
 
-    // TODO: Implementar la clase TarjetaCredito
-    // - Debe heredar de MetodoPago
-    // - Agregar propiedades para número de tarjeta, cvv y fecha de expiración
-    // - Implementar el método procesar() para simular un pago con tarjeta de crédito
+    class TarjetaCredito extends MetodoPago {
+        constructor(numero, cvv, fechaExpiracion) {
+            super("Tarjeta de Crédito");
+            this.numero = numero;
+            this.cvv = cvv;
+            this.fechaExpiracion = fechaExpiracion;
+        }
 
-    // TODO: Implementar la clase PayPal
-    // - Debe heredar de MetodoPago
-    // - Agregar una propiedad para el email de la cuenta
-    // - Implementar el método procesar() para simular un pago con PayPal
+        procesar(monto) {
+            console.log(`Procesando pago de $${monto} con ${this.nombre}`);
+            console.log(`Número: **** **** **** ${this.numero.slice(-4)}`);
+            console.log("Transacción exitosa");
+        }
+    }
 
-    // TODO: Implementar la clase Transferencia
-    // - Debe heredar de MetodoPago
-    // - Agregar propiedades para el banco y el número de cuenta
-    // - Implementar el método procesar() para simular una transferencia bancaria
+    class PayPal extends MetodoPago {
+        constructor(email) {
+            super("PayPal");
+            this.email = email;
+        }
+
+        procesar(monto) {
+            console.log(`Procesando pago de $${monto} con ${this.nombre}`);
+            console.log(`Cuenta: ${this.email}`);
+            console.log("Transacción exitosa");
+        }
+    }
+
+    class Transferencia extends MetodoPago {
+        constructor(banco, numeroCuenta) {
+            super("Transferencia Bancaria");
+            this.banco = banco;
+            this.numeroCuenta = numeroCuenta;
+        }
+
+        procesar(monto) {
+            console.log(`Procesando pago de $${monto} con ${this.nombre}`);
+            console.log(`Banco: ${this.banco}`);
+            console.log(`Número de cuenta: ${this.numeroCuenta}`);
+            console.log("Transacción en proceso. Puede tardar 24-48 horas.");
+        }
+    }
 
     function mostrarMetodosPago() {
         const methodsContainer = document.getElementById('paymentMethods');
         const metodos = [
-            // TODO: Crear instancias de TarjetaCredito, PayPal y Transferencia
-            // - Crear al menos una instancia de cada método de pago
-
+            new TarjetaCredito("1234567890123456", "123", "12/25"),
+            new PayPal("usuario@ejemplo.com"),
+            new Transferencia("Banco Nacional", "ES12 3456 7890 1234 5678")
         ];
 
         metodos.forEach(metodo => {
@@ -112,8 +140,13 @@
     }
 
     function getMetodoInfo(metodo) {
-        // TODO: Implementar lógica para obtener información específica de cada método de pago
-        // - Devolver información relevante según el tipo de método de pago
+        if (metodo instanceof TarjetaCredito) {
+            return `Tarjeta terminada en ${metodo.numero.slice(-4)}`;
+        } else if (metodo instanceof PayPal) {
+            return metodo.email;
+        } else if (metodo instanceof Transferencia) {
+            return `${metodo.banco} - ${metodo.numeroCuenta}`;
+        }
     }
 
     function realizarPago(metodoPago, monto) {
@@ -126,10 +159,6 @@
             resultContainer.innerHTML += "<br>Transacción completada.";
         }, 1500);
     }
-
-    // TODO: Llamar a la función mostrarMetodosPago()
-
-
 
     // Mostrar los métodos de pago
     mostrarMetodosPago();
