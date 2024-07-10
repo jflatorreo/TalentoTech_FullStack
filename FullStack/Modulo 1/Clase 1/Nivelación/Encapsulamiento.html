@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Contraseñas</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .password-manager {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 400px;
+            padding: 20px;
+        }
+        .password-manager-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .password-list {
+            margin-top: 20px;
+        }
+        .password-item {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .password-item-site {
+            font-weight: bold;
+            color: #333;
+        }
+        .password-item-password {
+            color: #666;
+            margin-top: 5px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+<div class="password-manager">
+    <div class="password-manager-header">Gestor de Contraseñas</div>
+    <div class="input-group">
+        <label for="site">Sitio:</label>
+        <input type="text" id="site" placeholder="Ej: gmail.com">
+    </div>
+    <div class="input-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" placeholder="Ingrese la contraseña">
+    </div>
+    <button id="addPassword" class="button">Agregar Contraseña</button>
+    <div id="passwordList" class="password-list"></div>
+</div>
+
+<script>
+    class GestorContraseñas {
+        // TODO: Implementar la clase GestorContraseñas
+        // - Crear un campo privado para almacenar las contraseñas (usar Map)
+        // - Implementar método público agregarContraseña(sitio, contraseña)
+        // - Implementar método público obtenerContraseña(sitio)
+        // - Implementar método privado validarContraseña(contraseña)
+        // - Implementar métodos privados encriptar(contraseña) y desencriptar(contraseñaEncriptada)
+        // - Implementar método público mostrarEstadisticas()
+        // - Implementar método público obtenerSitios() que devuelva un array con los sitios almacenados
+    }
+
+    const gestor = new GestorContraseñas();
+
+    document.getElementById('addPassword').addEventListener('click', () => {
+        const site = document.getElementById('site').value;
+        const password = document.getElementById('password').value;
+        // TODO: Llamar al método agregarContraseña del gestor
+        // - Si la contraseña se agrega exitosamente, actualizar la lista de contraseñas y limpiar los campos
+        // - Si no, mostrar un mensaje de error
+    });
+
+    function actualizarListaContraseñas() {
+        const passwordList = document.getElementById('passwordList');
+        passwordList.innerHTML = '';
+        // TODO: Obtener la lista de sitios del gestor y mostrar cada contraseña en la interfaz
+        // - Usar el método obtenerSitios() del gestor para iterar sobre los sitios
+        // - Para cada sitio, crear un elemento en la lista con el sitio y la contraseña (obtenida con obtenerContraseña())
+    }
+
+    // TODO: Llamar a actualizarListaContraseñas() para mostrar las contraseñas iniciales (si las hay)
+</script>
+</body>
+</html>

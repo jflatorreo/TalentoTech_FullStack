@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Notificaciones</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .notification-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 350px;
+            overflow: hidden;
+        }
+        .notification-header {
+            background-color: #4267B2;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .notification {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+        .notification:last-child {
+            border-bottom: none;
+        }
+        .notification-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        .notification-content {
+            flex: 1;
+        }
+        .notification-time {
+            font-size: 12px;
+            color: #65676B;
+        }
+    </style>
+</head>
+<body>
+<div class="notification-container">
+    <div class="notification-header">Notificaciones</div>
+    <div id="notifications"></div>
+</div>
+
+<script>
+    class Notificacion {
+        constructor(usuario, mensaje) {
+            this.usuario = usuario;
+            this.mensaje = mensaje;
+            this.hora = new Date().toLocaleTimeString();
+        }
+
+        mostrar() {
+            console.log(`[${this.hora}] Notificación para ${this.usuario}: ${this.mensaje}`);
+        }
+    }
+
+    // TODO: Implementar la clase NotificacionMeGusta
+    // - Debe heredar de la clase Notificacion
+    // - Agregar una propiedad 'icono' con el valor "👍"
+    // - Sobrescribir el método mostrar() para incluir el icono
+    // - El constructor debe recibir 'usuario' y 'publicacion' como parámetros
+
+    // TODO: Implementar la clase NotificacionComentario
+    // - Debe heredar de la clase Notificacion
+    // - Agregar propiedades 'comentario' e 'icono' (con valor "💬")
+    // - Sobrescribir el método mostrar() para incluir el icono y el comentario
+    // - El constructor debe recibir 'usuario', 'publicacion' y 'comentario' como parámetros
+
+    function mostrarNotificacionEnHTML(notificacion) {
+        const notificationsContainer = document.getElementById('notifications');
+        const notificationElement = document.createElement('div');
+        notificationElement.className = 'notification';
+        notificationElement.innerHTML = `
+                <div class="notification-icon">${notificacion.icono}</div>
+                <div class="notification-content">
+                    <div>${notificacion.mensaje}</div>
+                    <div class="notification-time">${notificacion.hora}</div>
+                </div>
+            `;
+        notificationsContainer.appendChild(notificationElement);
+    }
+
+    // TODO: Crear instancias de NotificacionMeGusta y NotificacionComentario
+    // - Crear una NotificacionMeGusta con usuario "Ana" y publicación "¡Qué hermoso día!"
+    // - Crear una NotificacionComentario con usuario "Carlos", publicación "¡Feliz cumpleaños!" y comentario "¡Muchas felicidades! Espero que tengas un día maravilloso."
+    // - Llamar a mostrarNotificacionEnHTML para cada instancia creada
+</script>
+</body>
+</html>

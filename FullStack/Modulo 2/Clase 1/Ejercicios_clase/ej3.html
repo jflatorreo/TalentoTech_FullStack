@@ -12,12 +12,50 @@
 <script>
     class Stack {
         // Implementa la clase Stack aquí
+        constructor() {
+            this.items=[];
+        }
+        push (element){
+            this.items.push(element);
+        }
+
+        pop (){
+            if(this.items.length>0){
+                return this.items.pop();
+            }
+            return "La pila está vacia"
+        }
+        fill (elemento,inicio=0,final=this.items.length){
+            console.log("Se esta realizando el llenado");
+
+            this.items.fill(elemento,inicio,final);
+
+        }
+        peek (){
+            return this.items[this.items.length -1]
+        }
     }
+
+    let pila = new Stack();
+
+    pila.push("1");pila.push("2");pila.push("3");pila.push("4");
+
+    const resultadoDiv = document.getElementById('resultado');
+
+    pila.items.forEach(element => resultadoDiv.innerHTML+=","+element);
+
+    pila.fill("2")
+
+    resultadoDiv.innerHTML+="<br>"
+
+    pila.items.forEach(element => resultadoDiv.innerHTML+=","+element);
+
+
+
 
     // Implementa las funciones para revertir texto y verificar paréntesis aquí
 
     // Muestra los resultados
-    const resultadoDiv = document.getElementById('resultado');
     // Usa resultadoDiv.innerHTML para mostrar los resultados
 </script>
 </body>

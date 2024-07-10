@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Pagos en Línea</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .payment-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 350px;
+            padding: 20px;
+        }
+        .payment-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .payment-method {
+            background-color: #f0f0f0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .payment-method:hover {
+            background-color: #e0e0e0;
+        }
+        .payment-method-title {
+            font-weight: bold;
+            color: #333;
+        }
+        .payment-method-info {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .payment-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e7f3ff;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="payment-container">
+    <div class="payment-header">Seleccione Método de Pago</div>
+    <div id="paymentMethods"></div>
+    <div id="paymentResult" class="payment-result" style="display: none;"></div>
+</div>
+
+<script>
+    class MetodoPago {
+        constructor(nombre) {
+            this.nombre = nombre;
+        }
+
+        procesar(monto) {
+            throw new Error("El método procesar debe ser implementado");
+        }
+    }
+
+    // TODO: Implementar la clase TarjetaCredito
+    // - Debe heredar de MetodoPago
+    // - Agregar propiedades para número de tarjeta, cvv y fecha de expiración
+    // - Implementar el método procesar() para simular un pago con tarjeta de crédito
+
+    // TODO: Implementar la clase PayPal
+    // - Debe heredar de MetodoPago
+    // - Agregar una propiedad para el email de la cuenta
+    // - Implementar el método procesar() para simular un pago con PayPal
+
+    // TODO: Implementar la clase Transferencia
+    // - Debe heredar de MetodoPago
+    // - Agregar propiedades para el banco y el número de cuenta
+    // - Implementar el método procesar() para simular una transferencia bancaria
+
+    function mostrarMetodosPago() {
+        const methodsContainer = document.getElementById('paymentMethods');
+        const metodos = [
+            // TODO: Crear instancias de TarjetaCredito, PayPal y Transferencia
+            // - Crear al menos una instancia de cada método de pago
+        ];
+
+        metodos.forEach(metodo => {
+            const methodElement = document.createElement('div');
+            methodElement.className = 'payment-method';
+            methodElement.innerHTML = `
+                    <div class="payment-method-title">${metodo.nombre}</div>
+                    <div class="payment-method-info">${getMetodoInfo(metodo)}</div>
+                `;
+            methodElement.onclick = () => realizarPago(metodo, 100);
+            methodsContainer.appendChild(methodElement);
+        });
+    }
+
+    function getMetodoInfo(metodo) {
+        // TODO: Implementar lógica para obtener información específica de cada método de pago
+        // - Devolver información relevante según el tipo de método de pago
+    }
+
+    function realizarPago(metodoPago, monto) {
+        const resultContainer = document.getElementById('paymentResult');
+        resultContainer.style.display = 'block';
+        resultContainer.innerHTML = `Procesando pago de $${monto} con ${metodoPago.nombre}...`;
+
+        setTimeout(() => {
+            metodoPago.procesar(monto);
+            resultContainer.innerHTML += "<br>Transacción completada.";
+        }, 1500);
+    }
+
+    // TODO: Llamar a la función mostrarMetodosPago()
+</script>
+    }
+
+    class Transferencia extends MetodoPago {
+        constructor(banco, numeroCuenta) {
+            super("Transferencia Bancaria");
+            this.banco = banco;
+            this.numeroCuenta = numeroCuenta;
+        }
+
+        procesar(monto) {
+            console.log(`Procesando pago de $${monto} con ${this.nombre}`);
+            console.log(`Banco: ${this.banco}`);
+            console.log(`Número de cuenta: ${this.numeroCuenta}`);
+            console.log("Transacción en proceso. Puede tardar 24-48 horas.");
+        }
+    }
+
+    function mostrarMetodosPago() {
+        const methodsContainer = document.getElementById('paymentMethods');
+        const metodos = [
+            new TarjetaCredito("1234567890123456", "123", "12/25"),
+            new PayPal("usuario@ejemplo.com"),
+            new Transferencia("Banco Nacional", "ES12 3456 7890 1234 5678")
+        ];
+
+        metodos.forEach(metodo => {
+            const methodElement = document.createElement('div');
+            methodElement.className = 'payment-method';
+            methodElement.innerHTML = `
+                    <div class="payment-method-title">${metodo.nombre}</div>
+                    <div class="payment-method-info">${getMetodoInfo(metodo)}</div>
+                `;
+            methodElement.onclick = () => realizarPago(metodo, 100);
+            methodsContainer.appendChild(methodElement);
+        });
+    }
+
+    function getMetodoInfo(metodo) {
+        if (metodo instanceof TarjetaCredito) {
+            return `Tarjeta terminada en ${metodo.numero.slice(-4)}`;
+        } else if (metodo instanceof PayPal) {
+            return metodo.email;
+        } else if (metodo instanceof Transferencia) {
+            return `${metodo.banco} - ${metodo.numeroCuenta}`;
+        }
+    }
+
+    function realizarPago(metodoPago, monto) {
+        const resultContainer = document.getElementById('paymentResult');
+        resultContainer.style.display = 'block';
+        resultContainer.innerHTML = `Procesando pago de $${monto} con ${metodoPago.nombre}...`;
+
+        setTimeout(() => {
+            metodoPago.procesar(monto);
+            resultContainer.innerHTML += "<br>Transacción completada.";
+        }, 1500);
+    }
+
+    // Mostrar los métodos de pago
+    mostrarMetodosPago();
+</script>
+</body>
+</html>

@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5884c39e-8a31-44b3-a466-44a3cf697223" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej3.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej4.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej5.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Abstacción.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Encapsulamiento.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Encapsulamiento2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Herencia.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Polimorfismo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 2/components/HooksGallery.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 2/components/HooksGallery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej3.html" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 2/Clase 1/Ejercicios_clase/ej3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 2/Clase 1/.~lock.Clase 1 - Modulo 2.pptx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 1/.~lock.Clase 1 - Modulo 3.pptx#" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -110,7 +112,8 @@
       <workItem from="1720127491898" duration="861000" />
       <workItem from="1720130255081" duration="122000" />
       <workItem from="1720130381348" duration="39690000" />
-      <workItem from="1720523028893" duration="5172000" />
+      <workItem from="1720523028893" duration="16759000" />
+      <workItem from="1720608342964" duration="972000" />
     </task>
     <servers />
   </component>
