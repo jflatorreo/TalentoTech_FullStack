@@ -96,7 +96,7 @@
         const metodos = [
             // TODO: Crear instancias de TarjetaCredito, PayPal y Transferencia
             // - Crear al menos una instancia de cada método de pago
-
+            new tajetaDeCredito
         ];
 
         metodos.forEach(metodo => {
@@ -113,7 +113,13 @@
 
     function getMetodoInfo(metodo) {
         // TODO: Implementar lógica para obtener información específica de cada método de pago
-        // - Devolver información relevante según el tipo de método de pago
+        // - Devolver información relevante según el tipo de método de pago}
+        if (typeof metodo===typeof TarjetaCredito){
+            result = `${metodo.nombre} con ${metodo.type}`
+        }else if (typeof metodo===typeof PayPal}){
+            result = `${metodo.nombre} con ${metodo.type}`
+        }
+        return result;
     }
 
     function realizarPago(metodoPago, monto) {

@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5884c39e-8a31-44b3-a466-44a3cf697223" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/About.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Admin/Admin.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Layout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/ProtectedRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/UserList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/UserProfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Abstacción.html" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Abstacción.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Encapsulamiento.html" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Encapsulamiento.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Solucion/Herencia.html" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 1/Clase 1/Nivelación/Solucion/Herencia.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 2/Clases 2 y 3/Tree_Operations/rotate_l.html" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 2/Clases 2 y 3/Tree_Operations/rotate_l.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 3/InputField.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 3/InputField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 1/.~lock.Laboratorio.odt#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 1/Clase 1/.~lock.Clase 1 - Modulo 1.pptx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 2/.~lock.Laboratorio.odt#" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +125,7 @@
       <workItem from="1720130255081" duration="122000" />
       <workItem from="1720130381348" duration="39690000" />
       <workItem from="1720523028893" duration="16759000" />
-      <workItem from="1720608342964" duration="16689000" />
+      <workItem from="1720608342964" duration="29464000" />
     </task>
     <servers />
   </component>

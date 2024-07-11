@@ -188,37 +188,37 @@
         document.getElementById('explanation').innerHTML = '';
 
         explain("Iniciando rotación a la izquierda:");
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 1: Identificamos el nodo 30 como la raíz actual y el nodo 50 como su hijo derecho.");
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 2: El nodo 50 se convertirá en la nueva raíz. Movemos el nodo 30 hacia abajo y a la izquierda.");
         node30.style.top = `${parseInt(node30.style.top) + 60}px`;
         node30.style.left = `${parseInt(node30.style.left) - 50}px`;
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 3: Elevamos el nodo 50 a la posición de la raíz.");
         node50.style.top = `${parseInt(node50.style.top) - 60}px`;
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 4: Ajustamos las posiciones de los nodos 40 y 60 (hijos de 50).");
         node40.style.left = `${parseInt(node40.style.left) - 25}px`;
         node60.style.left = `${parseInt(node60.style.left) + 25}px`;
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 5: Ajustamos la posición del nodo 20 (hijo izquierdo original de 30).");
         node20.style.top = `${parseInt(node20.style.top) + 60}px`;
         node20.style.left = `${parseInt(node20.style.left) - 50}px`;
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 6: Ajustamos la posición del nodo 70 (hijo derecho de 60).");
         node70.style.left = `${parseInt(node70.style.left) + 25}px`;
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 7: Actualizamos la estructura interna del árbol.");
         root = rotateLeft(root);
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         explain("Paso 8: Redibujamos el árbol para reflejar la nueva estructura.");
         drawTree();

@@ -1,4 +1,5 @@
 function InputField({ label, name, type, value, onChange, error }) {
+    //handlers...según type={type}
     return (
         <div>
             <label htmlFor={name}>{label}</label>
@@ -13,3 +14,19 @@ function InputField({ label, name, type, value, onChange, error }) {
         </div>
     );
 }
+
+import InputField
+
+function Form {
+
+    return (
+        <inputField type="text" id="" name=value="" onChange={}></inputField>
+    <inputField type="text" id="" name=value="" onChange={}></inputField>
+    <inputField type="password" id="" name= value="" onChange={}></inputField>
+    <inputField type="text" id="" name=value="" onChange={}></inputField>
+    <inputField type="text" id="" name=value="" onChange={}></inputField>
+
+}
+
+
+)

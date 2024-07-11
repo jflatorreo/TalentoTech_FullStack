@@ -79,8 +79,12 @@
             console.log(`${this.icono} ${super.mostrar()}`);
         }
     }
+class editable {
+        editar(){
 
-    class NotificacionComentario extends Notificacion {
+        }
+}
+    class NotificacionComentario extends Notificacion,editable {
         constructor(usuario, publicacion, comentario) {
             super(usuario, `Ha comentado en tu publicación: "${publicacion}"`);
             this.comentario = comentario;
@@ -110,9 +114,15 @@
     // Uso del sistema
     const meGusta = new NotificacionMeGusta("Ana", "¡Qué hermoso día!");
     mostrarNotificacionEnHTML(meGusta);
+    meGusta.mostrar();
 
     const comentario = new NotificacionComentario("Carlos", "¡Feliz cumpleaños!", "¡Muchas felicidades! Espero que tengas un día maravilloso.");
     mostrarNotificacionEnHTML(comentario);
+    comentario.mostrar();
+
+    const meGusta2 = new NotificacionMeGusta("Ana", "¡Qué hermoso día!");
+    mostrarNotificacionEnHTML(meGusta2);
+    meGusta2.mostrar();
 </script>
 </body>
 </html>
