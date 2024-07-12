@@ -54,54 +54,109 @@
             }
 
             insertar(libro) {
-                // Implementa la inserción de un libro en el BST
-                // Crea un nuevo nodo con el libro
+            const nuevoNodo = new Nodo(libro);
                 // Si el árbol está vacío, el nuevo nodo se convierte en la raíz
+			if(this.raiz===null){
+				this.raiz=nuevoNodo;
+			}else{
+				this._insertarNodo(this.raiz, nuevoNodo)
+			}
                 // Si no, llama a un método auxiliar para insertar el nodo en la posición correcta
             }
 
             _insertarNodo(nodo, nuevoNodo) {
-                // Implementa la lógica recursiva para insertar un nuevo nodo en el árbol
-                // Compara los IDs para decidir si ir a la izquierda o derecha
-                // Si no hay un nodo hijo en la dirección correcta, inserta el nuevo nodo allí
-                // Si hay un nodo hijo, llama recursivamente a este método en ese nodo
+			if (nuevoNodo.libro.id < nodo.libro.id) {
+                if (nodo.izquierda === null) {
+                    nodo.izquierda = nuevoNodo;
+                } else {
+                    this._insertarNodo(nodo.izquierda, nuevoNodo);
+                }
+            }else{
+		if (nodo.derecha === null) {
+                    nodo.derecha = nuevoNodo;
+                } else {
+                    this._insertarNodo(nodo.derecha, nuevoNodo);
+                }
+
             }
 
             buscar(id) {
                 // Implementa la búsqueda de un libro por ID
                 // Llama a un método auxiliar para buscar recursivamente en el árbol
+		this._buscarNodo(this.raiz,id);
             }
 
             _buscarNodo(nodo, id) {
                 // Implementa la lógica recursiva para buscar un nodo por ID
                 // Si el nodo es null, retorna null (no se encontró)
+			if (nodo===null){
+				return null;
+			}
                 // Si el ID coincide, retorna el libro
+			if (id === nodo.libro.id){
+				return nodo.libro;
+			}
                 // Si el ID es menor, busca en el subárbol izquierdo
+			if (id<nodo.libro.id){
+				return _buscarNodo(nodo.izquierda, id);
+			}
                 // Si el ID es mayor, busca en el subárbol derecho
+				return _buscarNodo(nodo.derecha, id);
             }
 
             eliminar(id) {
                 // Implementa la eliminación de un libro por ID
+			
                 // Llama a un método auxiliar para eliminar el nodo y reestructurar el árbol si es necesario
+			this.raiz = this._elminiarNodo(this.raiz,id);
             }
 
             _eliminarNodo(nodo, id) {
                 // Implementa la lógica recursiva para eliminar un nodo y reestructurar el árbol
+		if (nodo===null){
+			return null;
+		}
+		if (id < nodo.libro.id){
+			nodo.izquierda = this._eliminarNodo(nodo.izquierda,id);
+		}else if (id > nodo.libro.id){
+			nodo.derecha = this._eliminarNodo(nodo.derecha,id);
+		}else {
+			if (nodo.izquierda ===null && nodo.derecha ===null){
+		return null;
+			if (nodo.izquierda ===null){
+		return nodo.derecha;
+			}
+			if (nodo.derecha ===null){
+		return nodo.izquierda;
+		}
+		let sucesor = this._encontrar(nodo.dercha);
+		nodo.libro = sucesor.libro;
+		nodo.dercha = this._eliminarNodo(nodo.derecha; sucesor.libro.id);
                 // Considera los casos: nodo hoja, nodo con un hijo, nodo con dos hijos
             }
 
             _encontrarMinimo(nodo) {
                 // Implementa la lógica para encontrar el nodo con el ID mínimo en un subárbol
+		while (nodo.izquierda !== null){
+			nodo = nodo.izquierda;
+		}
+			return nodo;
             }
 
             mostrarOrdenado() {
                 // Implementa la visualización ordenada de todos los libros
                 // Llama a un método auxiliar para realizar un recorrido inorden del árbol
+		this._inOrden(this.raiz);
+		
             }
 
             _inOrden(nodo) {
                 // Implementa el recorrido inorden del árbol
                 // Visita el subárbol izquierdo, luego el nodo actual, luego el subárbol derecho
+		if (nodo !==null){
+			this._inOrden(nodo.izquierda);
+			console.log(`ID: ${nodo.libro.id}`
+			this._inOrden(nodo.derecha);
             }
         }
 
@@ -109,6 +164,7 @@
 
         function insertarLibro() {
             // Implementa la lógica para insertar un libro desde la interfaz de usuario
+		
         }
 
         function buscarLibro() {

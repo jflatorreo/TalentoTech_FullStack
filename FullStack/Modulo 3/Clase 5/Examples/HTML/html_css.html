@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- La siguiente meta etiqueta establece el viewport para diseño responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejemplo Responsive</title>
+  <style>
+    /* Estilos base */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Contenedor principal usando unidades relativas */
+    .container {
+      width: 90vw; /* 90% del ancho del viewport */
+      max-width: 1200px; /* Máximo ancho para pantallas grandes */
+      margin: 0 auto;
+      padding: 1rem; /* 1rem es relativo al tamaño de fuente base */
+    }
+
+    /* Ejemplo de Flexbox */
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .flex-item {
+      flex-basis: 100%; /* Ocupa todo el ancho en móviles */
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background-color: #f0f0f0;
+    }
+
+    /* Ejemplo de Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr; /* Una columna en móviles */
+      gap: 1rem;
+    }
+
+    .grid-item {
+      background-color: #e0e0e0;
+      padding: 1rem;
+    }
+
+    /* Media query para tablets */
+    @media screen and (min-width: 600px) {
+      .flex-item {
+        flex-basis: calc(50% - 0.5rem); /* Dos columnas en tablets */
+      }
+
+      .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* Dos columnas en tablets */
+      }
+    }
+
+    /* Media query para desktops */
+    @media screen and (min-width: 1024px) {
+      .flex-item {
+        flex-basis: calc(33.333% - 0.667rem); /* Tres columnas en desktop */
+      }
+
+      .grid-container {
+        grid-template-columns: repeat(3, 1fr); /* Tres columnas en desktop */
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Ejemplo de Diseño Responsive</h1>
+
+  <h2>Flexbox Layout</h2>
+  <div class="flex-container">
+    <div class="flex-item">Flex Item 1</div>
+    <div class="flex-item">Flex Item 2</div>
+    <div class="flex-item">Flex Item 3</div>
+  </div>
+
+  <h2>Grid Layout</h2>
+  <div class="grid-container">
+    <div class="grid-item">Grid Item 1</div>
+    <div class="grid-item">Grid Item 2</div>
+    <div class="grid-item">Grid Item 3</div>
+  </div>
+</div>
+</body>
+</html>

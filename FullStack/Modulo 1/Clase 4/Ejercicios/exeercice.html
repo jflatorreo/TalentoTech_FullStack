@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrones de Diseño en la Granja</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .pattern-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        #farm {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .animal {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px black;
+        }
+    </style>
+</head>
+<body>
+<h1>Patrones de Diseño en la Granja</h1>
+
+<div class="pattern-section">
+    <h2>Singleton: Gestor de Recursos</h2>
+    <p>Recursos actuales: <span id="resources">100</span></p>
+    <button onclick="ResourceManager.getInstance().addResources(10)">Añadir recursos</button>
+</div>
+
+<div class="pattern-section">
+    <h2>Factory: Creación de Animales</h2>
+    <button onclick="createAnimal('cow')">Crear Vaca</button>
+    <button onclick="createAnimal('chicken')">Crear Gallina</button>
+    <button onclick="createAnimal('pig')">Crear Cerdo</button>
+    <div id="farm"></div>
+</div>
+
+<div class="pattern-section">
+    <h2>Observer: Notificaciones de la Granja</h2>
+    <div id="notifications"></div>
+</div>
+
+<div class="pattern-section">
+    <h2>Strategy: Estrategias de Alimentación</h2>
+    <button onclick="changeFeedingStrategy('BasicFeeding')">Alimentación Básica</button>
+    <button onclick="changeFeedingStrategy('PremiumFeeding')">Alimentación Premium</button>
+    <p>Estrategia actual: <span id="currentStrategy">BasicFeeding</span></p>
+</div>
+
+<div class="pattern-section">
+    <h2>Adapter: Conversión de Unidades</h2>
+    <p>Peso del último animal (kg): <span id="weightKg">0</span></p>
+    <p>Peso del último animal (lb): <span id="weightLb">0</span></p>
+</div>
+
+<div class="pattern-section">
+    <h2>Decorator: Mejoras de Animales</h2>
+    <button onclick="upgradeLastAnimal()">Mejorar último animal</button>
+    <p>Último animal mejorado: <span id="upgradedAnimal">Ninguno</span></p>
+</div>
+
+<script>
+    // Singleton: ResourceManager
+    class ResourceManager {
+        constructor() {
+            this.resources = 100;
+        }
+
+        static getInstance() {
+            if (!ResourceManager.instance) {
+                ResourceManager.instance = new ResourceManager();
+            }
+            return ResourceManager.instance;
+        }
+
+        addResources(amount) {
+            this.resources += amount;
+            document.getElementById('resources').textContent = this.resources;
+            FarmObserver.notify(`Se añadieron ${amount} recursos`);
+        }
+
+        useResources(amount) {
+            if (this.resources >= amount) {
+                this.resources -= amount;
+                document.getElementById('resources').textContent = this.resources;
+                return true;
+            }
+            return false;
+        }
+    }
+
+    // Factory: AnimalFactory
+    class AnimalFactory {
+        static createAnimal(type) {
+            switch(type) {
+                case 'cow':
+                    return new Cow();
+                case 'chicken':
+                    return new Chicken();
+                case 'pig':
+                    return new Pig();
+                default:
+                    throw new Error('Tipo de animal no reconocido');
+            }
+        }
+    }
+
+    class Animal {
+        constructor(type, cost, image) {
+            this.type = type;
+            this.cost = cost;
+            this.image = image;
+            this.weight = Math.floor(Math.random() * 50) + 10; // peso aleatorio entre 10 y 60 kg
+        }
+
+        render() {
+            return `<div class="animal" style="background-image: url('${this.image}');">${this.type}</div>`;
+        }
+    }
+
+    class Cow extends Animal {
+        constructor() {
+            super('Cow', 50, 'https://cdn-icons-png.flaticon.com/512/3174/3174294.png');
+        }
+    }
+
+    class Chicken extends Animal {
+        constructor() {
+            super('Chicken', 10, 'https://cdn-icons-png.flaticon.com/512/3174/3174224.png');
+        }
+    }
+
+    class Pig extends Animal {
+        constructor() {
+            super('Pig', 30, 'https://cdn-icons-png.flaticon.com/512/3174/3174880.png');
+        }
+    }
+
+    // Observer: FarmObserver
+    class FarmObserver {
+        static observers = [];
+
+        static addObserver(observer) {
+            this.observers.push(observer);
+        }
+
+        static notify(message) {
+            this.observers.forEach(observer => observer.update(message));
+        }
+    }
+
+    class NotificationDisplay {
+        update(message) {
+            const notifications = document.getElementById('notifications');
+            notifications.innerHTML += `<p>${message}</p>`;
+        }
+    }
+
+    // Strategy: FeedingStrategy
+    class FeedingStrategy {
+        feed(animal) {}
+    }
+
+    class BasicFeeding extends FeedingStrategy {
+        feed(animal) {
+            return `Alimentando ${animal.type} con comida básica`;
+        }
+    }
+
+    class PremiumFeeding extends FeedingStrategy {
+        feed(animal) {
+            return `Alimentando ${animal.type} con comida premium`;
+        }
+    }
+
+    // Adapter: WeightAdapter
+    class WeightAdapter {
+        static kgToLb(kg) {
+            return kg * 2.20462;
+        }
+    }
+
+    // Decorator: AnimalDecorator
+    class AnimalDecorator {
+        constructor(animal) {
+            this.animal = animal;
+        }
+
+        get type() {
+            return this.animal.type;
+        }
+
+        get cost() {
+            return this.animal.cost;
+        }
+
+        get image() {
+            return this.animal.image;
+        }
+
+        get weight() {
+            return this.animal.weight;
+        }
+
+        render() {
+            return this.animal.render();
+        }
+    }
+
+    class UpgradedAnimal extends AnimalDecorator {
+        get type() {
+            return `Upgraded ${this.animal.type}`;
+        }
+
+        get cost() {
+            return this.animal.cost * 1.5;
+        }
+
+        render() {
+            const baseRender = this.animal.render();
+            return baseRender.replace('>', ' style="border: 3px solid gold;">');
+        }
+    }
+
+    // Aplicación
+    let animals = [];
+    let currentStrategy = new BasicFeeding();
+
+    FarmObserver.addObserver(new NotificationDisplay());
+
+    function createAnimal(type) {
+        const animal = AnimalFactory.createAnimal(type);
+        if (ResourceManager.getInstance().useResources(animal.cost)) {
+            animals.push(animal);
+            document.getElementById('farm').innerHTML += animal.render();
+            FarmObserver.notify(`Se creó un ${animal.type}`);
+            updateWeightDisplay(animal);
+        } else {
+            FarmObserver.notify('No hay suficientes recursos para crear el animal');
+        }
+    }
+
+    function changeFeedingStrategy(strategy) {
+        currentStrategy = strategy === 'BasicFeeding' ? new BasicFeeding() : new PremiumFeeding();
+        document.getElementById('currentStrategy').textContent = strategy;
+        if (animals.length > 0) {
+            const lastAnimal = animals[animals.length - 1];
+            FarmObserver.notify(currentStrategy.feed(lastAnimal));
+        }
+    }
+
+    function updateWeightDisplay(animal) {
+        document.getElementById('weightKg').textContent = animal.weight;
+        document.getElementById('weightLb').textContent = WeightAdapter.kgToLb(animal.weight).toFixed(2);
+    }
+
+    function upgradeLastAnimal() {
+        if (animals.length > 0) {
+            const lastAnimal = animals[animals.length - 1];
+            const upgradedAnimal = new UpgradedAnimal(lastAnimal);
+            animals[animals.length - 1] = upgradedAnimal;
+            document.getElementById('farm').innerHTML = animals.map(a => a.render()).join('');
+            document.getElementById('upgradedAnimal').textContent = upgradedAnimal.type;
+            FarmObserver.notify(`Se mejoró el ${lastAnimal.type}`);
+        } else {
+            FarmObserver.notify('No hay animales para mejorar');
+        }
+    }
+</script>
+</body>
+</html>

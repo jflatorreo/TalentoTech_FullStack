@@ -5,9 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5884c39e-8a31-44b3-a466-44a3cf697223" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/EjemplosClase.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/Flexbox_Grid/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/HTML/html_css.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/LazyImage/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/LazyImage/LazyImage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/Media Query/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/Media Query/useMediaQuery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/React 1/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/Examples/React 1/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Modulo 3/Clase 5/components/CSSExample.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 2/Clases 2 y 3/Graphs/Dijkstra.html" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 2/Clases 2 y 3/Graphs/Dijkstra.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/About.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/About.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Admin/Admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/Admin/Admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/Layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/ProtectedRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/ProtectedRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/UserList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/UserList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Components/UserProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/Components/UserProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/EjemplosClase.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/EjemplosClase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/.~lock.Malla Curricular Bootcamps TalentoTech.xlsx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 2/Clase 2/.~lock.Clase 2 - Modulo 2.pptx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 2/Clase 2/Clase 2 - Modulo 2.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/../Material pedagógico/Modulo 2/Clase 2/Clase 2 - Modulo 2.pptx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 2/Clase 2/Ejercicio_ArbolesBST.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Material pedagógico/Modulo 2/Clase 2/Ejercicio_ArbolesBST.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 3/.~lock.Clase 3 - Modulo 3.pptx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 3/Clase 3 - Modulo 3.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 3/Clase 3 - Modulo 3.pptx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 4/.~lock.Clase 4 - Modulo 3.pptx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 4/Clase 4 - Modulo 3.pptx" beforeDir="false" afterPath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 4/Clase 4 - Modulo 3.pptx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +47,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="HTML File" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -37,34 +67,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;JavaScript Debug.polimorfismo.html.executor&quot;: &quot;Debug&quot;,
-    &quot;Node.js.tarea1.js.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario/Desktop/FullStack/TalentoTech_FullStack/FullStack&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.polimorfismo.html.executor": "Debug",
+    "Node.js.tarea1.js.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Usuario/Desktop/FullStack",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.nodejs",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Usuario\WebstormProjects\fundamentosPOO" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Usuario\Desktop\FullStack\TalentoTech_FullStack\FullStack\Modulo 3\Clase 5\Examples\HTML" />
+      <recent name="C:\Users\Usuario\Desktop\FullStack\TalentoTech_FullStack\FullStack\Modulo 3\Clase 4\Ejercicio" />
+      <recent name="C:\Users\Usuario\Desktop\FullStack\TalentoTech_FullStack\FullStack\Modulo 3\Clase 5\components" />
       <recent name="C:\Users\Usuario\Desktop\FullStack\TalentoTech_FullStack\FullStack\Modulo 2\Clase 2\Graphs" />
       <recent name="C:\Users\Usuario\Desktop\FullStack\TalentoTech_FullStack\FullStack\Modulo 1\Clase 4\Ejercicios" />
-      <recent name="C:\Users\Usuario\WebstormProjects\fundamentosPOO\Clase 3\SOLID" />
-      <recent name="C:\Users\Usuario\WebstormProjects\fundamentosPOO\Clase 1" />
     </key>
   </component>
   <component name="RunManager" selected="Node.js.tarea1.js">
@@ -107,7 +138,8 @@
       <workItem from="1720130255081" duration="122000" />
       <workItem from="1720130381348" duration="39690000" />
       <workItem from="1720523028893" duration="16759000" />
-      <workItem from="1720608342964" duration="35723000" />
+      <workItem from="1720608342964" duration="51006000" />
+      <workItem from="1720806939200" duration="97000" />
     </task>
     <servers />
   </component>

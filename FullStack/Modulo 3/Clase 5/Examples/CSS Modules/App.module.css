@@ -1,0 +1,16 @@
+.traditional {
+    background-color: #282c34;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+/* AppModule.module.css */
+.modular {
+    background-color: #a6206f;
+    color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
