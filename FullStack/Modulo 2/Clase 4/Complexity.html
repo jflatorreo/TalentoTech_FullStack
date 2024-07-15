@@ -171,11 +171,13 @@
     }
 
     function medirTiempoO1(size) {
-        const startTime = performance.now();
 
         // Operación O(1) - Ejemplo: Acceso directo a un elemento
         const array = Array.from({ length: size }, (_, i) => i);
         const index = Math.floor(Math.random() * size);
+
+        const startTime = performance.now();
+
         const element = array[index];
 
         const endTime = performance.now();

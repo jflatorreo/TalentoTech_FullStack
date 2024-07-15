@@ -1,5 +1,5 @@
 import React from 'react';
-import ResponsiveLayout from './components/ResponsiveLayout';
+import ResponsiveLayout from './ResponsiveLayout';
 
 function App() {
     return (

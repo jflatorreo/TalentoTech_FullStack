@@ -144,11 +144,25 @@
         }
     }
     class Estacion{
+
         constructor(id,nombre) {
-            this.id=id;
-            this.nombre=nombre;
+            this.#id=id;
+            this.#nombre=nombre;
+        }
+        getId (){
+            return this.#id;
+        }
+        setId (id){
+            this.#id= id;
+        }
+        getNombre (){
+            return this.#nombre;
+        }
+        setNombre (nombre){
+            this.#nombre= nombre;
         }
     }
+    var Est = new Estacion(id,n);
 
     // Definición de la clase TransmilenioNetwork
     class TransmilenioNetwork extends Grafo {
@@ -159,8 +173,8 @@
         // TODO: Implementar métodos específicos para la red de Transmilenio
         // 1. Método para agregar una estación a la red
             agregarEstacion(estacion){
-            let id=estacion.id; // Tarea: encapsular
-            let nombre=estacion.nombre; //Encapsular
+            let id=estacion.getId(); //
+            let nombre=estacion.getNombre(); //Encapsular
              return this.agregarNodo(id,[id, nombre]);
             }
         // 2. Método para agregar una conexión entre estaciones
@@ -316,6 +330,7 @@
         let html = "<h1>Ruta mas corta:</h1>"
         html += `Estaciones ${resultado.rutafinal.join (' -> ')}`;
         html += `Tiempo Total = ${resultado.distancia}`;
+
 
         document.getElementById("resultado").innerHTML = html;
 
