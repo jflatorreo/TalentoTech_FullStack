@@ -1,0 +1,124 @@
+/* Importar Bootstrap */
+@import '/bootstrap/dist/css/bootstrap.min.css';
+
+/* Definir variables CSS personalizadas */
+:root {
+    --primary-color: #540517;
+    --secondary-color: #6c757d;
+    /* Agregar más variables según sea necesario */
+}
+
+/* Sobrescribir las variables de Bootstrap */
+:root {
+    --blue: var(--primary-color); /* Sobrescribe el color azul de Bootstrap con tu color primario */
+    --secondary: var(--secondary-color); /* Sobrescribe el color secundario */
+    /* Agregar más sobrescrituras según sea necesario */
+}
+
+/* Ejemplo de uso: cambiar el color de fondo de un componente */
+.bg-primary {
+    background-color: var(--primary-color) !important; /* Asegura que el color primario se aplique */
+}
+
+/* Header */
+.navbar {
+    background-color: #3498db !important;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+}
+
+/* Barra de búsqueda */
+.form-control {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+}
+
+/* Productos */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #bdc3c7;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Botones */
+.btn-primary, .btn-success {
+    background-color: #2ecc71;
+    border-color: #2ecc71;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.btn-primary:hover, .btn-success:hover {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+/* Footer */
+footer {
+    background-color: #34495e;
+    color: #ecf0f1;
+}
+
+footer a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #3498db;
+}
+
+/* Textos */
+.text-secondary {
+    color: #7f8c8d !important;
+}
+
+/* Paginación */
+.pagination .page-link {
+    color: #ffffff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+/* Modales */
+.modal-header {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+/* Iconos */
+.fa-star, .fa-star-half-alt {
+    color: #f10f0f;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.card {
+    animation: fadeIn 0.5s ease-in;
+}
+
+:root{
+
+}

@@ -100,7 +100,7 @@
 
         const startTime = performance.now();
         let comparisons = 0;
-        let result;
+        let result =false;
 
         if (method === 'linear') {
             for (let contact of contacts) {
@@ -160,8 +160,8 @@
                 <p>Complejidad espacial: ${spaceComplexity}</p>
             `;
     }
-
-    function highlightContact(index) {
+    
+function highlightContact(index) {
         clearHighlights();
         const contacts = document.querySelectorAll('.contact');
         if (contacts[index]) {
