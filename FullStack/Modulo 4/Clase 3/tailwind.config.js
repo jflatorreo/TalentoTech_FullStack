@@ -1,8 +1,8 @@
 module.exports = {
     // Especificamos el modo JIT para una generación más eficiente de clases
     mode: 'jit',
-    // Definimos los archivos que Tailwind debe analizar
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+    // Definimos los archivos que Tailwind debe analizar --> content
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
     // Desactivamos la preflight para mantener los estilos por defecto del navegador
     preflight: false,
     // Personalizamos el tema de Tailwind
