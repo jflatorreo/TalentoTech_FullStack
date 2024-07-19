@@ -1,0 +1,33 @@
+/* Estilos para el tema claro */
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Estilos para el tema oscuro */
+body.dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Estilos para los componentes en tema claro */
+.light .counter, .light .todo-list, .light .timer, .light .form {
+  background-color: #f0f0f0;
+}
+
+/* Estilos para los componentes en tema oscuro */
+.dark .counter, .dark .todo-list, .dark .timer, .dark .form {
+  background-color: #555555;
+}
+
+/* Estilos para los botones en tema claro */
+.light button {
+  background-color: #c3e40e;
+  color: white;
+}
+
+/* Estilos para los botones en tema oscuro */
+.dark button {
+  background-color: #023704;
+  color: black;
+}

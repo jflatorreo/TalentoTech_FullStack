@@ -37,6 +37,7 @@ function HooksGallery() {
                     <div>
                         <h2>{examples[selectedExample].name} Example</h2>
                         {React.createElement(examples[selectedExample].component)}
+
                     </div>
                 )}
             </div>
