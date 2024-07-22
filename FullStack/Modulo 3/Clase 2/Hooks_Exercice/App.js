@@ -1,6 +1,8 @@
 import React,{useState,useContext,useEffect} from "react";
 import Counter from "./components/Counter";
 import Boton from "./components/Boton";
+import Timer from "./components/Timer"
+import Form from "./components/Form";
 import {ColorContext} from "./ColorContext";
 
 
@@ -17,6 +19,8 @@ function App(){
                 <h1>App con Hooks</h1>
                 <Counter></Counter>
                 <Boton></Boton>
+                <Timer></Timer>
+                <Form title={"Mi Formulario"}></Form>
             </div>
         </ColorContext.Provider>
     );

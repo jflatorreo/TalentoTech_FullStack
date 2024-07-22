@@ -31,3 +31,11 @@ body.dark {
   background-color: #023704;
   color: black;
 }
+.InvalidButton{
+  background-color: #a80505 !important;
+
+}
+.ValidButton{
+  background-color: #023704 !important;
+
+}
