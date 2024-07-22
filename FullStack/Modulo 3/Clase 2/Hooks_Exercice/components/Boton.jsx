@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {ColorContext} from "../ColorContext";
 
-import {ColorContext} from "../App";
 
-const theme = ColorContext
+function Boton (){
 
-function Boton (props){
+    const {theme, toggleTheme}= useContext(ColorContext);
+
     return(
-        <div className={''}>
-            <button onClick={props.toggleFunction}>Cambiar Tema</button>
+        <div className={`boton ${theme}`}>
+            <button onClick={toggleTheme}>Cambiar Tema</button>
         </div>
     )
 }

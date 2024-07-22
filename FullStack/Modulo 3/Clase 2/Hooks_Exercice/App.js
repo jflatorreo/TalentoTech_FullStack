@@ -1,8 +1,7 @@
-import React,{useState,useContext,useEffect,createContext} from "react";
+import React,{useState,useContext,useEffect} from "react";
 import Counter from "./components/Counter";
 import Boton from "./components/Boton";
-
-const ColorContext = createContext(null);
+import {ColorContext} from "./ColorContext";
 
 
 function App(){
@@ -17,7 +16,7 @@ function App(){
             <div className={`App ${theme}`}>
                 <h1>App con Hooks</h1>
                 <Counter></Counter>
-                <Boton toggleFunction={{toggleTheme}}></Boton>
+                <Boton></Boton>
             </div>
         </ColorContext.Provider>
     );

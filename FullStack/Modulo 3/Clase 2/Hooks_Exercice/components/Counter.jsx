@@ -1,5 +1,5 @@
 import React,{useContext,useState} from "react";
-import {ColorContext} from "../App";
+import {ColorContext} from "../ColorContext";
 function Counter(){
     const {theme} = useContext(ColorContext);
     const [count,setCount] = useState(0);
