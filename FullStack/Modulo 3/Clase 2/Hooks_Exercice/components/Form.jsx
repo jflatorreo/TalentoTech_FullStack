@@ -4,14 +4,15 @@ import {ColorContext} from "../ColorContext";
 function Form(props){
 
 const [name, setName] = useState('');
+
 const [email, setEmail] = useState('');
 
 const [isValid, setIsValid] = useState(false);
 
 const {theme} = useContext(ColorContext);
 
-    useEffect(() => {
-        setIsValid(name.length > 4 && email.includes('@'));
+    useEffect(() => { //
+        setIsValid((name.length > 4) && email.includes('@') );
     }, [name,email]);
 
     const handlerSubmit = (e) =>{

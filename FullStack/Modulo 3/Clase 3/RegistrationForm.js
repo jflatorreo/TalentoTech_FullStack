@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 
 function RegistrationForm() {
-const [formData, setFormData] = useState({
+const [formData, setFormData] = useState(
+    {
 name: '',
 email: '',
-password: ''
-});
+password: '',
+
+}
+);
 
 const handleChange = (event) => {
 const { name, value } = event.target;
@@ -22,7 +25,7 @@ console.log('Datos del formulario:', formData);
 };
 
 return (
-<form onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit} >
     <div>
         <label htmlFor="name">Nombre:</label>
         <input
