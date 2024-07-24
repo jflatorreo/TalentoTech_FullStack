@@ -21,18 +21,20 @@ const {theme} = useContext(ColorContext);
 
     function validate(){
 
-        let newError = {};
+        let newError = {
+
+        };
 
 
         const regExp = /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
         if (!regExp.test(formData.email)){
-            newError.name = "email invalido"
+            newError.email = "Email invalido"
             setIsValid(false);
         }
 
-        if (!formData.name.length > 4){
-            newError.name = "Nombre invalido"
+        if (formData.name.length < 4){
+            newError.name = "Nombre invalido debe tener por lo menos 5 caracteres"
             setIsValid(false);
         }
 
@@ -65,6 +67,7 @@ const {theme} = useContext(ColorContext);
                    value={formData.name}
                    onChange={handlerChange}/>
             {errors.name && <span className={'formError'}>{errors.name}</span> }
+
             <input name={'email'}
                     value={formData.email}
                    onChange={handlerChange}
