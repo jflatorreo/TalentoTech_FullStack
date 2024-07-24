@@ -4,6 +4,7 @@ import Boton from "./components/Boton";
 import Timer from "./components/Timer"
 import Form from "./components/Form";
 import {ColorContext} from "./ColorContext";
+import HookForm from "./components/HookForm";
 
 
 function App(){
@@ -21,6 +22,7 @@ function App(){
                 <Boton></Boton>
                 <Timer></Timer>
                 <Form title={"Mi Formulario"}></Form>
+                <HookForm></HookForm>
             </div>
         </ColorContext.Provider>
     );

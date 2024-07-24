@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 
 function HookForm() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => console.log(data);
 
     return (
@@ -14,3 +14,4 @@ function HookForm() {
         </form>
     );
 }
+export default HookForm
