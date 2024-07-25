@@ -1,0 +1,10 @@
+.interest-canvas {
+    border: 10px solid #3498db;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+}
+
+.interactive {
+    border-left: 4px solid #9b59b6;
+}
