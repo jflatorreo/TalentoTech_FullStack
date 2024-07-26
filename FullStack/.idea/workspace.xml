@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5884c39e-8a31-44b3-a466-44a3cf697223" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Modulo 3/Clase 4/Ejercicio/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Material pedagógico/.~lock.Malla Curricular Bootcamps TalentoTech.xlsx#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 3/Clase 3/.~lock.Clase 3 - Modulo 3.pptx#" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Material pedagógico/.~lock.Malla Curricular Bootcamps TalentoTech.xlsx#" beforeDir="false" afterPath="$PROJECT_DIR$/../Material pedagógico/.~lock.Malla Curricular Bootcamps TalentoTech.xlsx#" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 5/Clase_1___Modulo_5.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Material pedagógico/Modulo 5/Ejemplo_peticiones_HTTP-1.pdf" beforeDir="false" />
     </list>
@@ -117,6 +114,7 @@
       <workItem from="1721819071838" duration="603000" />
       <workItem from="1721820551755" duration="7913000" />
       <workItem from="1721904837078" duration="4810000" />
+      <workItem from="1721996989796" duration="632000" />
     </task>
     <servers />
   </component>
