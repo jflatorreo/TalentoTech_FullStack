@@ -41,7 +41,7 @@ function App() {
                     onChange={(e) => setNewTodo(e.target.value)}
                     placeholder="Nueva tarea"
                 />
-                <button type="submit">Agregar</button>
+                <button type="submit" data-test={"button1"}>Agregar</button>
             </form>
             <ul className="task-list">
                 {todos.map((todo) => (
