@@ -21,8 +21,8 @@ beforeAll(
 
 afterEach(
     async () => {
-       // mysqlConnection.query("TRUNCATE table Users")
-       // await mongoose.connection.db.dropDatabase()
+        mysqlConnection.query("TRUNCATE table Users")
+        await mongoose.connection.db.dropDatabase()
     }
 )
 

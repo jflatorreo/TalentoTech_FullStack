@@ -11,7 +11,8 @@ class MySqlUser {
     async saveUser() {
 
 
-        mysqlConnection.query("INSERT INTO users (name,email,password) VALUES (?,?,?)",[this.name,this.email,this.password])
+        const [ rows ] = await global.mysqlConnection.query("INSERT INTO users (name,email,password) VALUES (?,?,?)",[this.name,this.email,this.password]);
+        return this ;
     }
 }
 

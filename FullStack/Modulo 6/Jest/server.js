@@ -17,7 +17,7 @@ app.post('/mongoUser',async (req,res)=>{
 
 app.post('/mySQLUser',async (req,res)=>{
     const {name,email,password}=req.body
-    const User = new MySqlUser({name,email,password})
+    const User = new MySqlUser(name,email,password)
     await User.saveUser()
     res.status(201).json(User)
 
