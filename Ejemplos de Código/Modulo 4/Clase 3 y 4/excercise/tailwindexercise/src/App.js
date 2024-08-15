@@ -110,7 +110,6 @@ function App() {
                 logout={logout}
                 openAddProductModal={() => setIsAddProductModalOpen(true)}
             />
-            <div className={"miclase"}>Hola</div>
             <main className="flex-grow container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold text-gray-800 mb-8 text-center">
                     Nuestra Colección
