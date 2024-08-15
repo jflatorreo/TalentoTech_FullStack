@@ -1,0 +1,23 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+// Definimos un mixin para gradientes
+@mixin gradient($direction, $start-color, $end-color) {
+  background: linear-gradient($direction, $start-color, $end-color);
+}
+
+// Creamos una clase personalizada utilizando el mixin
+.custom-gradient {
+  @include gradient(to right, theme('colors.blue.400'), theme('colors.purple.500'));
+  @apply text-white p-4 rounded;
+}
+
+// Ejemplo de uso en React
+function GradientButton({ children }) {
+  return (
+<button className="custom-gradient hover:opacity-90 transition-opacity duration-300">
+{children}
+</button>
+);
+}

@@ -1,0 +1,12 @@
+{
+  "name": "VitrinaComercial",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "install:client": "cd Frontend && npm install",
+    "install:server": "cd Backend && npm install",
+    "build:client": "cd Frontend && npm run build",
+    "build": "npm run install:client && npm run install:server && npm run build:client",
+    "start": "cd Backend && npm start"
+  }
+}
