@@ -1,14 +1,26 @@
 const Task = require('../models/task');
 let tasks = [];
+
 exports.getAllTasks = (req, res) => {
-    res.json(tasks);
+    const id = req.query.id;
+    if(id){
+        const task = tasks.find(t => t.id === id);
+        if (task) {
+            res.json(task);
+        } else {
+            res.status(404).json({ message: 'Task not found' });
+        }
+    }else{
+    res.json(tasks);}
 };
+
 exports.createTask = (req, res) => {
     const { title, description } = req.body;
     const newTask = new Task(title, description);
     tasks.push(newTask);
     res.status(201).json(newTask);
 };
+
 exports.getTask = (req, res) => {
     const task = tasks.find(t => t.id === req.params.id);
     if (task) {
