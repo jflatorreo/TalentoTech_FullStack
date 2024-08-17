@@ -19,6 +19,7 @@ app.get('/libros/', (req, res) => {
 
     // Si `id` está presente en la cadena de consulta
     const libroId = req.query.id;
+
     if (libroId) {
         const libro = libros.find(l => l.id === libroId);
         if (libro) {
