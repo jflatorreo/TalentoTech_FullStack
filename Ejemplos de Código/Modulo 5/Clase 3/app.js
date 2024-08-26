@@ -1,7 +1,7 @@
 // db.js
 
 const express = require('express');
-const connectDB = require('./db');
+const connectDB = require('./Mongodb');
 const usersRouter = require('./Repository/routes/users');
 
 const app = express();
