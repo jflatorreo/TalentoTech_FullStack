@@ -11,12 +11,11 @@ app.use(cors());
 app.get('/api/data/',(req, res) =>{
     console.log("Solicitud recibida");
     res.status(200).json({
-        status:'success',
         message: 'Datos del servidor'
     })
 })
 
-app.post('api/submit',(req,res)=>{
+app.post('/api/submit/',(req,res)=>{
     const {data} = req.body;
     //...
     res.status(201).json({status:'success',data:data});

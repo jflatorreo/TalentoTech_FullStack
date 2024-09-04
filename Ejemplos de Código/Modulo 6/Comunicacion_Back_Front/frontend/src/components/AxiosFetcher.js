@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function AxiosFetcher(){
 
-        const [inputData,setInputData] = useState(null)
+        const [inputData,setInputData] = useState('')
 
         const [error, setError] = useState(null)
 
@@ -35,8 +35,8 @@ function AxiosFetcher(){
                     value={inputData}
                     onChange={(e)=>setInputData(e.target.value)}
                     />
-                <button onClck={{handleSubmit}}>Enviar</button>
-                {response && <p>Respuesta del servidor: {response}</p>}
+                <button onClick={handleSubmit}>Enviar</button>
+                {response && <p>Respuesta del servidor: {response.data}</p>}
             </div>
         )
     }
