@@ -9,7 +9,7 @@ const [error, setError] = useState(null)
 
 
     useEffect(() => {
-        fetch('https://92b7-186-148-166-110.ngrok-free.app/api/data', {
+        fetch('https://faf2-186-148-166-110.ngrok-free.app/api/data', {
             method: "get",
             headers: new Headers({ 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' ,"ngrok-skip-browser-warning": "69420"}),
         }).then(res => {
@@ -33,7 +33,7 @@ const [error, setError] = useState(null)
     return (
         <div>
             <h1>Datos Recibidos</h1>
-            <p>{data.message}</p>
+            <p>{data?.message}</p>
         </div>
     )
 }

@@ -12,7 +12,7 @@ function AxiosFetcher(){
 
 
     const handleSubmit = useCallback(() => {
-            axios.post('https://92b7-186-148-166-110.ngrok-free.app/api/submit', {data : inputData}).then(res => {
+            axios.post('https://faf2-186-148-166-110.ngrok-free.app/api/submit', {data : inputData}).then(res => {
                 console.log(res.status)
                 if (!res.status === 200) {
                     throw new Error('Error en la respuesta del servidor');
