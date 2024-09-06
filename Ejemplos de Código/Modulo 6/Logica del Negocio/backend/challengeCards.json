@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "description": "Implementa un sistema de carrito de compras que mantenga su estado incluso si el usuario cierra el navegador.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 2,
+    "description": "Crea un componente de formulario dinámico que se adapte a diferentes esquemas de datos.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 3,
+    "description": "Diseña e implementa un sistema de caché para optimizar las llamadas a la API.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 4,
+    "description": "Implementa un sistema de notificaciones en tiempo real utilizando WebSockets.",
+    "category": "backend",
+    "points": 4
+  },
+  {
+    "id": 5,
+    "description": "Optimiza una consulta compleja que involucra múltiples joins y agregaciones.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 6,
+    "description": "Implementa un sistema de migraciones para manejar cambios en el esquema de la base de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 7,
+    "description": "Configura un pipeline de CI/CD para automatizar el despliegue de la aplicación.",
+    "category": "infrastructure",
+    "points": 4
+  },
+  {
+    "id": 8,
+    "description": "Implementa un sistema de monitoreo y alerta para la infraestructura de la aplicación.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 9,
+    "description": "Crea un sistema de autenticación Single Sign-On (SSO) que funcione a través de múltiples servicios.",
+    "category": "backend",
+    "points": 4
+  },
+  {
+    "id": 10,
+    "description": "Implementa una estrategia de despliegue blue-green para minimizar el tiempo de inactividad durante las actualizaciones.",
+    "category": "infrastructure",
+    "points": 4
+  }
+]

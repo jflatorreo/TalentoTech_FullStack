@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "title": "Estado Management",
+    "description": "Gestiona el estado de la aplicación de manera centralizada y predecible.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 2,
+    "title": "Componentes Reactivos",
+    "description": "Crea interfaces de usuario dinámicas y reutilizables.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 3,
+    "title": "Routing",
+    "description": "Maneja la navegación entre diferentes vistas de la aplicación.",
+    "category": "frontend",
+    "points": 1
+  },
+  {
+    "id": 4,
+    "title": "APIs RESTful",
+    "description": "Diseña e implementa interfaces de programación de aplicaciones siguiendo principios REST.",
+    "category": "backend",
+    "points": 2
+  },
+  {
+    "id": 5,
+    "title": "Autenticación JWT",
+    "description": "Implementa autenticación segura utilizando JSON Web Tokens.",
+    "category": "backend",
+    "points": 2
+  },
+  {
+    "id": 6,
+    "title": "Middleware",
+    "description": "Crea funciones intermedias para procesar solicitudes y respuestas.",
+    "category": "backend",
+    "points": 1
+  },
+  {
+    "id": 7,
+    "title": "Modelado de Datos",
+    "description": "Diseña estructuras de datos eficientes para almacenar información.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 8,
+    "title": "Indexación",
+    "description": "Optimiza consultas mediante la creación de índices en la base de datos.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 9,
+    "title": "Contenedores",
+    "description": "Empaqueta y despliega aplicaciones en entornos aislados y portables.",
+    "category": "infrastructure",
+    "points": 2
+  },
+  {
+    "id": 10,
+    "title": "Balanceo de Carga",
+    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
+    "category": "infrastructure",
+    "points": 2
+  },
+  {
+    "id": 11,
+    "title": "Balanceo de Carga",
+    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
+    "category": "infrastructure",
+    "points": 2
+  },
+  {
+    "id": 12,
+    "title": "Balanceo de Carga",
+    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
+    "category": "infrastructure",
+    "points": 2
+  },
+  {
+    "id": 13,
+    "title": "Balanceo de Carga",
+    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
+    "category": "infrastructure",
+    "points": 2
+  }
+]
