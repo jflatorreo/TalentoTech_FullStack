@@ -1,93 +1,1751 @@
 [
   {
     "id": 1,
-    "title": "Estado Management",
-    "description": "Gestiona el estado de la aplicación de manera centralizada y predecible.",
+    "title": "Gestión de Estado en Frontend",
+    "description": "Manejo y almacenamiento del estado de la aplicación en el lado del cliente para asegurar una experiencia de usuario fluida y consistente.",
     "category": "frontend",
     "points": 2
   },
   {
     "id": 2,
-    "title": "Componentes Reactivos",
-    "description": "Crea interfaces de usuario dinámicas y reutilizables.",
-    "category": "frontend",
-    "points": 2
+    "title": "Control de Acceso en Backend",
+    "description": "Implementación de políticas y mecanismos para garantizar que solo los usuarios autorizados puedan acceder a ciertos recursos o funcionalidades.",
+    "category": "backend",
+    "points": 3
   },
   {
     "id": 3,
-    "title": "Routing",
-    "description": "Maneja la navegación entre diferentes vistas de la aplicación.",
-    "category": "frontend",
-    "points": 1
-  },
-  {
-    "id": 4,
-    "title": "APIs RESTful",
-    "description": "Diseña e implementa interfaces de programación de aplicaciones siguiendo principios REST.",
-    "category": "backend",
+    "title": "Normalización de Datos en Database",
+    "description": "Proceso de estructuración de datos en la base de datos para minimizar redundancias y mejorar la integridad de los datos.",
+    "category": "database",
     "points": 2
   },
   {
+    "id": 4,
+    "title": "Configuración de Balanceo de Carga en Infrastructure",
+    "description": "Distribución de la carga de trabajo entre varios servidores para mejorar el rendimiento y la disponibilidad de la aplicación.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
     "id": 5,
-    "title": "Autenticación JWT",
-    "description": "Implementa autenticación segura utilizando JSON Web Tokens.",
-    "category": "backend",
+    "title": "Implementación de Validación del Lado del Cliente",
+    "description": "Verificación de datos en el lado del cliente para mejorar la experiencia del usuario y reducir la carga en el servidor.",
+    "category": "frontend",
     "points": 2
   },
   {
     "id": 6,
-    "title": "Middleware",
-    "description": "Crea funciones intermedias para procesar solicitudes y respuestas.",
+    "title": "Patrón de Diseño de Microservicios en Backend",
+    "description": "Arquitectura que divide la aplicación en servicios independientes y pequeños que se comunican entre sí, facilitando el escalado y mantenimiento.",
     "category": "backend",
-    "points": 1
+    "points": 3
   },
   {
     "id": 7,
-    "title": "Modelado de Datos",
-    "description": "Diseña estructuras de datos eficientes para almacenar información.",
+    "title": "Indices en Bases de Datos",
+    "description": "Estructuras que mejoran la velocidad de recuperación de datos mediante la creación de un índice sobre las columnas de una tabla.",
     "category": "database",
-    "points": 2
+    "points": 3
   },
   {
     "id": 8,
-    "title": "Indexación",
-    "description": "Optimiza consultas mediante la creación de índices en la base de datos.",
-    "category": "database",
+    "title": "Monitorización de Infraestructura",
+    "description": "Proceso de supervisar los recursos de infraestructura para asegurar su correcto funcionamiento y rendimiento.",
+    "category": "infrastructure",
     "points": 2
   },
   {
     "id": 9,
-    "title": "Contenedores",
-    "description": "Empaqueta y despliega aplicaciones en entornos aislados y portables.",
-    "category": "infrastructure",
-    "points": 2
+    "title": "Uso de Hooks en React",
+    "description": "Funciones que permiten a los desarrolladores de React usar estado y otras características sin escribir una clase.",
+    "category": "frontend",
+    "points": 3
   },
   {
     "id": 10,
-    "title": "Balanceo de Carga",
-    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
-    "category": "infrastructure",
+    "title": "Patrón de Diseño de Singleton",
+    "description": "Garantiza que una clase tenga una única instancia y proporciona un punto de acceso global a ella.",
+    "category": "backend",
     "points": 2
   },
   {
     "id": 11,
-    "title": "Balanceo de Carga",
-    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
-    "category": "infrastructure",
-    "points": 2
+    "title": "Optimización de Consultas en SQL",
+    "description": "Mejorar el rendimiento de las consultas SQL mediante técnicas como el uso de índices y la reescritura de consultas.",
+    "category": "database",
+    "points": 3
   },
   {
     "id": 12,
-    "title": "Balanceo de Carga",
-    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
+    "title": "Escalabilidad en Arquitectura de Infraestructura",
+    "description": "Diseño de sistemas que pueden adaptarse y manejar un aumento en la carga de trabajo añadiendo más recursos o servidores.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 13,
+    "title": "Manejo de Eventos en Frontend",
+    "description": "Captura y respuesta a eventos de usuario como clics y entradas de teclado en el lado del cliente.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 14,
+    "title": "Implementación de Middleware en Backend",
+    "description": "Uso de funciones intermedias que se ejecutan entre la recepción de una solicitud y el envío de una respuesta para modificar o procesar datos.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 15,
+    "title": "Diseño de Esquemas en Bases de Datos",
+    "description": "Definición y estructuración de tablas y relaciones en una base de datos para optimizar el almacenamiento y el acceso a datos.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 16,
+    "title": "Automatización de Despliegues",
+    "description": "Uso de herramientas y scripts para desplegar aplicaciones automáticamente en la infraestructura para asegurar consistencia y eficiencia.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 17,
+    "title": "Optimización de Performance en Frontend",
+    "description": "Técnicas para mejorar la velocidad de carga y la eficiencia de la aplicación en el navegador, como la carga diferida y la minificación.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 18,
+    "title": "Implementación de API RESTful",
+    "description": "Diseño y desarrollo de interfaces que exponen la lógica del negocio a través de HTTP utilizando métodos estándar.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 19,
+    "title": "Manejo de Transacciones en Bases de Datos",
+    "description": "Uso de transacciones para asegurar que un conjunto de operaciones en la base de datos se ejecute de forma atómica y consistente.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 20,
+    "title": "Seguridad en Infraestructura",
+    "description": "Prácticas para proteger la infraestructura de la aplicación contra accesos no autorizados y ataques.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 21,
+    "title": "Desarrollo de Interfaces de Usuario en Frontend",
+    "description": "Creación y diseño de componentes visuales interactivos que mejoran la experiencia del usuario en la aplicación.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 22,
+    "title": "Implementación de Autenticación en Backend",
+    "description": "Proceso de verificar la identidad de los usuarios antes de permitirles acceder a recursos o realizar acciones.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 23,
+    "title": "Copia de Seguridad en Bases de Datos",
+    "description": "Procedimientos para realizar y gestionar copias de seguridad de los datos para proteger contra pérdida de datos.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 24,
+    "title": "Manejo de Redes y Subredes en Infraestructura",
+    "description": "Configuración y gestión de redes y subredes para optimizar la comunicación y el rendimiento de la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 25,
+    "title": "Interacción con APIs Externas en Frontend",
+    "description": "Conexión y manejo de datos provenientes de APIs externas en la interfaz de usuario.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 26,
+    "title": "Configuración de Entornos de Desarrollo en Backend",
+    "description": "Preparación y configuración de entornos de desarrollo para asegurar que el código se ejecute correctamente en diferentes entornos.",
+    "category": "backend",
+    "points": 2
+  },
+  {
+    "id": 27,
+    "title": "Integridad Referencial en Bases de Datos",
+    "description": "Mantenimiento de las relaciones entre datos en la base de datos para asegurar que las relaciones entre tablas sean válidas.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 28,
+    "title": "Implementación de Redes de Entrega de Contenido (CDN)",
+    "description": "Uso de redes distribuidas para entregar contenido estático y dinámico a los usuarios de manera rápida y eficiente.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 29,
+    "title": "Gestión de Rutas en Frontend",
+    "description": "Configuración y manejo de rutas en aplicaciones web para navegar entre diferentes vistas y componentes.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 30,
+    "title": "Patrón de Diseño de Repositorio en Backend",
+    "description": "Implementación del patrón de repositorio para separar la lógica de acceso a datos del resto de la aplicación.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 31,
+    "title": "Técnicas de Indexación en Bases de Datos",
+    "description": "Uso de técnicas de indexación para mejorar la velocidad de acceso a los datos almacenados en una base de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 32,
+    "title": "Configuración de Redes Virtuales Privadas (VPN) en Infraestructura",
+    "description": "Creación y gestión de redes privadas virtuales para asegurar comunicaciones seguras entre servidores e usuarios.",
     "category": "infrastructure",
     "points": 2
   },
   {
-    "id": 13,
-    "title": "Balanceo de Carga",
-    "description": "Distribuye el tráfico entre múltiples instancias de la aplicación.",
+    "id": 33,
+    "title": "Manejo de Estado Global en Frontend",
+    "description": "Uso de librerías como Redux para manejar el estado global de la aplicación y compartir datos entre componentes.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 34,
+    "title": "Seguridad en Aplicaciones Backend",
+    "description": "Implementación de medidas de seguridad para proteger la lógica del negocio y los datos en el servidor.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 35,
+    "title": "Diseño de Procedimientos Almacenados en Bases de Datos",
+    "description": "Creación de procedimientos almacenados para encapsular y reutilizar la lógica de negocio en la base de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 36,
+    "title": "Uso de Contenedores en Infraestructura",
+    "description": "Implementación y gestión de contenedores para empaquetar aplicaciones y sus dependencias de manera eficiente.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 37,
+    "title": "Optimización de Renderizado en Frontend",
+    "description": "Técnicas para mejorar la velocidad y eficiencia del renderizado de componentes en la interfaz de usuario.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 38,
+    "title": "Gestión de Sesiones en Backend",
+    "description": "Implementación de mecanismos para mantener el estado de las sesiones de usuario a través de múltiples peticiones.",
+    "category": "backend",
+    "points": 2
+  },
+  {
+    "id": 39,
+    "title": "Estrategias de Backup en Bases de Datos",
+    "description": "Desarrollo e implementación de estrategias para realizar copias de seguridad y recuperación de datos en bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 40,
+    "title": "Configuración de Autoescalado en Infraestructura",
+    "description": "Configuración de sistemas para ajustar automáticamente la capacidad de la infraestructura en respuesta a cambios en la carga de trabajo.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 41,
+    "title": "Manejo de Datos Dinámicos en Frontend",
+    "description": "Actualización y renderizado de datos dinámicos en la interfaz de usuario en respuesta a cambios en el estado de la aplicación.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 42,
+    "title": "Implementación de Patrones de Seguridad en Backend",
+    "description": "Aplicación de patrones de diseño de seguridad para proteger las aplicaciones backend contra vulnerabilidades comunes.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 43,
+    "title": "Gestión de Relaciones entre Tablas en Bases de Datos",
+    "description": "Diseño y mantenimiento de relaciones entre tablas para asegurar la integridad y coherencia de los datos en una base de datos relacional.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 44,
+    "title": "Implementación de Sistemas de Caché en Infraestructura",
+    "description": "Uso de sistemas de caché para almacenar temporalmente datos y mejorar el rendimiento de las aplicaciones.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 45,
+    "title": "Diseño de Interfaces Responsivas en Frontend",
+    "description": "Creación de interfaces que se adapten y respondan a diferentes tamaños de pantalla y dispositivos.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 46,
+    "title": "Implementación de Servicios de Mensajería en Backend",
+    "description": "Uso de sistemas de mensajería para permitir la comunicación asíncrona entre diferentes componentes de la aplicación.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 47,
+    "title": "Optimización de Esquemas en Bases de Datos",
+    "description": "Ajuste de la estructura de las tablas y relaciones en una base de datos para mejorar el rendimiento y la eficiencia.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 48,
+    "title": "Configuración de Redundancia en Infraestructura",
+    "description": "Diseño e implementación de sistemas redundantes para asegurar la alta disponibilidad y continuidad del servicio.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 49,
+    "title": "Manejo de Datos en Formularios de Frontend",
+    "description": "Gestión y validación de datos ingresados por los usuarios en formularios web.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 50,
+    "title": "Patrón de Diseño de Fábrica Abstracta",
+    "description": "Permite la creación de objetos sin especificar la clase exacta que se instanciará mediante una interfaz de fábrica abstracta.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 51,
+    "title": "Uso de Índices Compuestos en Bases de Datos",
+    "description": "Creación de índices que abarcan múltiples columnas para mejorar la eficiencia de consultas complejas.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 52,
+    "title": "Implementación de Redes Privadas Virtuales (VPN) en Infraestructura",
+    "description": "Configuración de redes privadas virtuales para asegurar la comunicación segura entre servidores y usuarios.",
     "category": "infrastructure",
     "points": 2
-  }
-]
+  },
+  {
+    "id": 53,
+    "title": "Optimización de Interacción del Usuario en Frontend",
+    "description": "Mejora de la experiencia del usuario mediante técnicas para hacer que las interfaces sean más intuitivas y responsivas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 54,
+    "title": "Patrón de Diseño de Mediador en Backend",
+    "description": "Permite que los objetos interactúen a través de un intermediario en lugar de comunicarse directamente entre sí.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 55,
+    "title": "Manejo de Claves Foráneas en Bases de Datos",
+    "description": "Uso de claves foráneas para mantener la integridad referencial entre diferentes tablas en una base de datos.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 56,
+    "title": "Configuración de Seguridad en Infraestructura",
+    "description": "Implementación de medidas de seguridad en la infraestructura para proteger contra amenazas y accesos no autorizados.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 57,
+    "title": "Desarrollo de Componentes Reutilizables en Frontend",
+    "description": "Creación de componentes que pueden ser reutilizados en diferentes partes de la aplicación para mejorar la consistencia y reducir el código duplicado.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 58,
+    "title": "Implementación de Patrones de Cacheo en Backend",
+    "description": "Uso de técnicas de caché para almacenar datos y mejorar la eficiencia de la aplicación backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 59,
+    "title": "Diseño de Tablas Normalizadas en Bases de Datos",
+    "description": "Estructuración de tablas para cumplir con las reglas de normalización y evitar redundancias y dependencias innecesarias.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 60,
+    "title": "Manejo de Infraestructura como Código (IaC)",
+    "description": "Uso de herramientas y técnicas para definir y gestionar la infraestructura mediante código, facilitando el despliegue y la administración.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 61,
+    "title": "Implementación de Rutas Dinámicas en Frontend",
+    "description": "Creación de rutas en aplicaciones web que pueden cambiar dinámicamente en función de la entrada del usuario.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 62,
+    "title": "Configuración de Gestión de Errores en Backend",
+    "description": "Establecimiento de mecanismos para manejar y registrar errores en la aplicación backend para asegurar una respuesta adecuada a fallos.",
+    "category": "backend",
+    "points": 2
+  },
+  {
+    "id": 63,
+    "title": "Uso de Vistas Materializadas en Bases de Datos",
+    "description": "Implementación de vistas materializadas para almacenar resultados de consultas complejas y mejorar el rendimiento de consultas frecuentes.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 64,
+    "title": "Implementación de Sistemas de Monitoreo de Infraestructura",
+    "description": "Uso de herramientas para supervisar y analizar el rendimiento y la disponibilidad de la infraestructura.",
+    "category": "infrastructure",
+    "points": 2
+  },
+  {
+    "id": 65,
+    "title": "Manejo de Asincronía en Frontend",
+    "description": "Uso de técnicas y herramientas para manejar operaciones asíncronas y mejorar la experiencia del usuario en aplicaciones web.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 66,
+    "title": "Uso de API GraphQL en Backend",
+    "description": "Implementación de GraphQL para permitir a los clientes consultar solo los datos que necesitan a través de una única API.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 67,
+    "title": "Creación de Índices de Texto Completo en Bases de Datos",
+    "description": "Uso de índices especializados para mejorar la búsqueda y recuperación de datos en campos de texto.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 68,
+    "title": "Uso de Balanceadores de Carga en Infraestructura",
+    "description": "Implementación de balanceadores de carga para distribuir el tráfico de red entre varios servidores y mejorar la disponibilidad y rendimiento.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 69,
+    "title": "Manejo de Eventos de Usuario en Frontend",
+    "description": "Captura y manejo de eventos generados por las acciones de los usuarios en la interfaz de usuario.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 70,
+    "title": "Configuración de Servicios Web en Backend",
+    "description": "Establecimiento y gestión de servicios web para permitir la comunicación entre aplicaciones y servicios a través de la red.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 71,
+    "title": "Mantenimiento de Integridad de Datos en Bases de Datos",
+    "description": "Uso de restricciones y validaciones para asegurar que los datos almacenados en la base de datos sean precisos y consistentes.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 72,
+    "title": "Automatización de Provisionamiento de Infraestructura",
+    "description": "Uso de herramientas para automatizar la creación y configuración de recursos de infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 73,
+    "title": "Manejo de State Management en Frontend",
+    "description": "Uso de librerías y técnicas para gestionar el estado de la aplicación en el lado del cliente de manera eficiente.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 74,
+    "title": "Optimización de Tiempo de Respuesta en Backend",
+    "description": "Técnicas y herramientas para reducir el tiempo que tarda el backend en procesar y responder a las solicitudes.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 75,
+    "title": "Diseño de Esquemas de Datos para Escalabilidad",
+    "description": "Estrategias para diseñar esquemas de datos que permitan el crecimiento eficiente de la base de datos a medida que aumentan los datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 76,
+    "title": "Implementación de Redundancia de Datos en Infraestructura",
+    "description": "Configuración de sistemas para replicar y mantener copias de datos para garantizar la disponibilidad y la recuperación ante fallos.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 77,
+    "title": "Optimización de Interfaz de Usuario en Frontend",
+    "description": "Mejora de la usabilidad y la eficiencia de la interfaz de usuario mediante técnicas de diseño y optimización.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 78,
+    "title": "Manejo de Sesiones en Aplicaciones Backend",
+    "description": "Gestión de las sesiones de usuario y la información asociada en aplicaciones backend.",
+    "category": "backend",
+    "points": 2
+  },
+  {
+    "id": 79,
+    "title": "Gestión de Particiones en Bases de Datos",
+    "description": "División de tablas grandes en partes más manejables para mejorar el rendimiento y la administración.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 80,
+    "title": "Implementación de Monitorización de Recursos en Infraestructura",
+    "description": "Uso de herramientas para supervisar el uso y el estado de los recursos en la infraestructura para garantizar el rendimiento óptimo.",
+    "category": "infrastructure",
+    "points": 2
+  },
+  {
+    "id": 81,
+    "title": "Desarrollo de Aplicaciones de Página Única (SPA)",
+    "description": "Creación de aplicaciones web que cargan una única página y actualizan el contenido dinámicamente sin recargar la página.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 82,
+    "title": "Implementación de API de Autenticación en Backend",
+    "description": "Desarrollo de API para manejar el proceso de autenticación y autorización en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 83,
+    "title": "Diseño de Procedimientos de Mantenimiento de Datos",
+    "description": "Desarrollo de procedimientos para realizar tareas de mantenimiento rutinario en bases de datos, como la actualización y la limpieza de datos.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 84,
+    "title": "Implementación de Red de Entrega de Contenido (CDN)",
+    "description": "Uso de redes distribuidas para almacenar en caché y entregar contenido a los usuarios de manera rápida y eficiente.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 85,
+    "title": "Manejo de Renderizado del Lado del Servidor (SSR) en Frontend",
+    "description": "Técnicas para renderizar el contenido de la página en el servidor antes de enviarlo al cliente para mejorar el SEO y el tiempo de carga.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 86,
+    "title": "Uso de Caching en Backend",
+    "description": "Implementación de mecanismos de caché para mejorar el rendimiento y reducir la carga en el backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 87,
+    "title": "Optimización de Consultas en Bases de Datos",
+    "description": "Técnicas para mejorar la eficiencia de las consultas a la base de datos mediante la optimización de consultas y el uso de índices.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 88,
+    "title": "Configuración de Balanceo de Carga en Infraestructura",
+    "description": "Implementación de balanceadores de carga para distribuir el tráfico entre múltiples servidores y mejorar la disponibilidad.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 89,
+    "title": "Diseño de Componentes en Frontend",
+    "description": "Creación y estructuración de componentes reutilizables para mejorar la modularidad y la mantenibilidad de la interfaz de usuario.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 90,
+    "title": "Implementación de Seguridad de API en Backend",
+    "description": "Aplicación de medidas de seguridad para proteger las API del backend contra accesos no autorizados y ataques.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 91,
+    "title": "Optimización de Rendimiento de Bases de Datos",
+    "description": "Estrategias para mejorar el rendimiento general de las bases de datos mediante ajustes de configuración y técnicas de optimización.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 92,
+    "title": "Implementación de Herramientas de Gestión de Configuración",
+    "description": "Uso de herramientas para gestionar y automatizar la configuración de sistemas y aplicaciones en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 93,
+    "title": "Desarrollo de Aplicaciones Multiplataforma",
+    "description": "Creación de aplicaciones que funcionen en diferentes plataformas y dispositivos utilizando tecnologías adecuadas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 94,
+    "title": "Implementación de Servicios Web RESTful en Backend",
+    "description": "Desarrollo de servicios web utilizando el estilo arquitectónico REST para la comunicación entre sistemas.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 95,
+    "title": "Desarrollo de Funciones Agregadas en Bases de Datos",
+    "description": "Creación de funciones para realizar cálculos y agregaciones de datos en la base de datos.",
+    "category": "database",
+    "points": 2
+  },
+  {
+    "id": 96,
+    "title": "Implementación de Estrategias de Recuperación ante Desastres",
+    "description": "Desarrollo e implementación de planes para recuperar datos y sistemas en caso de desastres o fallos graves.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 97,
+    "title": "Manejo de Eventos en Aplicaciones Frontend",
+    "description": "Implementación de sistemas para manejar eventos generados por los usuarios y otros sistemas en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 98,
+    "title": "Uso de Herramientas de CI/CD en Backend",
+    "description": "Implementación de prácticas de integración continua y entrega continua para automatizar el desarrollo y despliegue de aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 99,
+    "title": "Desarrollo de Aplicaciones para Móviles",
+    "description": "Creación de aplicaciones diseñadas específicamente para dispositivos móviles utilizando tecnologías adecuadas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 100,
+    "title": "Desarrollo de APIs para Terceros",
+    "description": "Creación de APIs que permiten a terceros integrar sus aplicaciones con servicios externos.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 101,
+    "title": "Manejo de Estados en Frontend con Hooks",
+    "description": "Uso de hooks en React para manejar estados de manera funcional y modular.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 102,
+    "title": "Autenticación Basada en Token en Backend",
+    "description": "Implementación de autenticación utilizando tokens JWT para proteger las rutas en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 103,
+    "title": "Uso de Índices de Clúster en Bases de Datos",
+    "description": "Creación de índices de clúster para optimizar el almacenamiento y acceso a los datos en una base de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 104,
+    "title": "Automatización del Despliegue en Infraestructura",
+    "description": "Uso de herramientas para automatizar el proceso de despliegue de aplicaciones y servicios en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 105,
+    "title": "Optimización de Consultas Asíncronas en Frontend",
+    "description": "Mejora de la eficiencia de las consultas asíncronas en aplicaciones frontend utilizando técnicas adecuadas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 106,
+    "title": "Implementación de Microservicios en Backend",
+    "description": "Desarrollo de una arquitectura de microservicios para dividir las aplicaciones en servicios independientes y escalables.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 107,
+    "title": "Optimización de Índices en Bases de Datos",
+    "description": "Estrategias para mejorar la eficiencia de los índices en bases de datos, incluyendo ajustes y mantenimiento.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 108,
+    "title": "Configuración de Red de Alta Disponibilidad en Infraestructura",
+    "description": "Diseño e implementación de redes que garantizan alta disponibilidad y continuidad del servicio.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 109,
+    "title": "Gestión de Componentes Dinámicos en Frontend",
+    "description": "Creación y gestión de componentes que se actualizan dinámicamente en la interfaz de usuario.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 110,
+    "title": "Implementación de Servicios de API Gateway en Backend",
+    "description": "Uso de un API Gateway para gestionar y enrutar las solicitudes a los distintos servicios backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 111,
+    "title": "Diseño de Esquemas de Particionamiento en Bases de Datos",
+    "description": "Creación de esquemas de particionamiento para dividir grandes tablas en fragmentos más manejables.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 112,
+    "title": "Implementación de Herramientas de Gestión de Logs en Infraestructura",
+    "description": "Uso de herramientas para recolectar, almacenar y analizar logs de sistemas y aplicaciones.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 113,
+    "title": "Implementación de Validaciones en Frontend",
+    "description": "Uso de técnicas y herramientas para validar datos ingresados por el usuario en la interfaz de usuario.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 114,
+    "title": "Gestión de Autorización en Backend",
+    "description": "Implementación de mecanismos para gestionar los permisos y el acceso a diferentes recursos en el backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 115,
+    "title": "Uso de Clustering en Bases de Datos",
+    "description": "Implementación de técnicas de clustering para mejorar el rendimiento y la escalabilidad de las consultas a la base de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 116,
+    "title": "Desarrollo de Estrategias de Escalabilidad en Infraestructura",
+    "description": "Creación de estrategias para escalar la infraestructura de manera eficiente según la demanda.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 117,
+    "title": "Implementación de Gestión de Estados en Frontend con Context API",
+    "description": "Uso de la Context API de React para manejar estados globales en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 118,
+    "title": "Uso de Servicios de Mensajería en Backend",
+    "description": "Implementación de servicios de mensajería para la comunicación entre servicios en una arquitectura distribuida.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 119,
+    "title": "Creación de Esquemas de Normalización en Bases de Datos",
+    "description": "Diseño de esquemas de normalización para reducir redundancias y mejorar la integridad de los datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 120,
+    "title": "Implementación de Control de Acceso en Infraestructura",
+    "description": "Uso de herramientas y técnicas para controlar el acceso a los recursos y sistemas en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 121,
+    "title": "Desarrollo de Componentes de Usuario Personalizados en Frontend",
+    "description": "Creación de componentes personalizados que ofrecen una experiencia de usuario única y adaptada a necesidades específicas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 122,
+    "title": "Implementación de Servicios de Autenticación en Backend",
+    "description": "Desarrollo de servicios para manejar la autenticación de usuarios y la gestión de credenciales en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 123,
+    "title": "Optimización de Rendimiento de Consultas en Bases de Datos",
+    "description": "Uso de técnicas para optimizar el rendimiento de las consultas a la base de datos y reducir tiempos de respuesta.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 124,
+    "title": "Configuración de Escalado Horizontal en Infraestructura",
+    "description": "Implementación de escalado horizontal para añadir más instancias de servicio y mejorar la capacidad de manejo de la carga.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 125,
+    "title": "Manejo de Enrutamiento en Aplicaciones Frontend",
+    "description": "Implementación de sistemas de enrutamiento para gestionar las distintas rutas y vistas en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 126,
+    "title": "Desarrollo de Servicios RESTful en Backend",
+    "description": "Creación de servicios que siguen el estilo arquitectónico REST para interactuar con clientes y otros servicios.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 127,
+    "title": "Gestión de Datos No Relacionales en Bases de Datos",
+    "description": "Uso de bases de datos NoSQL para gestionar datos no estructurados y aplicaciones con alta variabilidad de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 128,
+    "title": "Implementación de Gestión de Recursos en Infraestructura",
+    "description": "Uso de herramientas para gestionar y optimizar el uso de recursos en la infraestructura, como CPU, memoria y almacenamiento.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 129,
+    "title": "Desarrollo de Interfaces de Usuario con Frameworks Frontend",
+    "description": "Uso de frameworks como React o Vue.js para desarrollar interfaces de usuario interactivas y eficientes.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 130,
+    "title": "Implementación de Mecanismos de Caching en Backend",
+    "description": "Uso de técnicas de caching para mejorar el rendimiento de las aplicaciones backend mediante el almacenamiento temporal de datos.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 131,
+    "title": "Diseño de Estrategias de Indexación en Bases de Datos",
+    "description": "Creación de estrategias para diseñar y mantener índices que mejoren la eficiencia de las consultas en bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 132,
+    "title": "Desarrollo de Soluciones de Backup en Infraestructura",
+    "description": "Implementación de soluciones para realizar copias de seguridad y garantizar la recuperación de datos en caso de pérdida.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 133,
+    "title": "Creación de Interfaces Reactivas en Frontend",
+    "description": "Diseño de interfaces de usuario que responden de manera eficiente a las acciones del usuario utilizando técnicas reactivas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 134,
+    "title": "Implementación de Servicios de Autorización en Backend",
+    "description": "Desarrollo de servicios para gestionar permisos y acceso a recursos en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 135,
+    "title": "Optimización de Esquemas de Datos en Bases de Datos",
+    "description": "Ajuste de los esquemas de datos para mejorar el rendimiento y la eficiencia en el almacenamiento y recuperación de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 136,
+    "title": "Implementación de Contenedores en Infraestructura",
+    "description": "Uso de tecnologías de contenedores como Docker para empaquetar aplicaciones y sus dependencias de manera eficiente.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 137,
+    "title": "Desarrollo de Aplicaciones con Renderizado del Lado del Servidor (SSR)",
+    "description": "Creación de aplicaciones que renderizan contenido en el servidor antes de enviarlo al cliente para mejorar la SEO y el rendimiento.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 138,
+    "title": "Implementación de Servicios de Integración en Backend",
+    "description": "Desarrollo de servicios para integrar diferentes sistemas y aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 139,
+    "title": "Uso de Técnicas de Normalización en Bases de Datos",
+    "description": "Aplicación de técnicas de normalización para reducir redundancias y asegurar la integridad de los datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 140,
+    "title": "Configuración de Servicios de Alta Disponibilidad en Infraestructura",
+    "description": "Diseño e implementación de servicios que garantizan alta disponibilidad y continuidad del servicio.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 141,
+    "title": "Implementación de Interfaces de Usuario Responsivas en Frontend",
+    "description": "Creación de interfaces de usuario que se ajustan a diferentes tamaños de pantalla y dispositivos.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 142,
+    "title": "Desarrollo de Servicios de API para Integración de Terceros",
+    "description": "Creación de APIs que permiten la integración con servicios y aplicaciones de terceros.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 143,
+    "title": "Optimización de Consultas SQL en Bases de Datos",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas SQL mediante optimización de sentencias y uso de índices.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 144,
+    "title": "Implementación de Soluciones de Redundancia en Infraestructura",
+    "description": "Uso de técnicas para asegurar que los sistemas y datos estén disponibles incluso en caso de fallos.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 145,
+    "title": "Desarrollo de Aplicaciones Web Progresivas (PWA)",
+    "description": "Creación de aplicaciones web que ofrecen una experiencia similar a las aplicaciones móviles, incluyendo capacidad offline y notificaciones.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 146,
+    "title": "Implementación de Seguridad en API en Backend",
+    "description": "Aplicación de medidas de seguridad para proteger las API backend contra amenazas y accesos no autorizados.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 147,
+    "title": "Gestión de Datos de Transacciones en Bases de Datos",
+    "description": "Manejo de datos transaccionales y uso de técnicas para asegurar la consistencia y durabilidad de las transacciones.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 148,
+    "title": "Desarrollo de Estrategias de Recuperación de Datos en Infraestructura",
+    "description": "Diseño e implementación de planes de recuperación de datos para minimizar la pérdida en caso de fallos o desastres.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 149,
+    "title": "Implementación de React Hooks para Manejo de Efectos Secundarios",
+    "description": "Uso de hooks en React para manejar efectos secundarios y simplificar el código en componentes funcionales.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 150,
+    "title": "Desarrollo de Microservicios Escalables en Backend",
+    "description": "Creación de microservicios que pueden escalarse de manera independiente para manejar cargas de trabajo variables.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 151,
+    "title": "Uso de Técnicas de Optimización de Consultas NoSQL",
+    "description": "Aplicación de técnicas para mejorar el rendimiento de las consultas en bases de datos NoSQL.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 152,
+    "title": "Configuración de Redundancia en Sistemas de Almacenamiento",
+    "description": "Implementación de sistemas de almacenamiento redundantes para asegurar la disponibilidad y durabilidad de los datos.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 153,
+    "title": "Desarrollo de Interacciones de Usuario Dinámicas en Frontend",
+    "description": "Creación de interacciones de usuario en la interfaz que responden a eventos y cambios de manera dinámica.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 154,
+    "title": "Implementación de API para Consumo de Datos en Backend",
+    "description": "Desarrollo de APIs que permiten a las aplicaciones consumir datos de manera eficiente desde el backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 155,
+    "title": "Uso de Técnicas de Replicación en Bases de Datos",
+    "description": "Implementación de replicación para asegurar la disponibilidad y la recuperación ante fallos en bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 156,
+    "title": "Implementación de Gestión de Configuración en Infraestructura",
+    "description": "Uso de herramientas para gestionar y automatizar la configuración de sistemas en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 157,
+    "title": "Desarrollo de Aplicaciones con Rendering del Lado del Cliente",
+    "description": "Creación de aplicaciones que realizan el renderizado principal en el lado del cliente para mejorar la experiencia del usuario.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 158,
+    "title": "Implementación de Servicios de Notificaciones en Backend",
+    "description": "Desarrollo de servicios que permiten enviar notificaciones a los usuarios a través de diferentes canales.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 159,
+    "title": "Optimización de Transacciones en Bases de Datos",
+    "description": "Uso de técnicas para mejorar el rendimiento y la eficiencia de las transacciones en bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 160,
+    "title": "Configuración de Sistemas de Monitoreo de Infraestructura",
+    "description": "Uso de herramientas para supervisar el estado y rendimiento de los sistemas y recursos en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 161,
+    "title": "Creación de Formularios Dinámicos en Frontend",
+    "description": "Diseño y desarrollo de formularios que pueden cambiar dinámicamente en función de la entrada del usuario.",
+    "category": "frontend",
+    "points": 2
+  },
+  {
+    "id": 162,
+    "title": "Implementación de Gestión de Sesiones en Backend",
+    "description": "Desarrollo de sistemas para gestionar y mantener las sesiones de usuario en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 163,
+    "title": "Diseño de Estrategias de Indexación en Bases de Datos NoSQL",
+    "description": "Creación de estrategias de indexación para mejorar la eficiencia de las consultas en bases de datos NoSQL.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 164,
+    "title": "Implementación de Soluciones de Redundancia en Redes",
+    "description": "Diseño de redes redundantes para asegurar la continuidad y disponibilidad de los servicios de red.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 165,
+    "title": "Desarrollo de Sistemas de Validación en Frontend",
+    "description": "Creación de sistemas para validar datos y entradas en el lado del cliente antes de enviarlos al backend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 166,
+    "title": "Desarrollo de Servicios de API para Integración con Servicios Externos",
+    "description": "Creación de APIs que permiten la integración con servicios externos y sistemas de terceros.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 167,
+    "title": "Optimización de Consultas en Bases de Datos Relacionales",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos relacionales.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 168,
+    "title": "Implementación de Técnicas de Escalado en Infraestructura",
+    "description": "Uso de técnicas para escalar recursos y servicios en la infraestructura según la demanda.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 169,
+    "title": "Creación de Interfaces de Usuario Adaptativas en Frontend",
+    "description": "Desarrollo de interfaces que se adaptan a diferentes dispositivos y resoluciones para mejorar la experiencia del usuario.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 170,
+    "title": "Implementación de Servicios de Cache en Backend",
+    "description": "Uso de sistemas de caching para reducir la carga en el backend y mejorar la eficiencia de la aplicación.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 171,
+    "title": "Diseño de Estrategias de Copia de Seguridad en Bases de Datos",
+    "description": "Creación de planes para realizar copias de seguridad de los datos y asegurar su disponibilidad en caso de fallos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 172,
+    "title": "Implementación de Infraestructura como Código (IaC)",
+    "description": "Uso de herramientas para gestionar la infraestructura mediante la definición de código, facilitando la automatización y el versionado.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 173,
+    "title": "Desarrollo de Aplicaciones con Enrutamiento Avanzado en Frontend",
+    "description": "Implementación de enrutamiento avanzado para manejar rutas complejas y dinámicas en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 174,
+    "title": "Desarrollo de Servicios de Integración en Backend",
+    "description": "Creación de servicios para integrar aplicaciones y sistemas backend utilizando técnicas adecuadas.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 175,
+    "title": "Uso de Técnicas de Compresión de Datos en Bases de Datos",
+    "description": "Implementación de técnicas de compresión para reducir el tamaño de los datos almacenados y mejorar el rendimiento.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 176,
+    "title": "Implementación de Soluciones de Seguridad en Infraestructura",
+    "description": "Desarrollo de estrategias para proteger la infraestructura contra amenazas y vulnerabilidades.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 177,
+    "title": "Desarrollo de Aplicaciones con Animaciones Avanzadas en Frontend",
+    "description": "Uso de técnicas y herramientas para crear animaciones avanzadas y fluidas en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 178,
+    "title": "Implementación de Protocolos de Comunicación en Backend",
+    "description": "Uso de protocolos de comunicación para garantizar la interoperabilidad y la eficiencia en la comunicación entre sistemas backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 179,
+    "title": "Diseño de Esquemas de Datos en Bases de Datos Relacionales",
+    "description": "Creación de esquemas para organizar los datos en bases de datos relacionales y asegurar la integridad y eficiencia.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 180,
+    "title": "Configuración de Servicios de Balanceo de Carga en Infraestructura",
+    "description": "Implementación de técnicas de balanceo de carga para distribuir el tráfico entre múltiples servidores y mejorar la disponibilidad.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 181,
+    "title": "Desarrollo de Interfaz de Usuario con Frameworks de CSS en Frontend",
+    "description": "Uso de frameworks de CSS como Bootstrap o Tailwind para diseñar y desarrollar interfaces de usuario estilizadas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 182,
+    "title": "Implementación de Servicios de Sincronización en Backend",
+    "description": "Desarrollo de servicios para sincronizar datos entre diferentes sistemas y aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 183,
+    "title": "Optimización de Almacenamiento en Bases de Datos",
+    "description": "Uso de técnicas para mejorar la eficiencia del almacenamiento en bases de datos, reduciendo el uso de espacio y mejorando el rendimiento.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 184,
+    "title": "Implementación de Herramientas de Monitoreo de Aplicaciones en Infraestructura",
+    "description": "Uso de herramientas para supervisar el rendimiento y la disponibilidad de las aplicaciones en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 185,
+    "title": "Desarrollo de Interfaces de Usuario con React Native",
+    "description": "Creación de aplicaciones móviles utilizando React Native para proporcionar una experiencia de usuario nativa.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 186,
+    "title": "Implementación de Estrategias de Escalado Vertical en Backend",
+    "description": "Ajuste de los recursos de un servidor para manejar más carga en lugar de añadir más instancias.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 187,
+    "title": "Uso de Técnicas de Indexación de Texto Completo en Bases de Datos",
+    "description": "Implementación de técnicas de indexación para mejorar la búsqueda de texto completo en bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 188,
+    "title": "Configuración de Sistemas de Gestión de Contenedores",
+    "description": "Uso de herramientas como Kubernetes para gestionar el despliegue y la operación de contenedores en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 189,
+    "title": "Desarrollo de Aplicaciones con Pruebas de Usuario en Frontend",
+    "description": "Implementación de pruebas de usuario para asegurar que la interfaz cumpla con los requisitos y expectativas del usuario.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 190,
+    "title": "Implementación de Servicios de API para Autenticación en Backend",
+    "description": "Desarrollo de APIs para manejar la autenticación y autorización de usuarios en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 191,
+    "title": "Optimización de Consultas en Bases de Datos NoSQL",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos NoSQL, incluyendo el ajuste de índices y diseño de consultas.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 192,
+    "title": "Implementación de Estrategias de Recuperación de Desastres en Infraestructura",
+    "description": "Diseño e implementación de planes de recuperación para minimizar el impacto de desastres en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 193,
+    "title": "Desarrollo de Aplicaciones con Testing Automatizado en Frontend",
+    "description": "Implementación de pruebas automatizadas para asegurar la calidad y el funcionamiento de las aplicaciones frontend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 194,
+    "title": "Implementación de Estrategias de Monitorización en Backend",
+    "description": "Uso de herramientas y técnicas para supervisar y analizar el rendimiento de las aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 195,
+    "title": "Optimización de Consultas en Bases de Datos Orientadas a Grafos",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos orientadas a grafos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 196,
+    "title": "Implementación de Automatización de Procesos en Infraestructura",
+    "description": "Uso de herramientas y técnicas para automatizar procesos en la infraestructura, mejorando la eficiencia y reduciendo errores.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 197,
+    "title": "Desarrollo de Interfaces de Usuario con Animaciones en React",
+    "description": "Uso de bibliotecas y técnicas en React para implementar animaciones avanzadas en la interfaz de usuario.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 198,
+    "title": "Implementación de Estrategias de Monitoreo en Bases de Datos",
+    "description": "Uso de herramientas y técnicas para supervisar el rendimiento y la salud de las bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 199,
+    "title": "Desarrollo de Aplicaciones con Manejo de Estado en Frontend",
+    "description": "Implementación de técnicas para gestionar el estado de la aplicación en el lado del cliente utilizando herramientas y bibliotecas adecuadas.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 200,
+    "title": "Desarrollo de Servicios de API para Integración con Servicios Internos",
+    "description": "Creación de APIs para facilitar la integración de servicios internos dentro de la organización.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 201,
+    "title": "Uso de Técnicas de Indexación de Datos Geoespaciales en Bases de Datos",
+    "description": "Implementación de técnicas de indexación para mejorar las consultas de datos geoespaciales en bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 202,
+    "title": "Configuración de Soluciones de Gestión de Configuración en Infraestructura",
+    "description": "Uso de herramientas para gestionar la configuración de los sistemas y aplicaciones en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },{
+  "id": 203,
+  "title": "Desarrollo de Aplicaciones con Testing de Accesibilidad en Frontend",
+  "description": "Implementación de pruebas para asegurar que las aplicaciones sean accesibles para usuarios con discapacidades.",
+  "category": "frontend",
+  "points": 3
+  },
+  {
+    "id": 204,
+    "title": "Implementación de Servicios de API para Gestión de Usuarios en Backend",
+    "description": "Desarrollo de APIs para gestionar la información y permisos de usuarios en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 205,
+    "title": "Optimización de Consultas en Bases de Datos Documentales",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos documentales.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 206,
+    "title": "Implementación de Estrategias de Cacheo en Infraestructura",
+    "description": "Uso de técnicas y herramientas para mejorar el rendimiento de la infraestructura mediante el uso de cachés.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 207,
+    "title": "Desarrollo de Aplicaciones con Funcionalidades de Geolocalización en Frontend",
+    "description": "Implementación de funcionalidades de geolocalización en aplicaciones frontend para ofrecer experiencias basadas en la ubicación.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 208,
+    "title": "Implementación de Servicios de Gestión de Logs en Backend",
+    "description": "Desarrollo de servicios para recolectar, almacenar y analizar logs generados por las aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 209,
+    "title": "Optimización de Consultas en Bases de Datos Relacionales",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos relacionales.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 210,
+    "title": "Desarrollo de Aplicaciones con Soporte para Múltiples Idiomas en Frontend",
+    "description": "Creación de aplicaciones frontend que soporten múltiples idiomas y ofrezcan una experiencia de usuario localizada.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 211,
+    "title": "Implementación de Servicios de Seguridad de Datos en Backend",
+    "description": "Desarrollo de servicios para proteger los datos en aplicaciones backend contra accesos no autorizados y brechas de seguridad.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 212,
+    "title": "Uso de Técnicas de Optimización de Consultas en Bases de Datos NoSQL",
+    "description": "Aplicación de técnicas para mejorar el rendimiento de las consultas en bases de datos NoSQL mediante ajustes y diseño de índices.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 213,
+    "title": "Implementación de Estrategias de Recuperación ante Desastres en Infraestructura",
+    "description": "Diseño e implementación de estrategias para la recuperación de sistemas y servicios en caso de desastres.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 214,
+    "title": "Desarrollo de Aplicaciones con Integración de APIs Externas en Frontend",
+    "description": "Implementación de integración con APIs externas para enriquecer la funcionalidad y los datos en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 215,
+    "title": "Implementación de Soluciones de Gestión de Claves en Backend",
+    "description": "Desarrollo de soluciones para manejar y proteger las claves y secretos en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 216,
+    "title": "Uso de Técnicas de Optimización de Almacenamiento en Bases de Datos",
+    "description": "Aplicación de técnicas para optimizar el almacenamiento y mejorar el rendimiento en bases de datos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 217,
+    "title": "Configuración de Soluciones de Automatización de Infraestructura",
+    "description": "Uso de herramientas y técnicas para automatizar el despliegue y la gestión de la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+  "id": 218,
+  "title": "Desarrollo de Aplicaciones con Interfaces de Usuario Personalizadas en Frontend",
+  "description": "Creación de interfaces de usuario altamente personalizadas para cumplir con requisitos específicos del usuario en aplicaciones frontend.",
+  "category": "frontend",
+  "points": 3
+  },
+  {
+    "id": 219,
+    "title": "Implementación de Estrategias de Monitoreo de Aplicaciones en Backend",
+    "description": "Uso de herramientas y técnicas para monitorear y optimizar el rendimiento de las aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 220,
+    "title": "Optimización de Consultas en Bases de Datos de Series Temporales",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos orientadas a series temporales.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 221,
+    "title": "Implementación de Soluciones de Alta Disponibilidad en Infraestructura",
+    "description": "Diseño e implementación de soluciones que aseguren la alta disponibilidad y continuidad del servicio en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 222,
+    "title": "Desarrollo de Aplicaciones con Experiencias de Usuario Basadas en Realidad Aumentada en Frontend",
+    "description": "Implementación de funcionalidades y experiencias de realidad aumentada en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 223,
+    "title": "Desarrollo de Servicios de API para Integración de Datos en Backend",
+    "description": "Creación de APIs para integrar y gestionar datos entre diferentes sistemas backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 224,
+    "title": "Uso de Técnicas de Optimización de Consultas en Bases de Datos Orientadas a Grafos",
+    "description": "Aplicación de técnicas para mejorar el rendimiento de las consultas en bases de datos orientadas a grafos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 225,
+    "title": "Configuración de Soluciones de Backup Automatizado en Infraestructura",
+    "description": "Uso de herramientas y técnicas para automatizar la creación y gestión de copias de seguridad en la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+  "id": 226,
+  "title": "Desarrollo de Aplicaciones con Funcionalidades de Realidad Virtual en Frontend",
+  "description": "Implementación de funcionalidades y experiencias de realidad virtual en aplicaciones frontend.",
+  "category": "frontend",
+  "points": 3
+  },
+  {
+    "id": 227,
+    "title": "Implementación de Estrategias de Recuperación ante Fallos en Backend",
+    "description": "Diseño e implementación de estrategias para recuperar servicios y datos en caso de fallos en aplicaciones backend.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 228,
+    "title": "Optimización de Consultas en Bases de Datos Orientadas a Documentos",
+    "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos orientadas a documentos.",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 229,
+    "title": "Desarrollo de Aplicaciones con Soporte para Interfaces de Usuario en Dispositivos Móviles en Frontend",
+    "description": "Creación de aplicaciones frontend que ofrecen soporte completo para interfaces de usuario en dispositivos móviles.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 230,
+    "title": "Implementación de Soluciones de Gestión de Configuración de Aplicaciones en Backend",
+    "description": "Desarrollo de soluciones para gestionar la configuración de las aplicaciones backend de manera eficiente.",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 231,
+    "title": "Uso de Técnicas de Optimización de Consultas en Bases de Datos de Series Temporales",
+    "description": "Aplicación de técnicas para mejorar el rendimiento de las consultas en bases de datos orientadas a series temporales.",
+    "category": "database",
+    "points": 3
+  },
+  {
+  "id": 232,
+  "title": "Implementación de Soluciones de Alta Disponibilidad para Aplicaciones en Infraestructura",
+  "description": "Diseño e implementación de soluciones que garanticen la alta disponibilidad y continuidad de las aplicaciones en la infraestructura.",
+  "category": "infrastructure",
+  "points": 3
+  },
+  {
+    "id": 233,
+    "title": "Desarrollo de Aplicaciones con Experiencias de Usuario Basadas en Realidad Virtual en Frontend",
+    "description": "Implementación de experiencias y funcionalidades de realidad virtual en aplicaciones frontend.",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 234,
+    "title": "Implementación de Estrategias de Monitoreo de Infraestructura",
+    "description": "Uso de herramientas y técnicas para supervisar la salud y el rendimiento de la infraestructura.",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 235,
+    "title": "Desarrollo de Aplicaciones con Funcionalidades de Inteligencia Artificial en Frontend",
+    "description": "Integración de funcionalidades basadas en inteligencia artificial en aplicaciones frontend para mejorar la experiencia del usuario.",
+    "category": "frontend",
+    "points": 3
+  },
+    {
+      "id": 236,
+      "title": "Desarrollo de Aplicaciones con Optimización de Rendimiento en Frontend",
+      "description": "Implementación de técnicas para mejorar el rendimiento y la velocidad de carga de las aplicaciones frontend.",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 237,
+      "title": "Implementación de Servicios de Autenticación de Dos Factores en Backend",
+      "description": "Desarrollo de sistemas que añaden una capa adicional de seguridad para la autenticación de usuarios en aplicaciones backend.",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 238,
+      "title": "Optimización de Consultas en Bases de Datos de Grafos",
+      "description": "Aplicación de técnicas para mejorar el rendimiento de las consultas en bases de datos orientadas a grafos.",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 239,
+      "title": "Desarrollo de Aplicaciones con Integración de Servicios en la Nube en Frontend",
+      "description": "Implementación de integración con servicios en la nube para mejorar la funcionalidad y el rendimiento de las aplicaciones frontend.",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 240,
+      "title": "Configuración de Servicios de Escalado Automático en Infraestructura",
+      "description": "Uso de herramientas y técnicas para configurar el escalado automático de recursos en la infraestructura según la demanda.",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 241,
+      "title": "Desarrollo de Aplicaciones con Soporte para Interfaces de Usuario Personalizadas en Dispositivos Móviles en Frontend",
+      "description": "Creación de interfaces de usuario personalizadas y adaptativas para dispositivos móviles en aplicaciones frontend.",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 242,
+      "title": "Implementación de Estrategias de Seguridad en Backend",
+      "description": "Desarrollo de soluciones para proteger aplicaciones backend contra vulnerabilidades y ataques de seguridad.",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 243,
+      "title": "Uso de Técnicas de Optimización de Almacenamiento en Bases de Datos NoSQL",
+      "description": "Aplicación de técnicas para mejorar la eficiencia del almacenamiento en bases de datos NoSQL.",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 244,
+      "title": "Implementación de Soluciones de Gestión de Redes en Infraestructura",
+      "description": "Uso de herramientas y técnicas para gestionar y optimizar redes en la infraestructura.",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 245,
+      "title": "Desarrollo de Aplicaciones con Funcionalidades de Accesibilidad Avanzadas en Frontend",
+      "description": "Implementación de características avanzadas de accesibilidad en aplicaciones frontend para mejorar la experiencia de usuarios con discapacidades.",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 246,
+      "title": "Implementación de Servicios de Almacenamiento en Backend",
+      "description": "Desarrollo de soluciones para almacenar y gestionar datos de manera eficiente en aplicaciones backend.",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 247,
+      "title": "Optimización de Consultas en Bases de Datos Multi-Modelo",
+      "description": "Uso de técnicas para mejorar el rendimiento de las consultas en bases de datos que soportan múltiples modelos de datos.",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 248,
+      "title": "Desarrollo de Aplicaciones con Integración de Servicios de Mensajería en Frontend",
+      "description": "Implementación de integración con servicios de mensajería para mejorar la comunicación en aplicaciones frontend.",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 249,
+      "title": "Implementación de Soluciones de Gestión de Identidades en Infraestructura",
+      "description": "Desarrollo de soluciones para gestionar identidades y accesos en la infraestructura.",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 250,
+      "title": "Desarrollo de Aplicaciones con Soporte para Técnicas de Caching en Frontend",
+      "description": "Implementación de técnicas de caching para mejorar el rendimiento y la velocidad de las aplicaciones frontend.",
+      "category": "frontend",
+      "points": 3
+    }
+  ]

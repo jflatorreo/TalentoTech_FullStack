@@ -4,7 +4,8 @@ import PlayerList from './components/PlayerList';
 import socket from './socket';
 
 function App() {
-  const [gameState, setGameState] = useState(null);
+  const [gameState, setGameState] = useState({players: [],
+        currentPlayerIndex: null});
   const [playerName, setPlayerName] = useState('');
   const [isJoined, setIsJoined] = useState(false);
 
@@ -27,6 +28,7 @@ function App() {
 
   const joinGame = () => {
     if (playerName) {
+        console.log("JoinGame emmited")
       socket.emit('joinGame', playerName);
     }
   };

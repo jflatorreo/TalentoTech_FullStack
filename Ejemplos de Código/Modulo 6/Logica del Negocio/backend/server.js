@@ -16,7 +16,7 @@ const io = socketIo(server, {
     }
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // Game state
 let gameState = {
@@ -28,6 +28,9 @@ let gameState = {
     pendingChallenge: null,
     currentPlayerIndex: null,
     gameStarted: false,
+    winners: [],
+    conceptCardsDrawn: 0,
+    maxConceptCards: 1,
 };
 
 // Game logic
@@ -141,20 +144,6 @@ const discardCard = (playerName, cardIndex) => {
     return false;
 };
 
-const solveChallenge = (playerName, solution) => {
-    const player = gameState.players.find(p => p.name === playerName);
-    if (player && gameState.currentChallenge) {
-        // In a real implementation, we'd have a more sophisticated way to evaluate solutions
-        const success = Math.random() < 0.7; // 70% chance of success for this example
-        if (success) {
-            player.score += 5; // Bonus points for solving a challenge
-        }
-        gameState.currentChallenge = null;
-        return success;
-    }
-    return false;
-};
-
 const checkWinCondition = (player) => {
     return player.stack.frontend.length >= 3 &&
         player.stack.backend.length >= 3 &&
@@ -165,8 +154,12 @@ const checkWinCondition = (player) => {
 
 const nextTurn = () => {
     if (gameState.players.length > 0) {
-        gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
+        do {
+            gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
+        } while (gameState.winners.includes(gameState.players[gameState.currentPlayerIndex].name));
     }
+    gameState.conceptCardsDrawn = 0;
+    gameState.maxConceptCards = 1;
 };
 
 // Socket.io event handlers
@@ -195,18 +188,36 @@ io.on('connection', (socket) => {
     socket.on('drawConceptCard', (playerName) => {
         console.log(`Player ${playerName} is drawing a concept card`);
         const player = gameState.players.find(p => p.name === playerName);
-        if (player && gameState.players[gameState.currentPlayerIndex].name === playerName) {
+        if (player &&
+            gameState.players[gameState.currentPlayerIndex].name === playerName &&
+            gameState.conceptCardsDrawn < gameState.maxConceptCards) {
             const card = drawCard('concept');
             if (card) {
                 console.log(`Drew card: ${JSON.stringify(card)}`);
                 player.hand.push(card);
-                nextTurn();
+                gameState.conceptCardsDrawn++;
                 io.emit('gameState', gameState);
             } else {
                 console.log('No more concept cards in the deck');
             }
         } else {
-            console.log(`It's not ${playerName}'s turn or player not found`);
+            console.log(`It's not ${playerName}'s turn, player not found, or max concept cards reached`);
+        }
+    });
+
+    socket.on('discardCard', (playerName, cardIndex) => {
+        const player = gameState.players.find(p => p.name === playerName);
+        if (player && player.hand[cardIndex]) {
+            player.hand.splice(cardIndex, 1);
+
+            io.emit('gameState', gameState);
+        }
+    });
+
+    socket.on('endTurn', (playerName) => {
+        if (gameState.players[gameState.currentPlayerIndex].name === playerName) {
+            nextTurn();
+            io.emit('gameState', gameState);
         }
     });
 
@@ -233,10 +244,11 @@ io.on('connection', (socket) => {
             if (player) {
                 if (isAccepted) {
                     player.score += 5; // Bonus points for solving a challenge
-                }
+                    gameState.maxConceptCards++;
+                }else {nextTurn();}
                 gameState.currentChallenge = null;
                 gameState.pendingChallenge = null;
-                nextTurn();
+
                 io.emit('gameState', gameState);
             }
         }
@@ -246,17 +258,28 @@ io.on('connection', (socket) => {
         if (playCard(playerName, cardIndex, category)) {
             const player = gameState.players.find(p => p.name === playerName);
             if (checkWinCondition(player)) {
+                gameState.winners.push(playerName);
                 io.emit('gameWon', playerName);
+                if (gameState.winners.length === gameState.players.length - 1) {
+                    // All players except one have won, end the game
+                    io.emit('gameOver', gameState.winners);
+                } else {
+                    nextTurn(); // Move to the next player who hasn't won yet
+                }
             } else {
-                io.emit('gameState', gameState);
+                nextTurn();
             }
+            io.emit('gameState', gameState);
         }
     });
 
-    socket.on('discardCard', (playerName, cardIndex) => {
-        if (discardCard(playerName, cardIndex)) {
+
+    socket.on('adminNextTurn', () => {
+
+
+            nextTurn();
             io.emit('gameState', gameState);
-        }
+
     });
 
     socket.on('disconnect', () => {

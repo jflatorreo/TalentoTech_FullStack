@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 
-const ENDPOINT = 'https://e62f-186-155-19-171.ngrok-free.app/';  // Adjust this if your server is on a different address
+//const ENDPOINT = 'http://localhost:3002';  // Adjust this if your server is on a different address
+const ENDPOINT = 'http://4.tcp.ngrok.io:19231';  // Adjust this if your server is on a different address
 
 const socket = io(ENDPOINT, {
     transports: ['websocket'],

@@ -10,13 +10,20 @@ function AdminPanel({ gameState }) {
         socket.emit('adminDecision', false);
     };
 
+    const handleNextTurn = () => {
+        socket.emit('adminNextTurn');
+    };
+
     return (
         <div className="admin-panel">
             <h3>Admin Panel</h3>
             <h4>Players:</h4>
             <ul>
                 {gameState.players.map((player, index) => (
-                    <li key={index}>{player.name} - Score: {player.score}</li>
+                    <li key={index}>
+                        {player.name} - Score: {player.score}
+                        {gameState.currentPlayerIndex === index && " (Current Turn)"}
+                    </li>
                 ))}
             </ul>
             {gameState.pendingChallenge && (
@@ -31,6 +38,9 @@ function AdminPanel({ gameState }) {
             )}
             {!gameState.gameStarted && gameState.players.length >= 2 && (
                 <button onClick={() => socket.emit('startGame')}>Start Game</button>
+            )}
+            {gameState.gameStarted && (
+                <button onClick={handleNextTurn}>Next Turn</button>
             )}
         </div>
     );

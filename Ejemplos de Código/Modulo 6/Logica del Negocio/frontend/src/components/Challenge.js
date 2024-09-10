@@ -10,12 +10,12 @@ function Challenge({ challenge, playerName }) {
 
     return (
         <div className="challenge">
-            <h3>Current Challenge</h3>
+            <h3>Reto</h3>
             <p>{challenge.description}</p>
             <textarea
                 value={solution}
                 onChange={(e) => setSolution(e.target.value)}
-                placeholder="Enter your solution here"
+                placeholder="Escriba su respuesta"
             />
             <button onClick={submitSolution}>Enviar</button>
         </div>

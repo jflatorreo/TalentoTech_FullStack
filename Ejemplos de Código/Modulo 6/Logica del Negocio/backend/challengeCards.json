@@ -1,62 +1,1053 @@
 [
   {
     "id": 1,
-    "description": "Implementa un sistema de carrito de compras que mantenga su estado incluso si el usuario cierra el navegador.",
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando React?",
     "category": "frontend",
     "points": 3
   },
   {
     "id": 2,
-    "description": "Crea un componente de formulario dinámico que se adapte a diferentes esquemas de datos.",
-    "category": "frontend",
+    "description": "¿Cuál es el papel del middleware en la lógica de negocio de una aplicación backend?",
+    "category": "backend",
     "points": 3
   },
   {
     "id": 3,
-    "description": "Diseña e implementa un sistema de caché para optimizar las llamadas a la API.",
-    "category": "backend",
+    "description": "¿Cómo gestionas la integridad referencial en bases de datos relacionales?",
+    "category": "database",
     "points": 3
   },
   {
     "id": 4,
-    "description": "Implementa un sistema de notificaciones en tiempo real utilizando WebSockets.",
-    "category": "backend",
-    "points": 4
+    "description": "¿Qué consideraciones debes tener al diseñar la infraestructura para soportar alta disponibilidad?",
+    "category": "infrastructure",
+    "points": 3
   },
   {
     "id": 5,
-    "description": "Optimiza una consulta compleja que involucra múltiples joins y agregaciones.",
-    "category": "database",
+    "description": "¿Cómo gestionas el estado global en una aplicación frontend de gran escala?",
+    "category": "frontend",
     "points": 3
   },
   {
     "id": 6,
-    "description": "Implementa un sistema de migraciones para manejar cambios en el esquema de la base de datos.",
-    "category": "database",
+    "description": "¿Qué estrategias utilizas para asegurar que una API backend sea escalable y eficiente?",
+    "category": "backend",
     "points": 3
   },
   {
     "id": 7,
-    "description": "Configura un pipeline de CI/CD para automatizar el despliegue de la aplicación.",
-    "category": "infrastructure",
-    "points": 4
+    "description": "¿Cómo implementas la lógica de negocio en una base de datos NoSQL?",
+    "category": "database",
+    "points": 3
   },
   {
     "id": 8,
-    "description": "Implementa un sistema de monitoreo y alerta para la infraestructura de la aplicación.",
+    "description": "¿Cómo gestionas la configuración y el despliegue continuo en la infraestructura de un sistema?",
     "category": "infrastructure",
     "points": 3
   },
   {
     "id": 9,
-    "description": "Crea un sistema de autenticación Single Sign-On (SSO) que funcione a través de múltiples servicios.",
-    "category": "backend",
-    "points": 4
+    "description": "¿Cómo manejas los datos y el estado en una aplicación frontend con Redux?",
+    "category": "frontend",
+    "points": 3
   },
   {
     "id": 10,
-    "description": "Implementa una estrategia de despliegue blue-green para minimizar el tiempo de inactividad durante las actualizaciones.",
+    "description": "¿Cómo aseguras que un servicio backend maneje adecuadamente las transacciones y el manejo de errores?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 11,
+    "description": "¿Qué técnicas empleas para optimizar consultas complejas en bases de datos relacionales?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 12,
+    "description": "¿Cómo configuras un entorno de alta disponibilidad en una infraestructura en la nube?",
     "category": "infrastructure",
-    "points": 4
-  }
-]
+    "points": 3
+  },
+  {
+    "id": 13,
+    "description": "¿Cómo implementas una lógica de negocio reactiva en una aplicación frontend usando hooks?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 14,
+    "description": "¿Qué consideraciones tienes al implementar servicios RESTful en el backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 15,
+    "description": "¿Cómo manejas la consistencia eventual en bases de datos distribuidas?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 16,
+    "description": "¿Cómo implementas estrategias de recuperación ante desastres en la infraestructura?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 17,
+    "description": "¿Cómo gestionas las dependencias y el estado en una aplicación frontend con GraphQL?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 18,
+    "description": "¿Cómo implementas y pruebas una lógica de negocio compleja en un servicio backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 19,
+    "description": "¿Cómo optimizas el rendimiento de una base de datos mediante índices y particionamiento?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 20,
+    "description": "¿Cómo diseñas una infraestructura que soporte escalado horizontal y vertical?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 21,
+    "description": "¿Cómo implementas un sistema de autenticación y autorización en el frontend?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 22,
+    "description": "¿Qué patrones de diseño utilizas para manejar la lógica de negocio en una API RESTful?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 23,
+    "description": "¿Cómo garantizas la consistencia y la integridad de los datos en una base de datos NoSQL?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 24,
+    "description": "¿Cómo gestionas el despliegue y la configuración de servicios en la infraestructura de contenedores?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 25,
+    "description": "¿Cómo implementas la lógica de negocio en una SPA utilizando React y Context API?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 26,
+    "description": "¿Cómo aseguras la seguridad y la escalabilidad en una aplicación backend con microservicios?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 27,
+    "description": "¿Qué estrategias usas para optimizar el rendimiento de las consultas en bases de datos de documentos?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 28,
+    "description": "¿Cómo configuras la infraestructura para soportar múltiples zonas de disponibilidad?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 29,
+    "description": "¿Cómo gestionas la sincronización del estado entre el frontend y el backend en una aplicación compleja?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 30,
+    "description": "¿Qué técnicas empleas para manejar la carga y las solicitudes en una API backend de alto tráfico?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 31,
+    "description": "¿Cómo implementas técnicas de sharding para mejorar la escalabilidad de una base de datos?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 32,
+    "description": "¿Cómo gestionas la automatización del despliegue en una infraestructura con múltiples servicios?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 33,
+    "description": "¿Cómo implementas una lógica de negocio basada en eventos en el frontend?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 34,
+    "description": "¿Cómo manejas las transacciones distribuidas en un entorno de microservicios backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 35,
+    "description": "¿Qué métodos usas para asegurar la disponibilidad y el rendimiento de una base de datos en la nube?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 36,
+    "description": "¿Cómo configuras un entorno de infraestructura como código para gestionar recursos en la nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 37,
+    "description": "¿Cómo implementas la gestión de estado utilizando hooks personalizados en React?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 38,
+    "description": "¿Cómo aseguras la calidad del código en una aplicación backend mediante testing y CI/CD?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 39,
+    "description": "¿Cómo implementas una estrategia de replicación en una base de datos para mejorar la disponibilidad?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 40,
+    "description": "¿Cómo gestionas el balanceo de carga en una infraestructura de servicios distribuidos?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 41,
+    "description": "¿Cómo implementas una lógica de negocio basada en componentes reutilizables en el frontend?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 42,
+    "description": "¿Cómo manejas la configuración y el despliegue de microservicios en un entorno de backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 43,
+    "description": "¿Qué técnicas de optimización aplicas a la indexación en bases de datos SQL?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 44,
+    "description": "¿Cómo implementas la gestión de secretos y configuraciones sensibles en la infraestructura?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 45,
+    "description": "¿Cómo gestionas el estado y las props en una aplicación frontend con Vue.js?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 46,
+    "description": "¿Qué estrategias empleas para asegurar la integridad de los datos en un backend con múltiples servicios?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 47,
+    "description": "¿Cómo aplicas técnicas de normalización en bases de datos para evitar redundancia de datos?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 48,
+    "description": "¿Cómo configuras un sistema de monitorización para gestionar la infraestructura y detectar problemas?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 49,
+    "description": "¿Cómo implementas patrones de diseño en el frontend para gestionar la lógica de negocio?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 50,
+    "description": "¿Cómo gestionas la comunicación entre microservicios en un entorno backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 51,
+    "description": "¿Qué técnicas usas para asegurar la consistencia de datos en una base de datos distribuida?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 52,
+    "description": "¿Cómo implementas la seguridad en la infraestructura de una aplicación web utilizando herramientas modernas?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 53,
+    "description": "¿Cómo gestionas el estado de la aplicación en un entorno frontend con Angular?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 54,
+    "description": "¿Cómo manejas la autenticación y autorización en una API backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 55,
+    "description": "¿Qué consideraciones tienes al diseñar la estructura de una base de datos para optimizar el rendimiento?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 56,
+    "description": "¿Cómo implementas una infraestructura de red segura para una aplicación en la nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 57,
+    "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend con estado complejo?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 58,
+    "description": "¿Cómo implementas un sistema de caché en el backend para mejorar el rendimiento?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 59,
+    "description": "¿Cómo manejas la migración de datos en una base de datos SQL durante una actualización?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 60,
+    "description": "¿Cómo configuras la gestión de logs y alertas en una infraestructura de TI?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 61,
+    "description": "¿Cómo gestionas la lógica de negocio en un entorno frontend con aplicaciones SPA?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 62,
+    "description": "¿Cómo manejas la sincronización de datos entre el backend y el frontend en tiempo real?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 63,
+    "description": "¿Qué técnicas utilizas para diseñar un esquema de base de datos eficiente?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 64,
+    "description": "¿Cómo implementas un entorno de pruebas automatizado para la infraestructura de tu aplicación?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 65,
+    "description": "¿Cómo gestionas el estado en una aplicación frontend que utiliza GraphQL para las consultas?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 66,
+    "description": "¿Cómo implementas y gestionas la lógica de negocio en un servicio de microservicios backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 67,
+    "description": "¿Cómo optimizas las consultas en una base de datos de series temporales?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 68,
+    "description": "¿Cómo configuras la infraestructura para el despliegue continuo y la integración continua?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 69,
+    "description": "¿Cómo gestionas la lógica de presentación en una aplicación frontend utilizando MVC?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 70,
+    "description": "¿Cómo manejas la escalabilidad de una API backend mediante técnicas de particionamiento?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 71,
+    "description": "¿Cómo implementas la seguridad en el acceso a datos en una base de datos NoSQL?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 72,
+    "description": "¿Cómo gestionas el almacenamiento de datos y la recuperación en una infraestructura de nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 73,
+    "description": "¿Cómo implementas el manejo de errores y validación de datos en el frontend con TypeScript?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 74,
+    "description": "¿Cómo diseñas un servicio de backend que sea fácil de mantener y escalar?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 75,
+    "description": "¿Qué consideraciones debes tener en cuenta al diseñar una base de datos para alta disponibilidad?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 76,
+    "description": "¿Cómo gestionas la infraestructura para el despliegue de aplicaciones distribuidas?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 77,
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando componentes funcionales?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 78,
+    "description": "¿Cómo gestionas la configuración y el monitoreo de una API backend en producción?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 79,
+    "description": "¿Cómo manejas la integridad referencial en una base de datos NoSQL?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 80,
+    "description": "¿Cómo configuras la gestión de tráfico y el balanceo de carga en una infraestructura de nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 81,
+    "description": "¿Cómo gestionas la lógica de negocio en aplicaciones frontend con múltiples estados y transiciones?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 82,
+    "description": "¿Cómo manejas la persistencia de datos en el backend utilizando diferentes bases de datos?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 83,
+    "description": "¿Qué técnicas utilizas para mejorar el rendimiento de consultas en una base de datos relacional?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 84,
+    "description": "¿Cómo implementas la seguridad y el cumplimiento de normativas en la infraestructura de una aplicación?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 85,
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando componentes basados en clases?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 86,
+    "description": "¿Cómo gestionas las sesiones y la autenticación en una aplicación backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 87,
+    "description": "¿Cómo utilizas técnicas de denormalización en bases de datos para mejorar el rendimiento?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 88,
+    "description": "¿Cómo configuras y gestionas la infraestructura para la entrega de contenido global?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 89,
+    "description": "¿Cómo implementas la lógica de negocio en el frontend utilizando un enrutador moderno?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 90,
+    "description": "¿Cómo gestionas el rendimiento y la escalabilidad de un backend con múltiples servicios interdependientes?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 91,
+    "description": "¿Qué métodos empleas para asegurar la consistencia de los datos en una base de datos distribuida?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 92,
+    "description": "¿Cómo configuras la infraestructura para la integración de aplicaciones en la nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 93,
+    "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend con un diseño modular?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 94,
+    "description": "¿Cómo manejas las peticiones y respuestas en una API backend de alto rendimiento?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 95,
+    "description": "¿Cómo implementas el versionado de esquema en una base de datos relacional?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 96,
+    "description": "¿Cómo implementas el manejo de fallos y la recuperación automática en una infraestructura de nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 97,
+    "description": "¿Cómo gestionas el estado en una aplicación frontend utilizando herramientas de gestión de estado?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 98,
+    "description": "¿Cómo manejas la implementación de servicios de terceros en una aplicación backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 99,
+    "description": "¿Qué técnicas empleas para mejorar la disponibilidad de una base de datos en un entorno de alta carga?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 100,
+    "description": "¿Cómo gestionas la infraestructura para soportar aplicaciones con alta demanda de tráfico?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 101,
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando patrones de diseño?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 102,
+    "description": "¿Cómo configuras y gestionas la conexión a bases de datos en una aplicación backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 103,
+    "description": "¿Cómo aplicas técnicas de optimización de consultas en bases de datos relacionales grandes?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 104,
+    "description": "¿Cómo implementas la infraestructura para la integración de múltiples servicios en la nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 105,
+    "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend que necesita integración con APIs externas?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 106,
+    "description": "¿Cómo manejas la lógica de negocio en un backend con un sistema de colas de mensajes?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 107,
+    "description": "¿Cómo optimizas el rendimiento de las consultas en bases de datos de grafos?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 108,
+    "description": "¿Cómo gestionas la configuración y el despliegue de infraestructura en un entorno de múltiples regiones?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 109,
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando herramientas de enrutamiento?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 110,
+    "description": "¿Cómo manejas la integración de servicios de terceros en una aplicación backend con seguridad?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 111,
+    "description": "¿Cómo aplicas técnicas de particionamiento para mejorar el rendimiento de una base de datos NoSQL?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 112,
+    "description": "¿Cómo configuras un entorno de infraestructura para soportar aplicaciones con alta disponibilidad?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 113,
+    "description": "¿Cómo gestionas el estado y las dependencias en una aplicación frontend con herramientas modernas?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 114,
+    "description": "¿Cómo implementas una API backend con soporte para múltiples versiones?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 115,
+    "description": "¿Qué técnicas empleas para asegurar la consistencia de datos en una base de datos distribuida?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 116,
+    "description": "¿Cómo gestionas la infraestructura para el monitoreo y la gestión de aplicaciones en la nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 117,
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando principios de diseño sólido?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 118,
+    "description": "¿Cómo manejas la integración continua y el despliegue continuo en una aplicación backend?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 119,
+    "description": "¿Cómo optimizas la estructura de una base de datos para consultas de alta velocidad?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 120,
+    "description": "¿Cómo configuras la infraestructura para manejar el tráfico de red de alta demanda?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 121,
+    "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend utilizando patrones de diseño modernos?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 122,
+    "description": "¿Cómo manejas el enrutamiento y la comunicación entre servicios en un backend con microservicios?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 123,
+    "description": "¿Qué técnicas empleas para asegurar la durabilidad y disponibilidad de los datos en bases de datos distribuidas?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 124,
+    "description": "¿Cómo configuras la infraestructura para la implementación y el monitoreo de aplicaciones en contenedores?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 125,
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando técnicas de optimización de rendimiento?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 126,
+    "description": "¿Cómo manejas la comunicación y la gestión de estado en un backend con múltiples servicios?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 127,
+    "description": "¿Cómo aplicas técnicas de particionamiento y replicación en una base de datos NoSQL para mejorar el rendimiento?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 128,
+    "description": "¿Cómo gestionas el escalado de una infraestructura de TI para soportar aplicaciones con alto tráfico?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 129,
+    "description": "¿Cómo gestionas la integración de servicios de terceros en una aplicación frontend?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 130,
+    "description": "¿Cómo implementas la lógica de negocio en un backend utilizando técnicas de optimización de consultas?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 131,
+    "description": "¿Cómo configuras la infraestructura para asegurar la disponibilidad continua en entornos de nube?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 132,
+    "description": "¿Cómo gestionas la integración de APIs externas en una aplicación frontend con seguridad?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 133,
+    "description": "¿Cómo manejas la sincronización de datos entre el frontend y el backend en aplicaciones distribuidas?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 134,
+    "description": "¿Cómo aplicas técnicas de optimización en una base de datos de grafos para mejorar el rendimiento?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 135,
+    "description": "¿Cómo configuras la infraestructura para la gestión y el despliegue de aplicaciones en múltiples regiones?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 136,
+    "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend utilizando técnicas de optimización de rendimiento?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 137,
+    "description": "¿Cómo manejas la persistencia de datos en el backend con diferentes tecnologías de almacenamiento?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 138,
+    "description": "¿Cómo aplicas técnicas de indexación en bases de datos NoSQL para mejorar el rendimiento?",
+    "category": "database",
+    "points": 3
+  },
+  {
+    "id": 139,
+    "description": "¿Cómo gestionas la infraestructura para soportar aplicaciones con alta disponibilidad y recuperación ante desastres?",
+    "category": "infrastructure",
+    "points": 3
+  },
+  {
+    "id": 140,
+    "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando técnicas avanzadas de rendimiento?",
+    "category": "frontend",
+    "points": 3
+  },
+  {
+    "id": 141,
+    "description": "¿Cómo gestionas la integración de múltiples servicios en un entorno de microservicios?",
+    "category": "backend",
+    "points": 3
+  },
+  {
+    "id": 142,
+    "description": "¿Cómo optimizas la estructura de una base de datos para consultas complejas y de alta velocidad?",
+    "category": "database",
+    "points": 3
+  },
+    {
+      "id": 143,
+      "description": "¿Cómo gestionas el estado en una aplicación frontend utilizando técnicas de persistencia?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 144,
+      "description": "¿Cómo implementas y gestionas la lógica de negocio en un backend con arquitecturas basadas en eventos?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 145,
+      "description": "¿Cómo optimizas las consultas en una base de datos de documentos para mejorar el rendimiento?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 146,
+      "description": "¿Cómo configuras la infraestructura para la gestión de la disponibilidad y recuperación ante desastres?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 147,
+      "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend utilizando principios de diseño orientado a objetos?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 148,
+      "description": "¿Cómo manejas la comunicación y la integración de servicios en un backend con alta carga de tráfico?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 149,
+      "description": "¿Qué técnicas empleas para asegurar la consistencia y durabilidad de los datos en una base de datos distribuida?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 150,
+      "description": "¿Cómo gestionas la configuración y el despliegue de aplicaciones en una infraestructura híbrida?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 151,
+      "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando técnicas de optimización de renderizado?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 152,
+      "description": "¿Cómo manejas la implementación de servicios de autenticación y autorización en un backend?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 153,
+      "description": "¿Cómo aplicas técnicas de optimización en una base de datos de grafos para mejorar la velocidad de las consultas?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 154,
+      "description": "¿Cómo configuras la infraestructura para asegurar la recuperación automática y la alta disponibilidad?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 155,
+      "description": "¿Cómo gestionas el estado en una aplicación frontend con herramientas de estado global?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 156,
+      "description": "¿Cómo implementas la lógica de negocio en un backend con una arquitectura basada en microservicios?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 157,
+      "description": "¿Cómo optimizas las consultas en una base de datos relacional para manejar grandes volúmenes de datos?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 158,
+      "description": "¿Cómo gestionas la infraestructura para el despliegue continuo y la integración continua en un entorno de nube?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 159,
+      "description": "¿Cómo implementas la lógica de negocio en una aplicación frontend utilizando frameworks modernos?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 160,
+      "description": "¿Cómo manejas la integración de diferentes servicios de backend utilizando técnicas de comunicación asincrónica?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 161,
+      "description": "¿Cómo aplicas técnicas de optimización en una base de datos de series temporales para mejorar el rendimiento de las consultas?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 162,
+      "description": "¿Cómo configuras y gestionas la infraestructura para el monitoreo en tiempo real de aplicaciones?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 163,
+      "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend utilizando patrones de arquitectura de componentes?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 164,
+      "description": "¿Cómo manejas la configuración y la orquestación de servicios en una infraestructura de microservicios?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 165,
+      "description": "¿Qué técnicas empleas para garantizar la disponibilidad de datos en una base de datos con alta concurrencia?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 166,
+      "description": "¿Cómo configuras la infraestructura para soportar aplicaciones con requisitos de baja latencia?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 167,
+      "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend con complejas interacciones entre componentes?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 168,
+      "description": "¿Cómo manejas la implementación de servicios escalables en un backend utilizando técnicas de arquitectura basada en eventos?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 169,
+      "description": "¿Cómo aplicas técnicas de optimización para el manejo de grandes volúmenes de datos en bases de datos distribuidas?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 170,
+      "description": "¿Cómo configuras la infraestructura para garantizar la resiliencia y la recuperación ante desastres en aplicaciones críticas?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 171,
+      "description": "¿Cómo gestionas el estado en una aplicación frontend que utiliza múltiples fuentes de datos?",
+      "category": "frontend",
+      "points": 3
+    },
+    {
+      "id": 172,
+      "description": "¿Cómo manejas la integración de servicios de backend con diferentes tecnologías y protocolos?",
+      "category": "backend",
+      "points": 3
+    },
+    {
+      "id": 173,
+      "description": "¿Qué técnicas empleas para asegurar la consistencia y coherencia de los datos en una base de datos NoSQL?",
+      "category": "database",
+      "points": 3
+    },
+    {
+      "id": 174,
+      "description": "¿Cómo configuras la infraestructura para la entrega y gestión de aplicaciones en un entorno de múltiples proveedores de nube?",
+      "category": "infrastructure",
+      "points": 3
+    },
+    {
+      "id": 175,
+      "description": "¿Cómo gestionas la lógica de negocio en una aplicación frontend utilizando técnicas avanzadas de renderizado y optimización?",
+      "category": "frontend",
+      "points": 3
+    }
+  ]
+
